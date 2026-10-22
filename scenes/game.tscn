@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bqsa8bnqe2xct"]
+
+[ext_resource type="PackedScene" uid="uid://biwtxnvv3xt1d" path="res://scenes/player.tscn" id="1_uwrxv"]
+[ext_resource type="PackedScene" uid="uid://d1td4nelclrqo" path="res://scenes/map.tscn" id="2_yqjtg"]
+
+[node name="Game" type="Node2D" unique_id=2053885900]
+
+[node name="Player" parent="." unique_id=1108661437 instance=ExtResource("1_uwrxv")]
+top_level = true
+motion_mode = 1
+floor_constant_speed = true
+platform_floor_layers = 4294901761
+platform_wall_layers = 2
+
+[node name="TileMapLayer" parent="." unique_id=2038275671 instance=ExtResource("2_yqjtg")]
+position = Vector2(-24, 2)
