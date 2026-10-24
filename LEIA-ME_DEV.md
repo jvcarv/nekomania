@@ -15,9 +15,11 @@ Godot 4.7. A cena principal agora é `scenes/ui/main_menu.tscn`.
 | `scripts/world/spawn_director.gd` | Quando/onde/quais inimigos nascem: fluxo contínuo, hordas em anel, elites, reposicionamento. |
 | `scripts/world/map_generator.gd` | Mapa procedural infinito em chunks (ruído → bosques e clareiras) + chão em shader. |
 | `scripts/world/pickup.gd` | XP, moedas e corações. |
-| `scripts/weapons/` | `weapon.gd` (base) + uma arma por elemento: fogo, sagrado, sombrio, gelo, trovão, ácido, madeira. |
+| `scripts/weapons/` | `weapon.gd` (base) + um poder por elemento: fogo, sagrado, sombrio, gelo, trovão, ácido, madeira. Cada poder é concedido por uma **poção** (`DB.WEAPONS[...]["potion"]`). |
 | `scripts/ui/` | HUD, menu principal, personagens, level-up, pausa, fim de jogo e tema visual. |
-| `assets/generated/` | Sprites gerados: moeda, gemas de XP, coração, portal e cópias 3x do tema de UI. |
+| `assets/generated/` | **Gerados por IA** (provisórios): moeda, gemas de XP, coração, portal; e cópias 3x do tema de UI. Veja `IA_TRANSPARENCIA.md`. |
+| `assets/fonts/` | Fonte Silkscreen (OFL). |
+| `assets/potions/` | Poções de Onocentaur — ícones dos 7 poderes. |
 | `old/` | Scripts/cenas antigos (ignorados pelo Godot via `.gdignore`). Pode apagar quando quiser. |
 
 ## Como uma partida funciona
@@ -25,7 +27,8 @@ Godot 4.7. A cena principal agora é `scenes/ui/main_menu.tscn`.
 1. 3 estágios (`DB.STAGES`). Cada um dura `DB.STAGE_TIME` (180 s) e depois aparece o chefão.
 2. Derrotou o chefão → surge um portal (a seta roxa aponta para ele). Entrou → próximo estágio, com mapa novo e inimigos mais fortes.
 3. Derrotou o chefão do estágio 3 → vitória.
-4. Moedas coletadas vão para o banco ao fim da partida (ganhando ou perdendo) e desbloqueiam personagens.
+4. Poções: o gato começa bebendo a poção do seu personagem. Ao subir de nível, as cartas oferecem poções (novo poder ou evolução). Elites e chefões sempre deixam cair uma poção; inimigos comuns, raramente.
+5. Moedas coletadas vão para o banco ao fim da partida (ganhando ou perdendo) e desbloqueiam personagens.
 
 ## Balanceamento rápido
 
