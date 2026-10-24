@@ -66,6 +66,18 @@ static func character_icon(id: int) -> Texture2D:
 	return at
 
 
+## Ícone da poção de um poder (assets/potions, por Onocentaur).
+static func potion_icon(weapon_id: String) -> Texture2D:
+	var key := "potion_" + weapon_id
+	if not _cache.has(key):
+		var cell: Vector2i = DB.WEAPONS[weapon_id]["potion_cell"]
+		var at := AtlasTexture.new()
+		at.atlas = load(DB.POTION_SHEET)
+		at.region = Rect2(Vector2(cell * DB.POTION_SIZE), Vector2(DB.POTION_SIZE))
+		_cache[key] = at
+	return _cache[key]
+
+
 # ------------------------------------------------------------ inimigos
 static func enemy(type_id: String) -> SpriteFrames:
 	return cached("enemy_" + type_id, func():

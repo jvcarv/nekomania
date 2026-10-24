@@ -31,7 +31,7 @@ func _ready() -> void:
 	left.add_theme_constant_override("separation", 14)
 	left.alignment = BoxContainer.ALIGNMENT_CENTER
 	h.add_child(left)
-	left.add_child(UITheme.label("PAUSADO", 44, UITheme.GOLD, HORIZONTAL_ALIGNMENT_CENTER))
+	left.add_child(UITheme.label("PAUSADO", 40, UITheme.GOLD, HORIZONTAL_ALIGNMENT_CENTER))
 	_continue = UITheme.button("Continuar")
 	_continue.pressed.connect(func(): game.toggle_pause())
 	left.add_child(_continue)
@@ -70,9 +70,9 @@ func open(g: Game) -> void:
 	t += "Velocidade: %d%%\n" % int(round(s["speed"] * 100))
 	t += "Crítico: %d%%\n" % int(round(s["crit_chance"] * 100))
 	t += "Sorte: %d%%\n" % int(round(s["luck"] * 100))
-	t += "\n[b][color=#ffd34d]Armas[/color][/b]\n"
+	t += "\n[b][color=#ffd34d]Poções / poderes[/color][/b]\n"
 	for w in p.weapon_list():
-		t += "%s — Nv %d\n" % [DB.WEAPONS[w.id]["name"], w.level]
+		t += "%s: %s Nv %d\n" % [DB.WEAPONS[w.id]["potion"], DB.WEAPONS[w.id]["name"], w.level]
 	t += "\nTempo: %s   Abates: %d" % [Global.format_time(g.total_time), g.kills]
 	_stats.text = t
 

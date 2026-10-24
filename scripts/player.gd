@@ -136,6 +136,15 @@ func heal(amount: float) -> void:
 	health_changed.emit(hp, stats["max_hp"])
 
 
+## Brilho ao beber uma poção.
+func drink_effect(color: Color) -> void:
+	SpriteLib.spawn_fx(Game.current.fx_layer if Game.current else get_parent(), "holy_spark",
+			global_position + Vector2(0, -10), "hit", 1.4, 0.0, Vector2.ZERO, color)
+	var tw := create_tween()
+	tw.tween_property(sprite, "self_modulate", color * 1.8, 0.1)
+	tw.tween_property(sprite, "self_modulate", Color.WHITE, 0.35)
+
+
 func shake(amount: float) -> void:
 	_shake = maxf(_shake, amount)
 

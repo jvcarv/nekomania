@@ -26,11 +26,12 @@ func difficulty() -> float:
 
 func hp_mult() -> float:
 	var d := difficulty()
-	return 1.0 + 0.55 * d + 0.3 * d * d
+	return 1.0 + 0.5 * d + 0.42 * d * d
 
 
 func dmg_mult() -> float:
-	return 1.0 + 0.3 * difficulty()
+	var d := difficulty()
+	return 1.0 + 0.25 * d + 0.06 * d * d
 
 
 func reset() -> void:
@@ -45,7 +46,7 @@ func _physics_process(delta: float) -> void:
 	var d := difficulty()
 	var alive := get_tree().get_nodes_in_group("enemies").size()
 	var max_alive := int(minf(240.0, 40.0 + 55.0 * d))
-	var rate := 0.7 + 1.6 * d                     # inimigos por segundo
+	var rate := 0.55 + 1.6 * d                     # inimigos por segundo
 	if game.boss != null:
 		rate *= 0.45
 	_budget = minf(_budget + rate * delta, 12.0)
@@ -63,7 +64,7 @@ func _physics_process(delta: float) -> void:
 	if _elite_t <= 0.0:
 		_elite_t = randf_range(50.0, 70.0)
 		var st: Dictionary = DB.STAGES[game.stage_index]
-		spawn(st["elite"], _ring_pos(), true)
+		spawn(_pick_from(st["elite"]), _ring_pos(), true)
 		game.announce("Um inimigo de elite apareceu!", Color(1, 0.8, 0.3))
 
 	_relocate_t -= delta
@@ -87,6 +88,10 @@ func _pick_type() -> String:
 		if r <= 0.0:
 			return entry[0]
 	return options[0][0]
+
+
+func _pick_from(list: Array) -> String:
+	return list[randi() % list.size()]
 
 
 func _ring_pos(dist_min: float = SPAWN_MIN, dist_max: float = SPAWN_MAX) -> Vector2:
@@ -117,16 +122,17 @@ func spawn_swarm() -> void:
 	var n := int(14 + 7 * difficulty())
 	var center := game.player.global_position
 	var radius := 260.0
+	var kind := _pick_from(st["swarm"])
 	for i in n:
 		var pos := center + Vector2.RIGHT.rotated(TAU * i / n) * radius
-		spawn(st["swarm"], pos)
+		spawn(kind, pos)
 	game.announce("Uma horda está cercando você!", Color(1, 0.4, 0.4))
 
 
 func summon_minions(at: Vector2, n: int) -> void:
 	var st: Dictionary = DB.STAGES[game.stage_index]
 	for i in n:
-		spawn(st["swarm"], at + Vector2.RIGHT.rotated(TAU * i / n) * 30.0)
+		spawn(_pick_from(st["swarm"]), at + Vector2.RIGHT.rotated(TAU * i / n) * 30.0)
 
 
 func spawn_boss() -> Enemy:

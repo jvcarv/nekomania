@@ -31,7 +31,7 @@ func _ready() -> void:
 	v.add_theme_constant_override("separation", 18)
 	v.alignment = BoxContainer.ALIGNMENT_CENTER
 	center.add_child(v)
-	_title = UITheme.label("SUBIU DE NÍVEL!", 44, UITheme.GOLD, HORIZONTAL_ALIGNMENT_CENTER)
+	_title = UITheme.label("SUBIU DE NÍVEL!", 40, UITheme.GOLD, HORIZONTAL_ALIGNMENT_CENTER)
 	v.add_child(_title)
 	_cards = HBoxContainer.new()
 	_cards.add_theme_constant_override("separation", 20)
@@ -41,10 +41,10 @@ func _ready() -> void:
 	bottom.alignment = BoxContainer.ALIGNMENT_CENTER
 	bottom.add_theme_constant_override("separation", 20)
 	v.add_child(bottom)
-	_reroll_btn = UITheme.button("Sortear de novo", 20, 240)
+	_reroll_btn = UITheme.button("Sortear de novo", 16, 240)
 	_reroll_btn.pressed.connect(_on_reroll)
 	bottom.add_child(_reroll_btn)
-	var skip := UITheme.button("Pular (+20 vida)", 20, 240)
+	var skip := UITheme.button("Pular (+20 vida)", 16, 240)
 	skip.pressed.connect(func(): _pick({"type": "skip"}))
 	bottom.add_child(skip)
 
@@ -101,14 +101,14 @@ func _make_card(opt: Dictionary, idx: int) -> Button:
 	match opt["type"]:
 		"weapon_new":
 			var wd: Dictionary = DB.WEAPONS[opt["id"]]
-			title = wd["name"]
-			subtitle = "NOVA ARMA — " + wd["element"]
+			title = wd["potion"]
+			subtitle = "Novo poder: " + wd["name"]
 			desc = wd["desc"]
 			icon = UITheme.weapon_icon(opt["id"])
 		"weapon_up":
 			var w := game.player.get_weapon(opt["id"])
-			title = DB.WEAPONS[opt["id"]]["name"]
-			subtitle = "Nível %d → %d" % [w.level, w.level + 1]
+			title = DB.WEAPONS[opt["id"]]["potion"]
+			subtitle = "%s Nv %d -> %d" % [DB.WEAPONS[opt["id"]]["name"], w.level, w.level + 1]
 			desc = w.upgrade_text(opt["rarity"])
 			icon = UITheme.weapon_icon(opt["id"])
 		"passive":
@@ -120,7 +120,7 @@ func _make_card(opt: Dictionary, idx: int) -> Button:
 				val *= rarity["mult"]
 			var shown := str(int(round(val * 100.0))) if p["pct"] else ("%.1f" % val).trim_suffix(".0")
 			desc = String(p["desc"]).replace("{v}", shown)
-	var rarity_lbl := UITheme.label(rarity["name"].to_upper() if opt["type"] != "weapon_new" else "NOVA", 16, rarity["color"], HORIZONTAL_ALIGNMENT_CENTER)
+	var rarity_lbl := UITheme.label(rarity["name"].to_upper() if opt["type"] != "weapon_new" else "NOVA POÇÃO", 16, rarity["color"], HORIZONTAL_ALIGNMENT_CENTER)
 	v.add_child(rarity_lbl)
 	if icon:
 		var tr := TextureRect.new()
@@ -134,14 +134,14 @@ func _make_card(opt: Dictionary, idx: int) -> Button:
 		var spacer := Control.new()
 		spacer.custom_minimum_size = Vector2(0, 24)
 		v.add_child(spacer)
-	var t := UITheme.label(title, 26, UITheme.TEXT_DARK, HORIZONTAL_ALIGNMENT_CENTER)
+	var t := UITheme.label(title, 24, UITheme.TEXT_DARK, HORIZONTAL_ALIGNMENT_CENTER)
 	t.add_theme_constant_override("outline_size", 0)
 	t.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	v.add_child(t)
 	var st := UITheme.label(subtitle, 16, Color(0.45, 0.3, 0.2), HORIZONTAL_ALIGNMENT_CENTER)
 	st.add_theme_constant_override("outline_size", 0)
 	v.add_child(st)
-	var d := UITheme.label(desc, 18, UITheme.TEXT_DARK, HORIZONTAL_ALIGNMENT_CENTER)
+	var d := UITheme.label(desc, 16, UITheme.TEXT_DARK, HORIZONTAL_ALIGNMENT_CENTER)
 	d.add_theme_constant_override("outline_size", 0)
 	d.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	d.custom_minimum_size = Vector2(260, 0)

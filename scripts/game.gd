@@ -76,6 +76,11 @@ func start_stage(index: int) -> void:
 	stage_started.emit(index)
 	var st: Dictionary = DB.STAGES[index]
 	announce("Estágio %d — %s" % [index + 1, st["name"]], Color(1, 1, 0.8))
+	if index == 0:
+		var c: Dictionary = DB.CHARACTERS[player.char_id]
+		var wd: Dictionary = DB.WEAPONS[c["weapon"]]
+		await get_tree().create_timer(2.6, false).timeout
+		announce("%s bebeu a %s!" % [c["name"], wd["potion"]], wd["color"])
 
 
 func _process(delta: float) -> void:
@@ -121,6 +126,7 @@ func _on_boss_killed(_e: Enemy) -> void:
 	director.clear_enemies()
 	for i in 12:
 		_drop(Pickup.Kind.COIN, pos + Vector2.RIGHT.rotated(randf() * TAU) * randf_range(8, 40), 1)
+	drop_potion(pos + Vector2(0, 14))
 	add_coins(10 * (stage_index + 1))
 	if stage_index >= DB.STAGES.size() - 1:
 		announce("Você derrotou o último chefão!", Color(1, 0.9, 0.3))
@@ -172,6 +178,9 @@ func on_enemy_killed(e: Enemy) -> void:
 			_drop(Pickup.Kind.COIN, pos + Vector2(randf_range(-10, 10), randf_range(-10, 10)), 1)
 	if randf() < 0.008 * (1.0 + luck) or e.is_elite:
 		_drop(Pickup.Kind.HEART, pos + Vector2(6, 0), 1)
+	# poções: elites sempre deixam uma; inimigos comuns raramente
+	if e.is_elite or randf() < 0.0015 * (1.0 + luck):
+		drop_potion(pos + Vector2(-8, 0))
 
 
 func _drop_xp(pos: Vector2, value: int) -> void:
@@ -197,6 +206,46 @@ func _drop(kind: Pickup.Kind, pos: Vector2, value: int) -> void:
 	p.value = value
 	p.global_position = pos
 	world.call_deferred("add_child", p)
+
+
+## Sorteia uma poção útil (poder que o gato tem e ainda evolui, ou novo se houver espaço).
+func drop_potion(pos: Vector2) -> void:
+	var options: Array = []
+	for w in player.weapon_list():
+		if not w.is_maxed():
+			options.append(w.id)
+	if player.weapon_list().size() < DB.MAX_WEAPONS:
+		for id in DB.WEAPONS:
+			if player.get_weapon(id) == null:
+				options.append(id)
+	if options.is_empty():
+		_drop(Pickup.Kind.COIN, pos, 1)
+		return
+	var p := Pickup.new()
+	p.kind = Pickup.Kind.POTION
+	p.element = options[randi() % options.size()]
+	p.global_position = pos
+	world.call_deferred("add_child", p)
+
+
+## O gato bebe uma poção: ganha o poder ou evolui o que já tem.
+func drink_potion(id: String) -> void:
+	var data: Dictionary = DB.WEAPONS[id]
+	var w := player.get_weapon(id)
+	if w == null:
+		if player.weapon_list().size() >= DB.MAX_WEAPONS:
+			add_coins(3)
+			return
+		player.add_weapon(id)
+		announce("%s! Novo poder: %s" % [data["potion"], data["name"]], data["color"])
+	elif not w.is_maxed():
+		w.level_up(1)
+		player.weapons_changed.emit()
+		announce("%s! %s Nv %d" % [data["potion"], data["name"], w.level], data["color"])
+	else:
+		add_coins(3)
+		return
+	player.drink_effect(data["color"])
 
 
 func add_coins(n: int) -> void:
@@ -317,7 +366,7 @@ func show_number(pos: Vector2, amount: float, color: Color = Color.WHITE, big: b
 	_numbers += 1
 	var l := Label.new()
 	l.text = str(int(round(amount)))
-	l.add_theme_font_size_override("font_size", 10 if big else 7)
+	l.add_theme_font_size_override("font_size", 8)
 	l.add_theme_color_override("font_color", color)
 	l.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.9))
 	l.add_theme_constant_override("outline_size", 3)

@@ -61,9 +61,9 @@ func _ready() -> void:
 	center.size = Vector2(400, 60)
 	center.alignment = BoxContainer.ALIGNMENT_BEGIN
 	root.add_child(center)
-	timer_label = UITheme.label("00:00", 34, Color.WHITE, HORIZONTAL_ALIGNMENT_CENTER)
+	timer_label = UITheme.label("00:00", 32, Color.WHITE, HORIZONTAL_ALIGNMENT_CENTER)
 	center.add_child(timer_label)
-	stage_label = UITheme.label("", 18, Color(0.9, 0.9, 1.0), HORIZONTAL_ALIGNMENT_CENTER)
+	stage_label = UITheme.label("", 16, Color(0.9, 0.9, 1.0), HORIZONTAL_ALIGNMENT_CENTER)
 	center.add_child(stage_label)
 
 	# Moedas + abates (direita)
@@ -82,9 +82,9 @@ func _ready() -> void:
 	coin_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	coin_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	coin_row.add_child(coin_icon)
-	coin_label = UITheme.label("0", 26, UITheme.GOLD)
+	coin_label = UITheme.label("0", 24, UITheme.GOLD)
 	coin_row.add_child(coin_label)
-	kill_label = UITheme.label("Abates: 0", 20, Color(1, 0.85, 0.85), HORIZONTAL_ALIGNMENT_RIGHT)
+	kill_label = UITheme.label("Abates: 0", 16, Color(1, 0.85, 0.85), HORIZONTAL_ALIGNMENT_RIGHT)
 	right.add_child(kill_label)
 
 	# Barra do chefão (embaixo)
@@ -94,7 +94,7 @@ func _ready() -> void:
 	boss_box.size = Vector2(640, 70)
 	boss_box.visible = false
 	root.add_child(boss_box)
-	boss_label = UITheme.label("", 22, Color(1, 0.6, 0.55), HORIZONTAL_ALIGNMENT_CENTER)
+	boss_label = UITheme.label("", 16, Color(1, 0.6, 0.55), HORIZONTAL_ALIGNMENT_CENTER)
 	boss_box.add_child(boss_label)
 	boss_bar = PixelBar.new()
 	boss_bar.fill_color = Color(0.75, 0.15, 0.6)
@@ -102,7 +102,7 @@ func _ready() -> void:
 	boss_box.add_child(boss_bar)
 
 	# Avisos
-	announce_label = UITheme.label("", 30, Color.WHITE, HORIZONTAL_ALIGNMENT_CENTER)
+	announce_label = UITheme.label("", 24, Color.WHITE, HORIZONTAL_ALIGNMENT_CENTER)
 	announce_label.set_anchors_preset(Control.PRESET_CENTER_TOP)
 	announce_label.position = Vector2(-400, 150)
 	announce_label.size = Vector2(800, 40)
@@ -184,10 +184,10 @@ func _refresh_weapons() -> void:
 		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		icon.custom_minimum_size = Vector2(36, 36)
 		box.add_child(icon)
-		var lv := UITheme.label(str(w.level), 14, Color.WHITE, HORIZONTAL_ALIGNMENT_RIGHT)
+		var lv := UITheme.label(str(w.level), 8, Color.WHITE, HORIZONTAL_ALIGNMENT_RIGHT)
 		lv.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
 		box.add_child(lv)
-		box.tooltip_text = DB.WEAPONS[w.id]["name"]
+		box.tooltip_text = "%s (%s)" % [DB.WEAPONS[w.id]["potion"], DB.WEAPONS[w.id]["name"]]
 		weapon_row.add_child(box)
 
 

@@ -67,22 +67,28 @@ static func char_texture_path(id: int) -> String:
 const MAX_WEAPONS := 4
 const WEAPON_MAX_LEVEL := 8
 
+## Cada poder vem de uma POÇÃO (tema da jam: "Animais Fofos e Alquimia").
+## potion_cell = (coluna, linha) do frasco em "assets/potions/Potions - Full, Corked.png" (16x24 cada).
+const POTION_SHEET := "res://assets/potions/Potions - Full, Corked.png"
+const POTION_SIZE := Vector2i(16, 24)
+
 const WEAPONS := {
-	"fire": {"name": "Bola de Fogo", "element": "Fogo", "script": "res://scripts/weapons/w_fire.gd",
-		"desc": "Dispara bolas de fogo no inimigo mais próximo.", "color": Color(1.0, 0.55, 0.2)},
-	"holy": {"name": "Luz Sagrada", "element": "Sagrado", "script": "res://scripts/weapons/w_holy.gd",
-		"desc": "Pilares de luz caem sobre inimigos próximos.", "color": Color(1.0, 0.9, 0.4)},
-	"dark": {"name": "Caveira Sombria", "element": "Sombrio", "script": "res://scripts/weapons/w_dark.gd",
-		"desc": "Caveiras teleguiadas perseguem os inimigos.", "color": Color(0.75, 0.3, 0.85)},
-	"ice": {"name": "Estilhaço de Gelo", "element": "Gelo", "script": "res://scripts/weapons/w_ice.gd",
-		"desc": "Estilhaços perfurantes que deixam inimigos lentos.", "color": Color(0.5, 0.85, 1.0)},
-	"thunder": {"name": "Raio em Cadeia", "element": "Trovão", "script": "res://scripts/weapons/w_thunder.gd",
-		"desc": "Um raio que salta entre vários inimigos.", "color": Color(1.0, 0.85, 0.35)},
-	"acid": {"name": "Gêiser Ácido", "element": "Ácido", "script": "res://scripts/weapons/w_acid.gd",
-		"desc": "Cria poças ácidas que causam dano contínuo.", "color": Color(0.45, 0.95, 0.35)},
-	"wood": {"name": "Troncos Orbitais", "element": "Madeira", "script": "res://scripts/weapons/w_wood.gd",
-		"desc": "Troncos giram ao seu redor atingindo inimigos.", "color": Color(0.7, 0.45, 0.3)},
+	"fire": {"potion": "Poção Flamejante", "name": "Bola de Fogo", "element": "Fogo", "script": "res://scripts/weapons/w_fire.gd",
+		"desc": "Dispara bolas de fogo no inimigo mais próximo.", "color": Color(1.0, 0.55, 0.2), "potion_cell": Vector2i(0, 3)},
+	"holy": {"potion": "Poção Celestial", "name": "Luz Sagrada", "element": "Sagrado", "script": "res://scripts/weapons/w_holy.gd",
+		"desc": "Pilares de luz caem sobre inimigos próximos.", "color": Color(1.0, 0.9, 0.4), "potion_cell": Vector2i(1, 14)},
+	"dark": {"potion": "Poção Sombria", "name": "Caveira Sombria", "element": "Sombrio", "script": "res://scripts/weapons/w_dark.gd",
+		"desc": "Caveiras teleguiadas perseguem os inimigos.", "color": Color(0.75, 0.3, 0.85), "potion_cell": Vector2i(6, 4)},
+	"ice": {"potion": "Poção Gélida", "name": "Estilhaço de Gelo", "element": "Gelo", "script": "res://scripts/weapons/w_ice.gd",
+		"desc": "Estilhaços perfurantes que deixam inimigos lentos.", "color": Color(0.5, 0.85, 1.0), "potion_cell": Vector2i(3, 10)},
+	"thunder": {"potion": "Poção Elétrica", "name": "Raio em Cadeia", "element": "Trovão", "script": "res://scripts/weapons/w_thunder.gd",
+		"desc": "Um raio que salta entre vários inimigos.", "color": Color(1.0, 0.85, 0.35), "potion_cell": Vector2i(2, 9)},
+	"acid": {"potion": "Poção Corrosiva", "name": "Gêiser Ácido", "element": "Ácido", "script": "res://scripts/weapons/w_acid.gd",
+		"desc": "Cria poças ácidas que causam dano contínuo.", "color": Color(0.45, 0.95, 0.35), "potion_cell": Vector2i(5, 2)},
+	"wood": {"potion": "Poção da Floresta", "name": "Troncos Orbitais", "element": "Madeira", "script": "res://scripts/weapons/w_wood.gd",
+		"desc": "Troncos giram ao seu redor atingindo inimigos.", "color": Color(0.7, 0.45, 0.3), "potion_cell": Vector2i(8, 13)},
 }
+
 
 
 # ======================================================================
@@ -164,8 +170,8 @@ const STAGES := [
 		"ground_a": Color(0.33, 0.52, 0.22), "ground_b": Color(0.27, 0.45, 0.19), "ground_c": Color(0.40, 0.60, 0.27),
 		"tree_tint": Color(1, 1, 1), "trees": [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 14, 15],
 		"tree_density": 0.55,
-		"spawn": [["slime", 10.0, 0.0], ["skeleton", 4.0, 0.3], ["werewolf", 1.5, 0.75]],
-		"swarm": "slime", "elite": "skeleton",
+		"spawn": [["slime", 5.0, 0.0], ["skeleton", 4.0, 0.08], ["archer", 2.5, 0.2], ["werewolf", 2.0, 0.5], ["orc", 1.5, 0.7]],
+		"swarm": ["slime", "skeleton", "werewolf"], "elite": ["skeleton", "orc", "werewolf"],
 		"boss": {"type": "orc", "name": "Chefe Orc", "hp": 700.0, "damage": 22.0, "scale": 2.4, "speed": 46.0},
 	},
 	{
@@ -173,18 +179,18 @@ const STAGES := [
 		"ground_a": Color(0.55, 0.45, 0.22), "ground_b": Color(0.47, 0.36, 0.17), "ground_c": Color(0.62, 0.50, 0.25),
 		"tree_tint": Color(1.25, 0.85, 0.5), "trees": [1, 2, 3, 5, 7, 8, 9, 10, 12, 13, 15, 16],
 		"tree_density": 0.6,
-		"spawn": [["skeleton", 8.0, 0.0], ["slime", 4.0, 0.0], ["archer", 4.0, 0.15], ["orc", 3.0, 0.4], ["werewolf", 2.0, 0.6]],
-		"swarm": "skeleton", "elite": "orc",
-		"boss": {"type": "werewolf", "name": "Lobisomem Alfa", "hp": 2600.0, "damage": 28.0, "scale": 2.3, "speed": 70.0},
+		"spawn": [["skeleton", 5.0, 0.0], ["archer", 4.0, 0.0], ["orc", 4.0, 0.0], ["werewolf", 4.0, 0.1], ["slime", 2.0, 0.0], ["werebear", 1.5, 0.6]],
+		"swarm": ["skeleton", "werewolf", "orc"], "elite": ["orc", "werewolf", "werebear"],
+		"boss": {"type": "werewolf", "name": "Lobisomem Alfa", "hp": 3400.0, "damage": 28.0, "scale": 2.3, "speed": 70.0},
 	},
 	{
 		"name": "Floresta Maldita", "flower": Color(0.8, 0.4, 1.0),
 		"ground_a": Color(0.30, 0.24, 0.36), "ground_b": Color(0.24, 0.19, 0.30), "ground_c": Color(0.38, 0.30, 0.44),
 		"tree_tint": Color(0.75, 0.6, 0.95), "trees": [13, 16, 13, 16, 8, 14, 11],
 		"tree_density": 0.65,
-		"spawn": [["orc", 6.0, 0.0], ["werewolf", 5.0, 0.0], ["archer", 4.0, 0.0], ["skeleton", 4.0, 0.0], ["werebear", 2.5, 0.35]],
-		"swarm": "werewolf", "elite": "werebear",
-		"boss": {"type": "werebear", "name": "Rei Urso", "hp": 7000.0, "damage": 36.0, "scale": 2.6, "speed": 50.0},
+		"spawn": [["orc", 5.0, 0.0], ["werewolf", 5.0, 0.0], ["archer", 4.0, 0.0], ["skeleton", 3.0, 0.0], ["werebear", 3.0, 0.2], ["slime", 1.0, 0.0]],
+		"swarm": ["werewolf", "orc", "skeleton"], "elite": ["werebear", "orc"],
+		"boss": {"type": "werebear", "name": "Rei Urso", "hp": 10000.0, "damage": 36.0, "scale": 2.6, "speed": 50.0},
 	},
 ]
 

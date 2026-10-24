@@ -2,10 +2,11 @@ extends Node2D
 class_name Pickup
 ## Itens coletáveis: experiência, moedas e corações.
 
-enum Kind { XP, COIN, HEART }
+enum Kind { XP, COIN, HEART, POTION }
 
 var kind: Kind = Kind.XP
 var value := 1
+var element := ""      # para poções: id do poder (DB.WEAPONS)
 var _attracted := false
 var _vel := Vector2.ZERO
 var _t := 0.0
@@ -34,6 +35,21 @@ func _ready() -> void:
 			h.texture = load("res://assets/generated/heart.png")
 			_visual = h
 			add_child(h)
+		Kind.POTION:
+			var glow := Sprite2D.new()
+			glow.texture = SpriteLib.fx("holy_spark").get_frame_texture("hit", 1)
+			glow.modulate = Color(DB.WEAPONS[element]["color"], 0.55)
+			glow.scale = Vector2(1.3, 1.3)
+			glow.z_index = -1
+			add_child(glow)
+			var ps := Sprite2D.new()
+			ps.texture = SpriteLib.potion_icon(element)
+			ps.offset = Vector2(0, -6)
+			_visual = ps
+			add_child(ps)
+			var tw := glow.create_tween().set_loops()
+			tw.tween_property(glow, "scale", Vector2(1.6, 1.6), 0.6)
+			tw.tween_property(glow, "scale", Vector2(1.2, 1.2), 0.6)
 
 
 func _make_gem() -> void:
@@ -90,4 +106,6 @@ func _collect(p: Player) -> void:
 		Kind.HEART:
 			p.heal(25.0)
 			g.show_number(p.global_position + Vector2(0, -16), 25, Color(0.4, 1, 0.4))
+		Kind.POTION:
+			g.drink_potion(element)
 	queue_free()

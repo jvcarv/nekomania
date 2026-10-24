@@ -28,7 +28,7 @@ func _ready() -> void:
 	v.add_theme_constant_override("separation", 14)
 	v.custom_minimum_size = Vector2(480, 0)
 	panel.add_child(v)
-	_title = UITheme.label("", 48, Color.WHITE, HORIZONTAL_ALIGNMENT_CENTER)
+	_title = UITheme.label("", 40, Color.WHITE, HORIZONTAL_ALIGNMENT_CENTER)
 	v.add_child(_title)
 	_body = RichTextLabel.new()
 	_body.bbcode_enabled = true
