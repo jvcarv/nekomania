@@ -21,6 +21,8 @@ var last_run: Dictionary = {}
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_setup_input()
+	UITheme.font()        # deixa a fonte padrão nítida (pixel art)
+	UITheme.font(true)
 	load_game()
 
 

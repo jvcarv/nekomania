@@ -6,7 +6,21 @@ const TEXT_DARK := Color(0.23, 0.16, 0.12)
 const TEXT_LIGHT := Color(1, 0.98, 0.92)
 const GOLD := Color(1.0, 0.82, 0.3)
 
+const FONT_REGULAR := "res://assets/fonts/Silkscreen-Regular.ttf"
+const FONT_BOLD := "res://assets/fonts/Silkscreen-Bold.ttf"
+
 static var _theme: Theme
+
+
+## Fonte Silkscreen (OFL) configurada para pixel art: sem suavização.
+## Fica nítida em tamanhos múltiplos de 8 (8, 16, 24, 32...).
+static func font(bold: bool = false) -> FontFile:
+	var f: FontFile = load(FONT_BOLD if bold else FONT_REGULAR)
+	f.antialiasing = TextServer.FONT_ANTIALIASING_NONE
+	f.hinting = TextServer.HINTING_NONE
+	f.subpixel_positioning = TextServer.SUBPIXEL_POSITIONING_DISABLED
+	f.generate_mipmaps = false
+	return f
 
 
 static func tex(name: String) -> Texture2D:
@@ -43,7 +57,8 @@ static func get_theme() -> Theme:
 	if _theme:
 		return _theme
 	var t := Theme.new()
-	t.default_font_size = 22
+	t.default_font = font()
+	t.default_font_size = 16
 	# Botões
 	t.set_stylebox("normal", "Button", box("UI_Flat_Button02a_3", 8, Vector4(16, 8, 16, 14)))
 	t.set_stylebox("hover", "Button", box("UI_Flat_Button02a_4", 8, Vector4(16, 6, 16, 16)))
@@ -65,8 +80,9 @@ static func get_theme() -> Theme:
 	t.set_color("default_color", "RichTextLabel", TEXT_LIGHT)
 	t.set_color("font_outline_color", "RichTextLabel", Color(0.08, 0.06, 0.12))
 	t.set_constant("outline_size", "RichTextLabel", 5)
-	t.set_font_size("normal_font_size", "RichTextLabel", 18)
-	t.set_font_size("bold_font_size", "RichTextLabel", 18)
+	t.set_font_size("normal_font_size", "RichTextLabel", 16)
+	t.set_font_size("bold_font_size", "RichTextLabel", 16)
+	t.set_font("bold_font", "RichTextLabel", font(true))
 	# Barras de rolagem discretas
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = Color(0, 0, 0, 0.25)
@@ -84,6 +100,8 @@ static func label(text: String, size: int = 22, color: Color = TEXT_LIGHT, align
 	var l := Label.new()
 	l.text = text
 	l.add_theme_font_size_override("font_size", size)
+	if size >= 32:
+		l.add_theme_font_override("font", font(true))
 	l.add_theme_color_override("font_color", color)
 	l.horizontal_alignment = align
 	return l
@@ -98,8 +116,13 @@ static func button(text: String, size: int = 24, min_w: float = 260.0) -> Button
 	return b
 
 
-## Ícone de cada arma (um quadro do próprio efeito).
+## Ícone de cada poder = a poção que o concede.
 static func weapon_icon(id: String) -> Texture2D:
+	return SpriteLib.potion_icon(id)
+
+
+## Ícone do efeito do poder (um quadro da própria magia).
+static func power_icon(id: String) -> Texture2D:
 	var map := {
 		"fire": ["firebolt", "fly", 1], "holy": ["holy_spark", "hit", 1], "dark": ["dark", "fly", 0],
 		"ice": ["ice", "fly", 2], "thunder": ["thunder", "hit", 1], "acid": ["acid_blob", "hit", 0],
