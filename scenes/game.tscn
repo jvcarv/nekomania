@@ -1,16 +1,39 @@
-[gd_scene format=3 uid="uid://bqsa8bnqe2xct"]
+[gd_scene load_steps=9 format=3 uid="uid://bqsa8bnqe2xct"]
 
-[ext_resource type="PackedScene" uid="uid://biwtxnvv3xt1d" path="res://scenes/player.tscn" id="1_uwrxv"]
-[ext_resource type="PackedScene" uid="uid://d1td4nelclrqo" path="res://scenes/map.tscn" id="2_yqjtg"]
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_game"]
+[ext_resource type="Script" path="res://scripts/world/map_generator.gd" id="2_map"]
+[ext_resource type="PackedScene" uid="uid://biwtxnvv3xt1d" path="res://scenes/player.tscn" id="3_player"]
+[ext_resource type="Script" path="res://scripts/world/spawn_director.gd" id="4_dir"]
+[ext_resource type="Script" path="res://scripts/ui/hud.gd" id="5_hud"]
+[ext_resource type="Script" path="res://scripts/ui/level_up_menu.gd" id="6_lvl"]
+[ext_resource type="Script" path="res://scripts/ui/pause_menu.gd" id="7_pause"]
+[ext_resource type="Script" path="res://scripts/ui/game_over.gd" id="8_over"]
 
-[node name="Game" type="Node2D" unique_id=2053885900]
+[node name="Game" type="Node2D"]
+script = ExtResource("1_game")
 
-[node name="Player" parent="." unique_id=1108661437 instance=ExtResource("1_uwrxv")]
-top_level = true
-motion_mode = 1
-floor_constant_speed = true
-platform_floor_layers = 4294901761
-platform_wall_layers = 2
+[node name="MapGenerator" type="Node2D" parent="."]
+script = ExtResource("2_map")
 
-[node name="TileMapLayer" parent="." unique_id=2038275671 instance=ExtResource("2_yqjtg")]
-position = Vector2(-24, 2)
+[node name="World" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Player" parent="World" instance=ExtResource("3_player")]
+
+[node name="FX" type="Node2D" parent="World"]
+y_sort_enabled = true
+
+[node name="SpawnDirector" type="Node" parent="."]
+script = ExtResource("4_dir")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("5_hud")
+
+[node name="LevelUpMenu" type="CanvasLayer" parent="."]
+script = ExtResource("6_lvl")
+
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+script = ExtResource("7_pause")
+
+[node name="GameOverScreen" type="CanvasLayer" parent="."]
+script = ExtResource("8_over")

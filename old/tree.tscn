@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://07scykcbnugc"]
+
+[ext_resource type="Texture2D" uid="uid://brkq7ppojtcyq" path="res://assets/map/Forest Trees Pack – Pixel Art (32x32, Top-Down RPG)/Forest Trees Pack – Pixel Art (32x32, Top-Down RPG)/tree_top.png" id="1_vplca"]
+[ext_resource type="Texture2D" uid="uid://egq80me7oy6v" path="res://assets/map/Forest Trees Pack – Pixel Art (32x32, Top-Down RPG)/Forest Trees Pack – Pixel Art (32x32, Top-Down RPG)/tree_base.png" id="2_viusy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g2els"]
+radius = 17.117243
+
+[node name="StaticBody2D" type="StaticBody2D" unique_id=145524267]
+
+[node name="TreeTop" type="Sprite2D" parent="." unique_id=2014412651]
+y_sort_enabled = true
+texture_filter = 1
+position = Vector2(2, -76)
+scale = Vector2(2.125, 2.477273)
+texture = ExtResource("1_vplca")
+
+[node name="TreeBase" type="Sprite2D" parent="TreeTop" unique_id=1216327849]
+z_index = -1
+texture_filter = 1
+position = Vector2(0.47058824, 26.6422)
+scale = Vector2(1.1602434, 1.3119265)
+texture = ExtResource("2_viusy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2047727843]
+position = Vector2(1, -13)
+shape = SubResource("CircleShape2D_g2els")

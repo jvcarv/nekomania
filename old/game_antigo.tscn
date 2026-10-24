@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://bqsa8bnqe2xct"]
+
+[ext_resource type="PackedScene" uid="uid://biwtxnvv3xt1d" path="res://scenes/player.tscn" id="1_uwrxv"]
+[ext_resource type="PackedScene" uid="uid://0euwtw3o4uaa" path="res://scenes/mob.tscn" id="2_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://07scykcbnugc" path="res://scenes/tree.tscn" id="5_gee14"]
+
+[node name="Game" type="Node2D" unique_id=2053885900]
+y_sort_enabled = true
+position = Vector2(461, 290)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1887563497]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1289446076]
+z_index = -1
+offset_left = -1.0
+offset_top = 1.0
+offset_right = 1190.0
+offset_bottom = 705.0
+color = Color(0.3753639, 0.56156045, 0.2130638, 1)
+
+[node name="Mob" parent="." unique_id=1706238132 instance=ExtResource("2_lnu2h")]
+position = Vector2(42, 105)
+
+[node name="Mob2" parent="." unique_id=1318166787 instance=ExtResource("2_lnu2h")]
+position = Vector2(111, 107)
+
+[node name="Player" parent="." unique_id=1108661437 instance=ExtResource("1_uwrxv")]
+unique_name_in_owner = true
+floor_constant_speed = true
+platform_floor_layers = 4294901761
+platform_wall_layers = 1
+
+[node name="StaticBody2D" parent="." unique_id=145524267 instance=ExtResource("5_gee14")]
+position = Vector2(-327, 155)
+
+[node name="StaticBody2D2" parent="." unique_id=208577507 instance=ExtResource("5_gee14")]
+position = Vector2(372, 181)
+
+[node name="StaticBody2D3" parent="." unique_id=149692581 instance=ExtResource("5_gee14")]
+position = Vector2(369, -27)
+
+[node name="StaticBody2D4" parent="." unique_id=564509335 instance=ExtResource("5_gee14")]
+position = Vector2(331, 12)
+
+[node name="StaticBody2D5" parent="." unique_id=469920794 instance=ExtResource("5_gee14")]
+position = Vector2(384, 4)
+
+[node name="StaticBody2D6" parent="." unique_id=2034057347 instance=ExtResource("5_gee14")]
+position = Vector2(354, 223)
+
+[node name="StaticBody2D7" parent="." unique_id=1986443542 instance=ExtResource("5_gee14")]
+position = Vector2(-202, 10)
+
+[node name="StaticBody2D8" parent="." unique_id=1564078277 instance=ExtResource("5_gee14")]
+position = Vector2(-107, 0)
+
+[node name="StaticBody2D9" parent="." unique_id=1132499508 instance=ExtResource("5_gee14")]
+position = Vector2(-155, -17)
