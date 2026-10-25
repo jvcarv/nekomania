@@ -12,10 +12,11 @@ Godot 4.7. A cena principal agora é `scenes/ui/main_menu.tscn`.
 | `scripts/game.gd` + `scenes/game.tscn` | A partida: estágios, chefão, portal, drops, level-up, pausa, fim de jogo. |
 | `scripts/player.gd` | Movimento, atributos, vida, XP e armas do jogador. |
 | `scripts/enemy.gd` + `scenes/enemy.tscn` | Inimigo genérico (o tipo vem de `DB.ENEMIES`). Arqueiros atiram, chefões invocam lacaios. |
-| `scripts/world/spawn_director.gd` | Quando/onde/quais inimigos nascem: fluxo contínuo, hordas em anel, elites, reposicionamento. |
+| `scripts/world/spawn_director.gd` | Quando/onde/quais inimigos nascem: fluxo contínuo, hordas em anel, elites, reposicionamento. **Pressão adaptativa**: se o jogador mata rápido, o ritmo de spawn sobe (até 2,5x). |
 | `scripts/world/map_generator.gd` | Mapa procedural infinito em chunks (ruído → bosques e clareiras) + chão em shader. |
 | `scripts/world/pickup.gd` | XP, moedas e corações. |
-| `scripts/weapons/` | `weapon.gd` (base) + um poder por elemento: fogo, sagrado, sombrio, gelo, trovão, ácido, madeira. Cada poder é concedido por uma **poção** (`DB.WEAPONS[...]["potion"]`). |
+| `scripts/weapons/` | `weapon.gd` (base) + 14 poderes: 2 por elemento (fogo, sagrado, sombrio, gelo, trovão, ácido, madeira). Cada um vem de uma **poção**. Máximo de 3 poderes por partida (`DB.MAX_WEAPONS`), nível máximo 10. Ter os 2 do mesmo elemento ativa a **sinergia** (+25% dano). |
+| `scripts/boss_brain.gd` + `scripts/telegraph.gd` | Ataques dos chefões (investida, pancada, rajada, lacaios) com aviso visual. Chefões atravessam e derrubam árvores. |
 | `scripts/ui/` | HUD, menu principal, personagens, level-up, pausa, fim de jogo e tema visual. |
 | `assets/generated/` | **Gerados por IA** (provisórios): moeda, gemas de XP, coração, portal; e cópias 3x do tema de UI. Veja `IA_TRANSPARENCIA.md`. |
 | `assets/fonts/` | Fonte Silkscreen (OFL). |
@@ -24,7 +25,7 @@ Godot 4.7. A cena principal agora é `scenes/ui/main_menu.tscn`.
 
 ## Como uma partida funciona
 
-1. 3 estágios (`DB.STAGES`). Cada um dura `DB.STAGE_TIME` (180 s) e depois aparece o chefão.
+1. 3 estágios (`DB.STAGES`), cada um num bioma sorteado entre 6 (`DB.BIOMES`). Cada um dura `DB.STAGE_TIME` (180 s) e depois aparece o chefão.
 2. Derrotou o chefão → surge um portal (a seta roxa aponta para ele). Entrou → próximo estágio, com mapa novo e inimigos mais fortes.
 3. Derrotou o chefão do estágio 3 → vitória.
 4. Poções: o gato começa bebendo a poção do seu personagem. Ao subir de nível, as cartas oferecem poções (novo poder ou evolução). Elites e chefões sempre deixam cair uma poção; inimigos comuns, raramente.
