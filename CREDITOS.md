@@ -7,7 +7,7 @@
 - **Árvores** — Forest Trees Pack, Pocket Cozy Pixels / BloomPixle.
 - **Interface** — 01 Flat Theme, Crusenho Agus Hennihuno (https://crusenho.itch.io), licença CC BY 4.0. Alteração: sprites ampliados 3x (`assets/generated/ui`).
 - **Poções** — Potions, Onocentaur (https://onocentaur.itch.io).
-- **Chão, planaltos, escadas, árvores, enfeites, moeda, gemas, coração, portal e partículas de clima** — Ninja Adventure Asset Pack, Pixel-boy & AAA (https://pixel-boy.itch.io/ninja-adventure-asset-pack), CC0.
+- **Chão, árvores, enfeites, moeda, gemas, coração, portal e partículas de clima** — Ninja Adventure Asset Pack, Pixel-boy & AAA (https://pixel-boy.itch.io/ninja-adventure-asset-pack), CC0.
 
 ## Fonte
 - **Silkscreen** — Jason Kottke, SIL Open Font License 1.1 (`assets/fonts/OFL.txt`).

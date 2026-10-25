@@ -13,42 +13,42 @@ class_name DB
 const CHARACTERS := {
 	13: {"name": "Feiticeiro", "weapon": "fire", "price": 0, "perk": {}, "desc": "O mago original. Equilibrado."},
 	2: {"name": "Laranjinha", "weapon": "fire", "price": 60, "perk": {"speed": 0.08}, "desc": "+8% velocidade."},
-	21: {"name": "Abóbora", "weapon": "fire", "price": 90, "req": {"type": "synergy", "elem": "fire"}, "perk": {"max_hp": 25.0}, "desc": "+25 vida máxima."},
+	21: {"name": "Abóbora", "weapon": "fire2", "price": 90, "req": {"type": "synergy", "elem": "fire"}, "perk": {"max_hp": 25.0}, "desc": "+25 vida máxima."},
 	32: {"name": "Chapéu de Palha", "weapon": "fire", "price": 150, "req": {"type": "runs", "value": 5}, "perk": {"luck": 0.10}, "desc": "+10% sorte."},
-	15: {"name": "Lorde Demônio", "weapon": "fire", "price": 300, "req": {"type": "wins", "value": 1}, "perk": {"damage": 0.20, "area": 0.15}, "desc": "+20% dano, +15% área."},
+	15: {"name": "Lorde Demônio", "weapon": "fire2", "price": 300, "req": {"type": "wins", "value": 1}, "perk": {"damage": 0.20, "area": 0.15}, "desc": "+20% dano, +15% área."},
 
 	4: {"name": "Branquinho", "weapon": "holy", "price": 80, "perk": {"regen": 0.3}, "desc": "+0.3 vida/s."},
-	25: {"name": "Lacinho", "weapon": "holy", "price": 150, "perk": {"magnet": 20.0}, "desc": "+20 alcance de coleta."},
+	25: {"name": "Lacinho", "weapon": "holy2", "price": 150, "perk": {"magnet": 20.0}, "desc": "+20 alcance de coleta."},
 	11: {"name": "Vovó", "weapon": "holy", "price": 180, "perk": {"xp_gain": 0.12}, "desc": "+12% experiência."},
 	19: {"name": "Anjo", "weapon": "holy", "price": 150, "req": {"type": "elem_kills", "elem": "holy", "value": 300}, "perk": {"max_hp": 20.0, "regen": 0.5}, "desc": "+20 vida, +0.5 vida/s."},
-	26: {"name": "Anjinha", "weapon": "holy", "price": 200, "req": {"type": "synergy", "elem": "holy"}, "perk": {"attack_speed": 0.15, "luck": 0.10}, "desc": "+15% vel. ataque, +10% sorte."},
+	26: {"name": "Anjinha", "weapon": "holy2", "price": 200, "req": {"type": "synergy", "elem": "holy"}, "perk": {"attack_speed": 0.15, "luck": 0.10}, "desc": "+15% vel. ataque, +10% sorte."},
 
 	3: {"name": "Cinzento", "weapon": "dark", "price": 60, "perk": {"crit_chance": 0.05}, "desc": "+5% crítico."},
 	10: {"name": "Detetive", "weapon": "dark", "price": 120, "req": {"type": "boss_kills", "value": 3}, "perk": {"crit_chance": 0.08, "crit_mult": 0.25}, "desc": "+8% crítico, +25% dano crítico."},
-	20: {"name": "Morcego", "weapon": "dark", "price": 120, "req": {"type": "stage", "value": 2}, "perk": {"speed": 0.12, "regen": 0.2}, "desc": "+12% velocidade, +0.2 vida/s."},
-	27: {"name": "Diabinha", "weapon": "dark", "price": 200, "req": {"type": "elem_kills", "elem": "dark", "value": 400}, "perk": {"damage": 0.15, "crit_chance": 0.08}, "desc": "+15% dano, +8% crítico."},
+	20: {"name": "Morcego", "weapon": "dark2", "price": 120, "req": {"type": "stage", "value": 2}, "perk": {"speed": 0.12, "regen": 0.2}, "desc": "+12% velocidade, +0.2 vida/s."},
+	27: {"name": "Diabinha", "weapon": "dark2", "price": 200, "req": {"type": "elem_kills", "elem": "dark", "value": 400}, "perk": {"damage": 0.15, "crit_chance": 0.08}, "desc": "+15% dano, +8% crítico."},
 
 	5: {"name": "Siamês", "weapon": "ice", "price": 80, "perk": {"armor": 3.0}, "desc": "+3 armadura."},
 	9: {"name": "Nerd", "weapon": "ice", "price": 140, "perk": {"xp_gain": 0.10}, "desc": "+10% experiência."},
-	24: {"name": "Rosinha", "weapon": "ice", "price": 200, "perk": {"area": 0.12}, "desc": "+12% área."},
-	12: {"name": "Mergulhador", "weapon": "ice", "price": 120, "req": {"type": "elem_kills", "elem": "ice", "value": 300}, "perk": {"projectiles": 1}, "desc": "+1 projétil."},
+	24: {"name": "Rosinha", "weapon": "ice2", "price": 200, "perk": {"area": 0.12}, "desc": "+12% área."},
+	12: {"name": "Mergulhador", "weapon": "ice2", "price": 120, "req": {"type": "elem_kills", "elem": "ice", "value": 300}, "perk": {"projectiles": 1}, "desc": "+1 projétil."},
 
 	6: {"name": "Malhado", "weapon": "thunder", "price": 70, "perk": {"speed": 0.06}, "desc": "+6% velocidade."},
 	29: {"name": "Operário", "weapon": "thunder", "price": 100, "req": {"type": "kills", "value": 1500}, "perk": {"armor": 5.0}, "desc": "+5 armadura."},
-	31: {"name": "Leãozinho", "weapon": "thunder", "price": 120, "req": {"type": "survive", "value": 300}, "perk": {"damage": 0.12}, "desc": "+12% dano."},
-	14: {"name": "Faraó", "weapon": "thunder", "price": 180, "req": {"type": "synergy", "elem": "thunder"}, "perk": {"attack_speed": 0.20}, "desc": "+20% vel. ataque."},
+	31: {"name": "Leãozinho", "weapon": "thunder2", "price": 120, "req": {"type": "survive", "value": 300}, "perk": {"damage": 0.12}, "desc": "+12% dano."},
+	14: {"name": "Faraó", "weapon": "thunder2", "price": 180, "req": {"type": "synergy", "elem": "thunder"}, "perk": {"attack_speed": 0.20}, "desc": "+20% vel. ataque."},
 
 	1: {"name": "Creminho", "weapon": "acid", "price": 50, "perk": {"max_hp": 10.0}, "desc": "+10 vida máxima."},
-	8: {"name": "Azulado", "weapon": "acid", "price": 100, "perk": {"magnet": 25.0}, "desc": "+25 alcance de coleta."},
+	8: {"name": "Azulado", "weapon": "acid2", "price": 100, "perk": {"magnet": 25.0}, "desc": "+25 alcance de coleta."},
 	7: {"name": "Zumbi", "weapon": "acid", "price": 100, "req": {"type": "elem_kills", "elem": "acid", "value": 300}, "perk": {"regen": 0.8}, "desc": "+0.8 vida/s."},
 	22: {"name": "Melancia", "weapon": "acid", "price": 100, "req": {"type": "potions", "value": 25}, "perk": {"area": 0.20}, "desc": "+20% área."},
-	23: {"name": "Kiwi", "weapon": "acid", "price": 300, "perk": {"luck": 0.15}, "desc": "+15% sorte."},
+	23: {"name": "Kiwi", "weapon": "acid2", "price": 300, "perk": {"luck": 0.15}, "desc": "+15% sorte."},
 
 	16: {"name": "Ursinho", "weapon": "wood", "price": 120, "perk": {"max_hp": 15.0}, "desc": "+15 vida máxima."},
-	17: {"name": "Urso Pardo", "weapon": "wood", "price": 160, "perk": {"armor": 4.0}, "desc": "+4 armadura."},
+	17: {"name": "Urso Pardo", "weapon": "wood2", "price": 160, "perk": {"armor": 4.0}, "desc": "+4 armadura."},
 	18: {"name": "Panda", "weapon": "wood", "price": 120, "req": {"type": "level", "value": 20}, "perk": {"max_hp": 30.0, "armor": 2.0}, "desc": "+30 vida, +2 armadura."},
 	28: {"name": "Folhagem", "weapon": "wood", "price": 360, "perk": {"regen": 0.6, "area": 0.10}, "desc": "+0.6 vida/s, +10% área."},
-	30: {"name": "Cerejeira", "weapon": "wood", "price": 220, "req": {"type": "synergy", "elem": "wood"}, "perk": {"projectiles": 1, "regen": 0.5}, "desc": "+1 projétil, +0.5 vida/s."},
+	30: {"name": "Cerejeira", "weapon": "wood2", "price": 220, "req": {"type": "synergy", "elem": "wood"}, "perk": {"projectiles": 1, "regen": 0.5}, "desc": "+1 projétil, +0.5 vida/s."},
 }
 
 ## Ordem de exibição na tela de personagens.
@@ -234,42 +234,40 @@ const STAGES := [
 ##   floor_block : origem (em tiles) do bloco do bioma no TilesetFloor
 ##                 (0,0) areia  (11,0) areia rosa  (0,7) grama clara  (11,7) grama escura
 ##                 (0,14) neve  (11,14) terra
-##   relief_row  : planaltos de pedra/neve (0) ou de areia (5) no TilesetRelief
-##   plateau_top : (opcional) bloco do TilesetFloor usado no topo do planalto
 ##   trees       : número = árvore do Forest Trees Pack; [col, lin, larg, alt] = TilesetNature (Ninja)
 ##   decor       : [fonte, tile] (fonte 2 = TilesetFloorDetail, 3 = TilesetNature)
 ##   weather     : "" | "leaves" | "snow" | "petals" | "spores" | "fireflies"
 const BIOMES := [
 	{"name": "Floresta Serena", "weather": "fireflies", "flower": Color(1.0, 0.9, 0.5),
-		"floor_block": Vector2i(0, 7), "relief_row": 5, "patch_threshold": 0.3, "plateau_chance": 0.35,
+		"floor_block": Vector2i(0, 7), "patch_threshold": 0.3,
 		"tree_tint": Color(1, 1, 1), "tree_density": 0.55,
 		"trees": [1, 2, 3, 4, 5, 6, 7, 9, 12, 15, [16, 0, 2, 2], [18, 0, 2, 2], [3, 18, 3, 3]],
 		"decor": [[2, Vector2i(0, 2)], [2, Vector2i(1, 2)], [2, Vector2i(2, 2)], [2, Vector2i(3, 2)],
 			[3, Vector2i(0, 11)], [3, Vector2i(1, 11)], [3, Vector2i(3, 11)], [3, Vector2i(6, 11)], [3, Vector2i(1, 10)]]},
 	{"name": "Bosque Outonal", "weather": "leaves", "flower": Color(0.95, 0.5, 0.2),
-		"floor_block": Vector2i(0, 0), "relief_row": 5, "patch_threshold": 0.25, "plateau_chance": 0.4,
+		"floor_block": Vector2i(0, 0), "patch_threshold": 0.25,
 		"tree_tint": Color(1.2, 0.9, 0.6), "tree_density": 0.55,
 		"trees": [[9, 18, 3, 3], [9, 18, 3, 3], 1, 3, 5, 8, 13, 16, [4, 0, 2, 2]],
 		"decor": [[2, Vector2i(0, 0)], [2, Vector2i(4, 0)], [2, Vector2i(5, 0)], [2, Vector2i(7, 0)], [3, Vector2i(3, 11)]]},
 	{"name": "Floresta Maldita", "weather": "spores", "flower": Color(0.8, 0.4, 1.0),
-		"floor_block": Vector2i(11, 14), "relief_row": 0, "patch_threshold": 0.3, "plateau_chance": 0.4,
+		"floor_block": Vector2i(11, 14), "patch_threshold": 0.3,
 		"ground_tint": Color(0.82, 0.72, 0.95),
 		"tree_tint": Color(0.8, 0.65, 0.95), "tree_density": 0.6,
 		"trees": [13, 16, 13, 16, [4, 0, 2, 2], [4, 0, 2, 2], 8, 14],
 		"decor": [[2, Vector2i(13, 0)], [2, Vector2i(14, 0)], [2, Vector2i(5, 0)], [2, Vector2i(6, 0)], [2, Vector2i(15, 0)]]},
 	{"name": "Floresta Gélida", "weather": "snow", "flower": Color(0.85, 0.95, 1.0),
-		"floor_block": Vector2i(0, 14), "relief_row": 0, "patch_threshold": 0.3, "plateau_chance": 0.35,
+		"floor_block": Vector2i(0, 14), "patch_threshold": 0.3,
 		"tree_tint": Color(1, 1, 1), "tree_density": 0.5,
 		"trees": [[8, 0, 2, 2], [10, 0, 2, 2], [12, 0, 2, 2], [6, 18, 3, 3], 14],
 		"decor": [[2, Vector2i(0, 3)], [2, Vector2i(1, 3)], [2, Vector2i(2, 3)], [2, Vector2i(3, 3)], [2, Vector2i(4, 3)]]},
 	{"name": "Pântano Nebuloso", "weather": "spores", "flower": Color(0.6, 1.0, 0.4),
-		"floor_block": Vector2i(11, 7), "relief_row": 0, "patch_threshold": 0.15, "plateau_chance": 0.3,
+		"floor_block": Vector2i(11, 7), "patch_threshold": 0.15,
 		"ground_tint": Color(0.85, 0.95, 0.85),
 		"tree_tint": Color(0.75, 0.9, 0.75), "tree_density": 0.6,
 		"trees": [[6, 0, 2, 2], [2, 0, 2, 2], 2, 10, 13, 16],
 		"decor": [[2, Vector2i(0, 2)], [2, Vector2i(5, 2)], [2, Vector2i(7, 2)], [3, Vector2i(4, 11)], [3, Vector2i(5, 11)], [3, Vector2i(8, 11)]]},
 	{"name": "Bosque das Cerejeiras", "weather": "petals", "flower": Color(1.0, 0.6, 0.8),
-		"floor_block": Vector2i(11, 0), "relief_row": 5, "patch_threshold": 0.3, "plateau_chance": 0.3,
+		"floor_block": Vector2i(11, 0), "patch_threshold": 0.3,
 		"tree_tint": Color(1, 1, 1), "tree_density": 0.5,
 		"trees": [[14, 0, 2, 2], [14, 0, 2, 2], [0, 18, 3, 3], 4, 9],
 		"decor": [[2, Vector2i(2, 0)], [2, Vector2i(3, 0)], [3, Vector2i(6, 11)], [3, Vector2i(3, 11)]]},

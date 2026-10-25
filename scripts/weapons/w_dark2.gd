@@ -6,7 +6,7 @@ func stats_for_level(l: int) -> Dictionary:
 	return {
 		"damage": 14.0 * (1.0 + 0.16 * (l - 1)),
 		"cooldown": 3.0 * pow(0.95, l - 1),
-		"area": 38.0 + 3.0 * (l - 1),
+		"area": 46.0 + 3.0 * (l - 1),
 		"steal": 1.0 + 0.25 * (l - 1),   # vida por inimigo atingido (máx. 6 por explosão)
 	}
 

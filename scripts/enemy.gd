@@ -145,11 +145,6 @@ func _physics_process(delta: float) -> void:
 	var to_player := player.global_position - global_position
 	var dist := to_player.length()
 	var dir := to_player / maxf(dist, 0.001)
-	# planaltos: se o jogador estiver em outro nível, vai pela escada
-	if not is_boss and Game.current.map:
-		var goal := Game.current.map.route(global_position, player.global_position)
-		if goal != player.global_position:
-			dir = global_position.direction_to(goal)
 
 	var move := dir
 	if _poison_t > 0.0:

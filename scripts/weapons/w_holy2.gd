@@ -4,19 +4,21 @@ extends Weapon
 
 func stats_for_level(l: int) -> Dictionary:
 	return {
-		"damage": 9.0 * (1.0 + 0.16 * (l - 1)),
+		"damage": 12.0 * (1.0 + 0.16 * (l - 1)),
 		"count": 2 + 2 * int(l >= 3) + 2 * int(l >= 6) + 2 * int(l >= 9),
-		"cooldown": 1.9 * pow(0.96, l - 1),
+		"cooldown": 1.4 * pow(0.96, l - 1),
 		"range": 110.0 + 8.0 * (l - 1),
 		"pierce": 2 + l / 2,
 	}
 
 
 func fire() -> bool:
-	if nearest_enemy(player.global_position, stat("range")) == null:
+	var t := nearest_enemy(player.global_position, stat("range"))
+	if t == null:
 		return false
 	var n := int(stat("count"))
-	var base := player.aim_dir.angle()
+	# a primeira lança sempre vai no inimigo mais próximo
+	var base := player.global_position.direction_to(t.global_position).angle()
 	for i in n:
 		var p := Projectile.new()
 		p.weapon = self

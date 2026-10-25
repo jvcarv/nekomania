@@ -20,7 +20,7 @@ agora só tem as cópias ampliadas da UI (item 2).
 
 Não são arquivos de imagem, mas o que aparece na tela é gerado por código escrito pela IA:
 
-- Montagem do mapa: o código da IA escolhe **onde** colocar cada tile do chão, das manchas, dos planaltos, das escadas, das árvores e dos enfeites (`scripts/world/map_generator.gd`, `scripts/ui/menu_background.gd`). Os tiles em si são arte humana (Ninja Adventure e Forest Trees Pack). Alguns biomas usam um tingimento de cor por código (ex.: Floresta Maldita mais roxa).
+- Montagem do mapa: o código da IA escolhe **onde** colocar cada tile do chão, das manchas, das árvores e dos enfeites (`scripts/world/map_generator.gd`, `scripts/ui/menu_background.gd`). Os tiles em si são arte humana (Ninja Adventure e Forest Trees Pack). Alguns biomas usam um tingimento de cor por código (ex.: Floresta Maldita mais roxa).
 - Clima: as partículas usam os sprites de `FX/Particle` do Ninja Adventure; o código só controla quantidade, direção e cor.
 - Círculo verde da poça ácida (`scripts/weapons/acid_pool.gd`), raio em zigue-zague (`w_thunder.gd`), seta do portal (`scripts/ui/hud.gd`), barras de vida/XP (`scripts/ui/pixel_bar.gd` — usa a moldura do pacote de UI + retângulos de cor), números de dano.
 - Avisos de ataque dos chefões (círculo/linha vermelha — `scripts/telegraph.gd`), minimapa (`scripts/ui/minimap.gd`) e a tela escura de transição entre mundos (`scripts/ui/stage_transition.gd`).

@@ -32,13 +32,6 @@ func _draw() -> void:
 	draw_circle(c, r, Color(0.05, 0.04, 0.1, 0.55))
 	draw_arc(c, r - 1.0, 0, TAU, 48, Color(1, 0.85, 0.5, 0.8), 2.0)
 	var center := game.player.global_position
-	# planaltos
-	for pl in game.map.plateaus_near(center, WORLD_RADIUS):
-		var rr: Rect2 = pl["rect"]
-		var a := _to_map(rr.position, center)
-		var b := _to_map(rr.end, center)
-		if (b - a).length() > 1.0:
-			draw_rect(Rect2(a, b - a), Color(0.75, 0.75, 0.7, 0.55))
 	for e in get_tree().get_nodes_in_group("enemies"):
 		var p := _to_map(e.global_position, center)
 		if e.is_boss:
