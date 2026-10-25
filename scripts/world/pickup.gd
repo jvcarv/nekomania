@@ -38,7 +38,7 @@ func _ready() -> void:
 		Kind.POTION:
 			var glow := Sprite2D.new()
 			glow.texture = SpriteLib.fx("holy_spark").get_frame_texture("hit", 1)
-			glow.modulate = Color(DB.WEAPONS[element]["color"], 0.55)
+			glow.modulate = Color(DB.weapon_color(element), 0.55)
 			glow.scale = Vector2(1.3, 1.3)
 			glow.z_index = -1
 			add_child(glow)

@@ -14,6 +14,7 @@ var pierce := 0              # inimigos extras que atravessa
 var max_range := 400.0
 var radius := 5.0
 var homing := 0.0            # força de curva (rad/s); 0 = reto
+var homing_range := 260.0
 var explosion_radius := 0.0  # > 0 causa dano em área ao acertar
 var explosion_fx := ""
 var slow := 0.0              # 0..1
@@ -51,7 +52,7 @@ func _physics_process(delta: float) -> void:
 		return
 	if homing > 0.0:
 		if not is_instance_valid(_target) or _target.dead:
-			_target = weapon.nearest_enemy(global_position, 260.0, _hit) if is_instance_valid(weapon) else null
+			_target = weapon.nearest_enemy(global_position, homing_range, _hit) if is_instance_valid(weapon) else null
 		if _target:
 			var want := global_position.direction_to(_target.global_position)
 			var ang := direction.angle_to(want)

@@ -4,8 +4,8 @@ class_name EnemyArrow
 
 var damage := 8.0
 var direction := Vector2.RIGHT
-var speed := 150.0
-var _life := 3.0
+var speed := 115.0
+var _life := 4.0
 
 
 func _ready() -> void:

@@ -12,7 +12,8 @@ var _cd := 0.5
 const STAT_LABELS := {
 	"damage": "dano", "count": "projéteis", "cooldown": "recarga", "pierce": "perfuração",
 	"area": "área", "chains": "saltos", "duration": "duração", "speed": "velocidade",
-	"range": "alcance", "slow": "lentidão",
+	"range": "alcance", "slow": "lentidão", "burn": "queimadura", "poison": "veneno", "freeze": "congelamento",
+	"radius": "raio", "steal": "roubo de vida",
 }
 
 
@@ -56,12 +57,21 @@ func stat(key: String) -> float:
 	var v: float = float(raw(key, 0.0))
 	match key:
 		"damage":
-			return v * (1.0 + bonus_damage) * float(player.stats["damage"])
+			return v * (1.0 + bonus_damage) * float(player.stats["damage"]) * (1.0 + synergy())
 		"area":
 			return v * float(player.stats["area"])
 		"count":
 			return v + float(player.stats["projectiles"])
 	return v
+
+
+## Bônus de sinergia: o jogador tem os dois poderes do mesmo elemento.
+func synergy() -> float:
+	var elem: String = DB.WEAPONS[id]["elem"]
+	for w in player.weapon_list():
+		if w != self and DB.WEAPONS[w.id]["elem"] == elem:
+			return DB.SYNERGY_BONUS
+	return 0.0
 
 
 func level_up(rarity: int) -> void:

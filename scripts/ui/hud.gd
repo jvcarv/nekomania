@@ -16,6 +16,7 @@ var coin_label: Label
 var kill_label: Label
 var announce_label: Label
 var weapon_row: HBoxContainer
+var minimap: Minimap
 var portal_arrow: Polygon2D
 var _portal: Node2D
 var _announce_tw: Tween
@@ -49,6 +50,7 @@ func _ready() -> void:
 	hp_bar = PixelBar.new()
 	hp_bar.fill_color = Color(0.88, 0.2, 0.25)
 	hp_bar.custom_minimum_size = Vector2(260, 34)
+	hp_bar.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	left.add_child(hp_bar)
 	weapon_row = HBoxContainer.new()
 	weapon_row.add_theme_constant_override("separation", 6)
@@ -86,6 +88,9 @@ func _ready() -> void:
 	coin_row.add_child(coin_label)
 	kill_label = UITheme.label("Abates: 0", 16, Color(1, 0.85, 0.85), HORIZONTAL_ALIGNMENT_RIGHT)
 	right.add_child(kill_label)
+	minimap = Minimap.new()
+	minimap.size_flags_horizontal = Control.SIZE_SHRINK_END
+	right.add_child(minimap)
 
 	# Barra do chefão (embaixo)
 	boss_box = VBoxContainer.new()
@@ -118,6 +123,7 @@ func _ready() -> void:
 
 func bind(g: Game) -> void:
 	game = g
+	minimap.game = g
 	var p := g.player
 	p.health_changed.connect(_on_health)
 	p.xp_changed.connect(_on_xp)
@@ -161,7 +167,7 @@ func _on_xp(xp: int, need: int, lvl: int) -> void:
 
 
 func _on_stage(i: int) -> void:
-	stage_label.text = "Estágio %d/%d — %s" % [i + 1, DB.STAGES.size(), DB.STAGES[i]["name"]]
+	stage_label.text = "Estágio %d/%d — %s" % [i + 1, DB.STAGES.size(), game.biome()["name"]]
 	boss_box.visible = false
 
 

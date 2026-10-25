@@ -36,31 +36,57 @@ func dmg_mult() -> float:
 
 func reset() -> void:
 	_budget = 0.0
-	_swarm_t = 40.0
-	_elite_t = 55.0
+	_swarm_t = 60.0
+	_elite_t = 50.0
+	_kill_times.clear()
+	pressure = 1.0
+
+
+## Ritmo adaptativo: quanto mais rápido o jogador mata, mais inimigos aparecem.
+var pressure := 1.0
+var _kill_times: Array = []
+var _clock := 0.0
+const KILL_WINDOW := 12.0
+
+
+func register_kill() -> void:
+	_kill_times.append(_clock)
+
+
+func kill_rate() -> float:
+	while not _kill_times.is_empty() and _clock - float(_kill_times[0]) > KILL_WINDOW:
+		_kill_times.pop_front()
+	return _kill_times.size() / KILL_WINDOW
 
 
 func _physics_process(delta: float) -> void:
 	if not active or game == null or game.player == null:
 		return
+	_clock += delta
 	var d := difficulty()
 	var alive := get_tree().get_nodes_in_group("enemies").size()
-	var max_alive := int(minf(240.0, 40.0 + 55.0 * d))
-	var rate := 0.55 + 1.6 * d                     # inimigos por segundo
+	var base_rate := 0.6 + 1.5 * d                 # inimigos por segundo
+	# pressão sobe se o jogador mata mais rápido do que os inimigos chegam
+	var want := clampf(kill_rate() / (base_rate * 1.2), 1.0, 2.5)
+	pressure = move_toward(pressure, want, delta * (0.08 if want > pressure else 0.12))
+	var max_alive := int(minf(300.0, (45.0 + 60.0 * d) * (0.8 + 0.4 * pressure)))
+	var rate := base_rate * pressure
+	if alive < int(10.0 + 20.0 * d):
+		rate *= 2.0                                # tela vazia: reabastece rápido
 	if game.boss != null:
-		rate *= 0.45
-	_budget = minf(_budget + rate * delta, 12.0)
+		rate *= 0.5
+	_budget = minf(_budget + rate * delta, 14.0)
 	while _budget >= 1.0 and alive < max_alive:
 		_budget -= 1.0
 		alive += 1
 		spawn(_pick_type(), _ring_pos())
 
-	_swarm_t -= delta
+	_swarm_t -= delta * pressure
 	if _swarm_t <= 0.0:
 		_swarm_t = randf_range(38.0, 50.0)
 		spawn_swarm()
 
-	_elite_t -= delta
+	_elite_t -= delta * pressure
 	if _elite_t <= 0.0:
 		_elite_t = randf_range(50.0, 70.0)
 		var st: Dictionary = DB.STAGES[game.stage_index]
@@ -119,7 +145,7 @@ func spawn(type_id: String, pos: Vector2, elite: bool = false, boss: Dictionary 
 ## Horda: um anel de inimigos cercando o jogador.
 func spawn_swarm() -> void:
 	var st: Dictionary = DB.STAGES[game.stage_index]
-	var n := int(14 + 7 * difficulty())
+	var n := mini(60, int(10 + 9 * difficulty() + 6.0 * (pressure - 1.0)))
 	var center := game.player.global_position
 	var radius := 260.0
 	var kind := _pick_from(st["swarm"])

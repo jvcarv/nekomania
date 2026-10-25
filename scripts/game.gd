@@ -38,6 +38,10 @@ var rerolls := 2
 var _pending_levels := 0
 var _portal: Node2D = null
 var _numbers := 0
+var biomes: Array = []          # 3 biomas sorteados para esta partida
+var weather: Weather
+var transition: StageTransition
+var _changing := false
 
 
 func _enter_tree() -> void:
@@ -56,8 +60,20 @@ func _ready() -> void:
 	player.leveled_up.connect(_on_player_leveled_up)
 	player.died.connect(_on_player_died)
 	level_up_menu.chosen.connect(_on_upgrade_chosen)
+	var pool := DB.BIOMES.duplicate()
+	pool.shuffle()
+	biomes = pool.slice(0, DB.STAGES.size())
+	weather = Weather.new()
+	world.add_child(weather)
+	transition = StageTransition.new()
+	add_child(transition)
 	hud.bind(self)
 	start_stage(0)
+	transition.intro(1, biome()["name"])
+
+
+func biome() -> Dictionary:
+	return biomes[stage_index]
 
 
 # ------------------------------------------------------------------ estágios
@@ -71,16 +87,15 @@ func start_stage(index: int) -> void:
 		_portal = null
 	director.clear_enemies()
 	director.reset()
-	map.generate(DB.STAGES[index], randi(), world, player.global_position)
+	map.generate(biome(), randi(), world, player.global_position)
+	weather.set_kind(biome().get("weather", ""), biome()["flower"])
 	director.active = true
 	stage_started.emit(index)
-	var st: Dictionary = DB.STAGES[index]
-	announce("Estágio %d — %s" % [index + 1, st["name"]], Color(1, 1, 0.8))
 	if index == 0:
 		var c: Dictionary = DB.CHARACTERS[player.char_id]
 		var wd: Dictionary = DB.WEAPONS[c["weapon"]]
 		await get_tree().create_timer(2.6, false).timeout
-		announce("%s bebeu a %s!" % [c["name"], wd["potion"]], wd["color"])
+		announce("%s bebeu a %s!" % [c["name"], wd["potion"]], DB.weapon_color(c["weapon"]))
 
 
 func _process(delta: float) -> void:
@@ -97,7 +112,7 @@ func _process(delta: float) -> void:
 		announce("%s apareceu!" % boss.boss_name, Color(1, 0.35, 0.3))
 		player.shake(6.0)
 
-	if _portal and player.global_position.distance_to(_portal.global_position) < 16.0:
+	if _portal and not _changing and player.global_position.distance_to(_portal.global_position) < 16.0:
 		_enter_portal()
 
 
@@ -117,7 +132,9 @@ func toggle_pause() -> void:
 
 
 # ------------------------------------------------------------------ chefão e portal
-func _on_boss_killed(_e: Enemy) -> void:
+func _on_boss_killed(e: Enemy) -> void:
+	if boss_defeated or e != boss or boss == null:
+		return
 	boss_defeated = true
 	var pos := boss.global_position
 	boss = null
@@ -148,24 +165,42 @@ func _on_boss_killed(_e: Enemy) -> void:
 	hud.show_portal_arrow(_portal)
 
 
+## Animação de troca de mundo: o gato é sugado pelo portal, a tela escurece,
+## aparece o nome do novo bioma e o gato surge no novo mapa.
 func _enter_portal() -> void:
+	_changing = true
 	# coleta tudo que ficou no chão antes de trocar de estágio
 	for p in get_tree().get_nodes_in_group("pickups"):
 		p.attract()
-	player.heal(player.stats["max_hp"] * 0.3)
-	_portal.queue_free()
-	_portal = null
+	player.frozen = true
 	hud.show_portal_arrow(null)
-	await get_tree().create_timer(0.6, false).timeout
+	var portal_pos := _portal.global_position
+	var tw := player.create_tween().set_parallel(true)
+	tw.tween_property(player, "global_position", portal_pos, 0.5).set_trans(Tween.TRANS_QUAD)
+	tw.tween_property(player.sprite, "scale", Vector2(0.05, 0.05), 0.6).set_ease(Tween.EASE_IN)
+	tw.tween_property(player.sprite, "rotation", TAU * 2.0, 0.6)
+	await tw.finished
+	await transition.fade_out()
 	for p in get_tree().get_nodes_in_group("pickups"):
 		p.queue_free()
+	_portal.queue_free()
+	_portal = null
+	player.heal(player.stats["max_hp"] * 0.3)
+	player.sprite.rotation = 0.0
 	start_stage(stage_index + 1)
+	await transition.show_title(stage_index + 1, biome()["name"])
+	var tw2 := player.create_tween()
+	tw2.tween_property(player.sprite, "scale", Vector2(1.25, 1.25), 0.25).set_trans(Tween.TRANS_BACK)
+	tw2.tween_property(player.sprite, "scale", Vector2.ONE, 0.15)
+	player.frozen = false
+	_changing = false
 
 
 # ------------------------------------------------------------------ drops
 func on_enemy_killed(e: Enemy) -> void:
 	kills += 1
 	kills_changed.emit(kills)
+	director.register_kill()
 	var pos := e.global_position
 	var xp := int(e.xp_value * (1.0 + 0.4 * stage_index))
 	_drop_xp(pos, xp)
@@ -218,6 +253,10 @@ func drop_potion(pos: Vector2) -> void:
 		for id in DB.WEAPONS:
 			if player.get_weapon(id) == null:
 				options.append(id)
+				# poções do mesmo elemento dos poderes atuais aparecem mais (sinergia)
+				for w in player.weapon_list():
+					if DB.WEAPONS[w.id]["elem"] == DB.WEAPONS[id]["elem"]:
+						options.append(id)
 	if options.is_empty():
 		_drop(Pickup.Kind.COIN, pos, 1)
 		return
@@ -237,15 +276,26 @@ func drink_potion(id: String) -> void:
 			add_coins(3)
 			return
 		player.add_weapon(id)
-		announce("%s! Novo poder: %s" % [data["potion"], data["name"]], data["color"])
+		announce("%s! Novo poder: %s" % [data["potion"], data["name"]], DB.weapon_color(id))
+		_check_synergy(id)
 	elif not w.is_maxed():
 		w.level_up(1)
 		player.weapons_changed.emit()
-		announce("%s! %s Nv %d" % [data["potion"], data["name"], w.level], data["color"])
+		announce("%s! %s Nv %d" % [data["potion"], data["name"], w.level], DB.weapon_color(id))
 	else:
 		add_coins(3)
 		return
-	player.drink_effect(data["color"])
+	player.drink_effect(DB.weapon_color(id))
+
+
+func _check_synergy(new_id: String) -> void:
+	var elem: String = DB.WEAPONS[new_id]["elem"]
+	for w in player.weapon_list():
+		if w.id != new_id and DB.WEAPONS[w.id]["elem"] == elem:
+			await get_tree().create_timer(1.4, false).timeout
+			announce("SINERGIA DE %s! +%d%% dano" % [DB.ELEMENTS[elem]["name"].to_upper(), int(DB.SYNERGY_BONUS * 100)],
+					DB.ELEMENTS[elem]["color"])
+			return
 
 
 func add_coins(n: int) -> void:
@@ -269,6 +319,7 @@ func _on_upgrade_chosen(option: Dictionary) -> void:
 	match option.get("type", ""):
 		"weapon_new":
 			player.add_weapon(option["id"])
+			_check_synergy(option["id"])
 		"weapon_up":
 			var w := player.get_weapon(option["id"])
 			if w:
@@ -302,7 +353,11 @@ func build_upgrade_options(n: int) -> Array:
 	if owned.size() < DB.MAX_WEAPONS:
 		for id in DB.WEAPONS:
 			if player.get_weapon(id) == null:
-				pool.append({"type": "weapon_new", "id": id, "weight": 1.6})
+				var wgt := 0.9
+				for w in owned:
+					if DB.WEAPONS[w.id]["elem"] == DB.WEAPONS[id]["elem"]:
+						wgt = 4.0   # o par do mesmo elemento aparece bem mais (sinergia)
+				pool.append({"type": "weapon_new", "id": id, "weight": wgt})
 	for id in DB.PASSIVES:
 		pool.append({"type": "passive", "id": id, "weight": 1.0 if id != "projectiles" else 0.35})
 	var out: Array = []

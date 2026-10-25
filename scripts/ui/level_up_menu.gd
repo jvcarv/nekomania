@@ -82,7 +82,7 @@ func _show(options: Array) -> void:
 func _make_card(opt: Dictionary, idx: int) -> Button:
 	var rarity: Dictionary = DB.RARITIES[opt["rarity"]]
 	var b := Button.new()
-	b.custom_minimum_size = Vector2(300, 330)
+	b.custom_minimum_size = Vector2(300, 360)
 	b.focus_mode = Control.FOCUS_ALL
 	var v := VBoxContainer.new()
 	v.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -102,8 +102,11 @@ func _make_card(opt: Dictionary, idx: int) -> Button:
 		"weapon_new":
 			var wd: Dictionary = DB.WEAPONS[opt["id"]]
 			title = wd["potion"]
-			subtitle = "Novo poder: " + wd["name"]
+			subtitle = "Novo poder: %s (%s)" % [wd["name"], DB.element_name(opt["id"])]
 			desc = wd["desc"]
+			for ow in game.player.weapon_list():
+				if DB.WEAPONS[ow.id]["elem"] == wd["elem"]:
+					desc += " SINERGIA: +%d%% dano nos dois!" % int(DB.SYNERGY_BONUS * 100)
 			icon = UITheme.weapon_icon(opt["id"])
 		"weapon_up":
 			var w := game.player.get_weapon(opt["id"])
@@ -149,6 +152,11 @@ func _make_card(opt: Dictionary, idx: int) -> Button:
 	for c in v.get_children():
 		if c is Control:
 			c.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		if c is Label:
+			# quebra de linha para nada vazar da carta
+			c.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			c.custom_minimum_size.x = 260
+	v.clip_contents = true
 	# borda colorida pela raridade
 	var border := ReferenceRect.new()
 	border.border_color = rarity["color"]

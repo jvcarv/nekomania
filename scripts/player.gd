@@ -13,7 +13,7 @@ const BASE_SPEED := 105.0
 
 ## Atributos base. Perks de personagem e melhorias somam valores aqui.
 const BASE_STATS := {
-	"max_hp": 100.0,
+	"max_hp": 110.0,
 	"regen": 0.0,          # vida por segundo
 	"armor": 0.0,          # redução = armor / (armor + 15)
 	"speed": 1.0,          # multiplicador de velocidade
@@ -36,6 +36,7 @@ var xp: int = 0
 var xp_need: int = 10
 var passive_counts: Dictionary = {}   # id -> quantas vezes pegou
 var is_dead := false
+var frozen := false        # sem controle (ex.: entrando no portal)
 var facing_towards := "down"
 var aim_dir := Vector2.DOWN
 var invuln := 0.0
@@ -84,6 +85,8 @@ func _physics_process(delta: float) -> void:
 			_regen_acc -= floor(_regen_acc)
 
 	var direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	if frozen:
+		direction = Vector2.ZERO
 	velocity = direction * BASE_SPEED * float(stats["speed"])
 	if direction != Vector2.ZERO:
 		aim_dir = direction.normalized()

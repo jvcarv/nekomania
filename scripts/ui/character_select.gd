@@ -144,7 +144,7 @@ func _update_card(b: Button, id: int) -> void:
 	var lbl: Label = b.get_node("Price")
 	if Global.is_unlocked(id):
 		icon.modulate = Color.WHITE
-		lbl.text = "EM USO" if id == Global.selected_char else DB.WEAPONS[DB.CHARACTERS[id]["weapon"]]["element"]
+		lbl.text = "EM USO" if id == Global.selected_char else DB.element_name(DB.CHARACTERS[id]["weapon"])
 	else:
 		icon.modulate = Color(0.22, 0.22, 0.3, 0.9)
 		lbl.text = "$%d" % DB.CHARACTERS[id]["price"]

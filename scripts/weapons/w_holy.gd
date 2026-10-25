@@ -4,11 +4,11 @@ extends Weapon
 
 func stats_for_level(l: int) -> Dictionary:
 	return {
-		"damage": 18.0 * (1.0 + 0.25 * (l - 1)),
-		"count": 1 + (l - 1) / 2,
-		"cooldown": 2.0 * pow(0.95, l - 1),
-		"area": 22.0 * (1.0 + 0.06 * (l - 1)),
-		"range": 210.0,
+		"damage": 16.0 * (1.0 + 0.17 * (l - 1)),
+		"count": 1 + (l - 1) / 3,
+		"cooldown": 2.1 * pow(0.96, l - 1),
+		"area": 18.0 * (1.0 + 0.05 * (l - 1)),
+		"range": 105.0 + 8.0 * (l - 1),
 	}
 
 

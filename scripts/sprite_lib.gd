@@ -8,14 +8,15 @@ static var _cache: Dictionary = {}
 ## Adiciona uma animação a partir de uma tira (horizontal ou vertical) de quadros.
 static func add_strip(sf: SpriteFrames, anim: String, path: String, fw: int, fh: int,
 		fps: float = 10.0, loop: bool = true, row: int = 0, start: int = 0, count: int = -1,
-		vertical: bool = false) -> void:
+		vertical: bool = false, append: bool = false) -> void:
 	var tex: Texture2D = load(path)
 	if tex == null:
 		push_warning("SpriteLib: textura não encontrada: " + path)
 		return
-	if sf.has_animation(anim):
+	if sf.has_animation(anim) and not append:
 		sf.remove_animation(anim)
-	sf.add_animation(anim)
+	if not sf.has_animation(anim):
+		sf.add_animation(anim)
 	sf.set_animation_speed(anim, fps)
 	sf.set_animation_loop(anim, loop)
 	var total: int = (tex.get_height() / fh) if vertical else (tex.get_width() / fw)
@@ -127,6 +128,22 @@ static func fx(name: String) -> SpriteFrames:
 			"wood":
 				add_strip(sf, "fly", FX + "Wood VFX 01 - 02/Wood VFX 01 - 02/Wood VFX 01/Wood VFX 01 Repeatable.png", 32, 32, 14.0, true)
 				add_strip(sf, "hit", FX + "Wood VFX 01 - 02/Wood VFX 01 - 02/Wood VFX 01/Wood VFX 01 Hit.png", 32, 32, 18.0, false)
+			"fire_breath":
+				add_strip(sf, "hit", FX + "Fire Effect 1/Fire Effect 1/Fire Breath SpriteSheet.png", 48, 48, 14.0, false, 1, 0, 4)
+				add_strip(sf, "hit", FX + "Fire Effect 1/Fire Effect 1/Fire Breath SpriteSheet.png", 48, 48, 14.0, false, 2, 0, 6, false, true)
+			"holy_lance":
+				add_strip(sf, "fly", FX + "Holy VFX 01-02/Holy VFX 01/Holy VFX 01 Repeatable.png", 32, 32, 14.0, true)
+			"ice_prison":
+				add_strip(sf, "hit", FX + "Ice Effect 01/Ice Effect 01/Ice VFX 2/Ice VFX 2 Start.png", 32, 32, 22.0, false)
+				add_strip(sf, "hit", FX + "Ice Effect 01/Ice Effect 01/Ice VFX 2/Ice VFX 2 Active.png", 32, 32, 22.0, false, 0, 0, -1, false, true)
+				add_strip(sf, "hit", FX + "Ice Effect 01/Ice Effect 01/Ice VFX 2/Ice VFX 2 Ending.png", 32, 32, 22.0, false, 0, 0, -1, false, true)
+			"thunder_orb":
+				add_strip(sf, "fly", FX + "Thunder Effect 01/Thunder Effect 01/Thunder Projectile 1/Thunder projectile1 w blur.png", 32, 32, 12.0, true)
+			"acid_flask":
+				add_strip(sf, "fly", FX + "Acid VFX 01 - 02/Acid VFX 01 - 02/Acid VFX 1/Acid VFX 01.png", 32, 32, 14.0, true, 0, 0, 10)
+				add_strip(sf, "hit", FX + "Acid VFX 01 - 02/Acid VFX 01 - 02/Acid VFX 1/Acid VFX 01.png", 32, 32, 16.0, false, 0, 10, 6)
+			"wood_thorn":
+				add_strip(sf, "hit", FX + "Wood VFX 01 - 02/Wood VFX 01 - 02/Wood VFX 02/Wood VFX 02.png", 32, 32, 22.0, false)
 			"arrow":
 				add_strip(sf, "fly", "res://assets/chars/Skeleton Archer/Arrow(projectile)/Arrow03(32x32).png", 32, 32, 1.0, true)
 			"coin":

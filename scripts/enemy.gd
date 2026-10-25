@@ -28,6 +28,11 @@ var _flash := 0.0
 var _attacking := false
 var _base_scale := 1.0
 var _contact_range := 14.0
+var _dot_dps := 0.0
+var _dot_t := 0.0
+var _dot_tick := 0.0
+var _brain: BossBrain
+var _boss_data: Dictionary = {}
 
 @onready var sprite: AnimatedSprite2D = $Sprite
 @onready var shape: CollisionShape2D = $CollisionShape2D
@@ -60,6 +65,7 @@ func setup(t: String, hp_mult: float, dmg_mult: float, elite: bool = false, boss
 		_base_scale = boss["scale"]
 		xp_value = 150
 		ranged = false
+		_boss_data = boss
 	hp = max_hp
 
 
@@ -80,6 +86,15 @@ func _ready() -> void:
 	if is_boss:
 		sprite.modulate = Color(1.25, 0.9, 0.9)
 		_contact_range += 6.0
+		collision_mask = 2   # atravessa árvores (e as derruba) e outros inimigos
+		_brain = BossBrain.new()
+		_brain.boss = self
+		_brain.attacks = _boss_data.get("attacks", ["summon"])
+		add_child(_brain)
+
+
+func contact_range() -> float:
+	return _contact_range
 
 
 func _physics_process(delta: float) -> void:
@@ -94,6 +109,14 @@ func _physics_process(delta: float) -> void:
 			sprite.self_modulate = Color.WHITE
 	if _slow_t > 0.0:
 		_slow_t -= delta
+	if _dot_t > 0.0:
+		_dot_t -= delta
+		_dot_tick -= delta
+		if _dot_tick <= 0.0:
+			_dot_tick = 0.5
+			take_hit(_dot_dps * 0.5, false)
+			if dead:
+				return
 	var slow_mult := 1.0 - (_slow_f if _slow_t > 0.0 else 0.0)
 	var to_player := player.global_position - global_position
 	var dist := to_player.length()
@@ -102,22 +125,24 @@ func _physics_process(delta: float) -> void:
 	var move := dir
 	if ranged:
 		_shoot_cd -= delta
-		if dist < 110.0:
+		# fica a uma distância média (ao alcance dos poderes do jogador) e atira
+		if dist < 60.0:
 			move = -dir * 0.6
-		elif dist < 160.0:
+		elif dist < 95.0:
 			move = Vector2.ZERO
-		if _shoot_cd <= 0.0 and dist < 200.0:
-			_shoot_cd = randf_range(2.4, 3.2)
+		if _shoot_cd <= 0.0 and dist < 150.0:
+			_shoot_cd = randf_range(3.2, 4.2)
 			_shoot(player)
+	var override := Vector2.INF
 	if is_boss:
-		_summon_cd -= delta
-		if _summon_cd <= 0.0:
-			_summon_cd = 8.0
-			Game.current.director.summon_minions(global_position, 6)
 		if hp < max_hp * 0.5:
-			slow_mult *= 1.3
+			slow_mult *= 1.25
+		override = _brain.update(delta, player)
 
-	velocity = move * speed * slow_mult + _knock
+	if override != Vector2.INF:
+		velocity = override
+	else:
+		velocity = move * speed * slow_mult + _knock
 	_knock = _knock.move_toward(Vector2.ZERO, 600.0 * delta)
 	move_and_slide()
 
@@ -156,6 +181,15 @@ func _on_anim_finished() -> void:
 		sprite.play("walk")
 
 
+## Dano contínuo (queimadura / veneno). Mantém o maior dano por segundo ativo.
+func apply_dot(dps: float, duration: float, tint: Color = Color.WHITE) -> void:
+	if dead:
+		return
+	if _dot_t <= 0.0 or dps >= _dot_dps:
+		_dot_dps = dps
+	_dot_t = maxf(_dot_t, duration)
+
+
 func apply_slow(amount: float, duration: float) -> void:
 	if is_boss:
 		amount *= 0.4
@@ -185,6 +219,8 @@ func die() -> void:
 	if dead:
 		return
 	dead = true
+	if _brain:
+		_brain.cleanup()
 	remove_from_group("enemies")
 	shape.set_deferred("disabled", true)
 	collision_layer = 0

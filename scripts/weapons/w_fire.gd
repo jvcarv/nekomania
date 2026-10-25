@@ -4,19 +4,20 @@ extends Weapon
 
 func stats_for_level(l: int) -> Dictionary:
 	return {
-		"damage": 10.0 * (1.0 + 0.22 * (l - 1)),
-		"count": 1 + int(l >= 3) + int(l >= 6),
-		"cooldown": 0.95 * pow(0.94, l - 1),
-		"pierce": int(l >= 5) + int(l >= 8),
-		"area": 0.0 if l < 4 else (22.0 if l < 7 else 30.0),
-		"range": 260.0,
+		"damage": 10.0 * (1.0 + 0.16 * (l - 1)),
+		"count": 1 + int(l >= 4) + int(l >= 8),
+		"cooldown": 1.0 * pow(0.96, l - 1),
+		"pierce": int(l >= 6),
+		"area": 0.0 if l < 4 else 18.0 + 2.0 * (l - 4),
+		"range": 125.0 + 9.0 * (l - 1),
 	}
 
 
 func fire() -> bool:
 	var origin := player.global_position + Vector2(0, -6)
 	var n := int(stat("count"))
-	var targets := nearest_enemies(origin, n, stat("range"))
+	var rng := stat("range")
+	var targets := nearest_enemies(origin, n, rng)
 	if targets.is_empty():
 		return false
 	for i in n:
@@ -29,10 +30,10 @@ func fire() -> bool:
 		p.frames_name = "firebolt"
 		p.hit_fx = "firebolt"
 		p.direction = dir
-		p.speed = 320.0
+		p.speed = 260.0
 		p.damage = stat("damage")
 		p.pierce = int(stat("pierce"))
-		p.max_range = 420.0
+		p.max_range = rng * 1.25
 		p.explosion_radius = stat("area")
 		p.explosion_fx = "fire_burst"
 		p.sprite_scale = Vector2(0.55, 0.5)

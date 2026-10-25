@@ -8,10 +8,10 @@ var _hit_cd: Dictionary = {}   # inimigo -> tempo restante
 
 func stats_for_level(l: int) -> Dictionary:
 	return {
-		"damage": 8.0 * (1.0 + 0.22 * (l - 1)),
-		"count": 2 + (l - 1) / 2,
-		"area": 40.0 * (1.0 + 0.05 * (l - 1)),
-		"speed": 3.0 + 0.15 * l,
+		"damage": 16.0 * (1.0 + 0.17 * (l - 1)),
+		"count": 2 + (l - 1) / 3,
+		"area": 32.0 * (1.0 + 0.04 * (l - 1)),
+		"speed": 3.2 + 0.12 * l,
 	}
 
 

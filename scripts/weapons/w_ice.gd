@@ -4,18 +4,19 @@ extends Weapon
 
 func stats_for_level(l: int) -> Dictionary:
 	return {
-		"damage": 9.0 * (1.0 + 0.2 * (l - 1)),
-		"count": 1 + int(l >= 4) + int(l >= 7),
-		"cooldown": 1.3 * pow(0.95, l - 1),
-		"pierce": 2 + l / 2,
-		"slow": 0.4 + 0.03 * l,
-		"speed": 380.0,
+		"damage": 8.0 * (1.0 + 0.15 * (l - 1)),
+		"count": 1 + int(l >= 4) + int(l >= 8),
+		"cooldown": 1.3 * pow(0.96, l - 1),
+		"pierce": 1 + l / 3,
+		"slow": 0.35 + 0.03 * l,
+		"range": 120.0 + 9.0 * (l - 1),
 	}
 
 
 func fire() -> bool:
 	var origin := player.global_position + Vector2(0, -6)
-	var t := nearest_enemy(origin, 300.0)
+	var rng := stat("range")
+	var t := nearest_enemy(origin, rng)
 	if t == null:
 		return false
 	var base := origin.direction_to(t.global_position)
@@ -28,11 +29,11 @@ func fire() -> bool:
 		p.hit_fx_scale = 0.5
 		var spread := (float(i) - (n - 1) / 2.0) * 0.18
 		p.direction = base.rotated(spread)
-		p.speed = stat("speed")
+		p.speed = 320.0
 		p.damage = stat("damage")
 		p.pierce = int(stat("pierce"))
 		p.slow = stat("slow")
-		p.max_range = 380.0
+		p.max_range = rng * 1.3
 		p.sprite_scale = Vector2(0.6, 0.6)
 		p.global_position = origin
 		fx_parent().add_child(p)
