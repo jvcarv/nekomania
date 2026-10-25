@@ -11,7 +11,7 @@ Godot 4.7. A cena principal agora é `scenes/ui/main_menu.tscn`.
 | `scripts/sprite_lib.gd` | Monta as animações a partir das spritesheets em tempo de execução (personagens, inimigos e efeitos). |
 | `scripts/game.gd` + `scenes/game.tscn` | A partida: estágios, chefão, portal, drops, level-up, pausa, fim de jogo. |
 | `scripts/player.gd` | Movimento, atributos, vida, XP e armas do jogador. |
-| `scripts/enemy.gd` + `scenes/enemy.tscn` | Inimigo genérico (o tipo vem de `DB.ENEMIES`). Arqueiros atiram, chefões invocam lacaios. |
+| `scripts/enemy.gd` + `scenes/enemy.tscn` | Inimigo genérico (o tipo vem de `DB.ENEMIES`). Efeitos de estado: fogo = queimando (laranja, dano contínuo), gelo = congelando (azul, lento), trovão = eletrizado (amarelo, parado), ácido = envenenado (verde, cambaleia de lado). Mira inteligente: as armas evitam inimigos que já vão morrer pelos tiros a caminho. |
 | `scripts/world/spawn_director.gd` | Quando/onde/quais inimigos nascem: fluxo contínuo, hordas em anel, elites, reposicionamento. **Pressão adaptativa**: se o jogador mata rápido, o ritmo de spawn sobe (até 2,5x). |
 | `scripts/world/map_generator.gd` | Mapa procedural infinito em chunks (ruído → bosques e clareiras) + chão em shader. |
 | `scripts/world/pickup.gd` | XP, moedas e corações. |
@@ -30,6 +30,7 @@ Godot 4.7. A cena principal agora é `scenes/ui/main_menu.tscn`.
 3. Derrotou o chefão do estágio 3 → vitória.
 4. Poções: o gato começa bebendo a poção do seu personagem. Ao subir de nível, as cartas oferecem poções (novo poder ou evolução). Elites e chefões sempre deixam cair uma poção; inimigos comuns, raramente.
 5. Moedas coletadas vão para o banco ao fim da partida (ganhando ou perdendo) e desbloqueiam personagens.
+6. **Desafios**: 16 personagens têm um desafio (`"req"` em `DB.CHARACTERS`) — são mais baratos, mas só podem ser comprados depois de cumprir o desafio (ex.: vencer uma partida, ativar uma sinergia, derrotar 300 inimigos com poderes Sagrados). O progresso fica em `Global` (`req_progress`, `req_text`).
 
 ## Balanceamento rápido
 

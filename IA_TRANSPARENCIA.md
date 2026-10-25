@@ -29,6 +29,7 @@ Não são arquivos de imagem, mas o que aparece na tela é gerado por código es
 - `scripts/ui/menu_ground.gdshader`: fundo dos menus.
 - Círculo verde da poça ácida (`scripts/weapons/acid_pool.gd`), raio em zigue-zague (`w_thunder.gd`), seta do portal (`scripts/ui/hud.gd`), barras de vida/XP (`scripts/ui/pixel_bar.gd` — usa a moldura do pacote de UI + retângulos de cor), números de dano.
 - Avisos de ataque dos chefões (círculo/linha vermelha — `scripts/telegraph.gd`), minimapa (`scripts/ui/minimap.gd`), partículas de clima (quadradinhos coloridos — `scripts/world/weather.gd`) e a tela escura de transição entre mundos (`scripts/ui/stage_transition.gd`).
+- Cores de estado dos inimigos (laranja = queimando, azul = congelando, amarelo = eletrizado, verde = envenenado): são só tingimentos do sprite original, feitos por código (`scripts/enemy.gd`).
 - Distribuição procedural das árvores (`scripts/world/map_generator.gd`) — as árvores em si são do pacote humano.
 
 ## 4. Código e dados escritos por IA
