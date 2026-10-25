@@ -70,13 +70,23 @@ func _show(options: Array) -> void:
 	_options = options
 	for c in _cards.get_children():
 		c.queue_free()
+	var cards: Array = []
 	for i in options.size():
-		_cards.add_child(_make_card(options[i], i))
+		var card := _make_card(options[i], i)
+		_cards.add_child(card)
+		cards.append(card)
 	_reroll_btn.text = "Sortear de novo (%d)" % game.rerolls
 	_reroll_btn.disabled = game.rerolls <= 0
 	await get_tree().process_frame
-	if _cards.get_child_count() > 0:
-		(_cards.get_child(0) as Control).grab_focus()
+	# todas as cartas ficam com a altura da mais alta (o texto nunca vaza)
+	var h := 360.0
+	for c: Button in cards:
+		var content: Control = c.get_node("Content")
+		h = maxf(h, content.get_combined_minimum_size().y + 56.0)
+	for c: Button in cards:
+		c.custom_minimum_size.y = h
+	if not cards.is_empty():
+		(cards[0] as Control).grab_focus()
 
 
 func _make_card(opt: Dictionary, idx: int) -> Button:
@@ -85,6 +95,7 @@ func _make_card(opt: Dictionary, idx: int) -> Button:
 	b.custom_minimum_size = Vector2(300, 360)
 	b.focus_mode = Control.FOCUS_ALL
 	var v := VBoxContainer.new()
+	v.name = "Content"
 	v.set_anchors_preset(Control.PRESET_FULL_RECT)
 	v.offset_left = 18
 	v.offset_right = -18
@@ -156,7 +167,6 @@ func _make_card(opt: Dictionary, idx: int) -> Button:
 			# quebra de linha para nada vazar da carta
 			c.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 			c.custom_minimum_size.x = 260
-	v.clip_contents = true
 	# borda colorida pela raridade
 	var border := ReferenceRect.new()
 	border.border_color = rarity["color"]

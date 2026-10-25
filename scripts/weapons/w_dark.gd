@@ -18,8 +18,11 @@ func fire() -> bool:
 	if nearest_enemy(player.global_position, rng) == null:
 		return false
 	var n := int(stat("count"))
+	var targets := nearest_enemies(player.global_position, n, rng)
 	for i in n:
 		var p := Projectile.new()
+		if i < targets.size():
+			p.target = targets[i]
 		p.weapon = self
 		p.frames_name = "dark"
 		p.hit_fx = "dark"

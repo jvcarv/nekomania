@@ -20,6 +20,11 @@ var explosion_fx := ""
 var slow := 0.0              # 0..1
 var knockback := 40.0
 var rotate_sprite := true
+var target: Enemy            # alvo principal (reserva o dano nele)
+var burn := 0.0              # efeitos aplicados ao acertar
+var chill := 0.0
+var shock := 0.0
+var poison := 0.0
 
 var _travel := 0.0
 var _hit: Array = []
@@ -45,6 +50,19 @@ func _ready() -> void:
 	z_index = 4
 	rotation = direction.angle() if rotate_sprite else 0.0
 	body_entered.connect(_on_body_entered)
+	if is_instance_valid(target):
+		target.reserve(damage)
+		_target = target
+
+
+func _release_target() -> void:
+	if is_instance_valid(target):
+		target.release(damage)
+	target = null
+
+
+func _exit_tree() -> void:
+	_release_target()
 
 
 func _physics_process(delta: float) -> void:
@@ -70,10 +88,20 @@ func _on_body_entered(body: Node2D) -> void:
 	if _done or not (body is Enemy) or _hit.has(body) or body.dead:
 		return
 	_hit.append(body)
+	if body == target:
+		_release_target()
 	if is_instance_valid(weapon):
 		weapon.hit(body, damage, direction * knockback)
 		if slow > 0.0:
-			body.apply_slow(slow, 1.5)
+			body.apply_chill(slow, 1.8)
+		if chill > 0.0:
+			body.apply_chill(chill, 1.8)
+		if burn > 0.0:
+			body.apply_burn(burn, 2.5)
+		if shock > 0.0:
+			body.apply_shock(shock)
+		if poison > 0.0:
+			body.apply_poison(poison, 3.0)
 		if explosion_radius > 0.0:
 			for e in weapon.enemies_in_radius(global_position, explosion_radius):
 				if e != body:

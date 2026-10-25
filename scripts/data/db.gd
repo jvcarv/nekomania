@@ -6,46 +6,49 @@ class_name DB
 #   weapon : arma inicial
 #   price  : moedas para desbloquear (0 = grátis)
 #   perk   : bônus de atributos (somados aos atributos base do jogador)
+#   req    : DESAFIO (opcional). O personagem só pode ser comprado depois de
+#            cumprir o desafio (como no Megabonk). Tipos: kills, boss_kills, wins,
+#            stage, level, survive (segundos), runs, potions, elem_kills, synergy.
 # ======================================================================
 const CHARACTERS := {
 	13: {"name": "Feiticeiro", "weapon": "fire", "price": 0, "perk": {}, "desc": "O mago original. Equilibrado."},
 	2: {"name": "Laranjinha", "weapon": "fire", "price": 60, "perk": {"speed": 0.08}, "desc": "+8% velocidade."},
-	21: {"name": "Abóbora", "weapon": "fire", "price": 250, "perk": {"max_hp": 25.0}, "desc": "+25 vida máxima."},
-	32: {"name": "Chapéu de Palha", "weapon": "fire", "price": 320, "perk": {"luck": 0.10}, "desc": "+10% sorte."},
-	15: {"name": "Lorde Demônio", "weapon": "fire", "price": 900, "perk": {"damage": 0.20, "area": 0.15}, "desc": "+20% dano, +15% área."},
+	21: {"name": "Abóbora", "weapon": "fire", "price": 90, "req": {"type": "synergy", "elem": "fire"}, "perk": {"max_hp": 25.0}, "desc": "+25 vida máxima."},
+	32: {"name": "Chapéu de Palha", "weapon": "fire", "price": 150, "req": {"type": "runs", "value": 5}, "perk": {"luck": 0.10}, "desc": "+10% sorte."},
+	15: {"name": "Lorde Demônio", "weapon": "fire", "price": 300, "req": {"type": "wins", "value": 1}, "perk": {"damage": 0.20, "area": 0.15}, "desc": "+20% dano, +15% área."},
 
 	4: {"name": "Branquinho", "weapon": "holy", "price": 80, "perk": {"regen": 0.3}, "desc": "+0.3 vida/s."},
 	25: {"name": "Lacinho", "weapon": "holy", "price": 150, "perk": {"magnet": 20.0}, "desc": "+20 alcance de coleta."},
 	11: {"name": "Vovó", "weapon": "holy", "price": 180, "perk": {"xp_gain": 0.12}, "desc": "+12% experiência."},
-	19: {"name": "Anjo", "weapon": "holy", "price": 450, "perk": {"max_hp": 20.0, "regen": 0.5}, "desc": "+20 vida, +0.5 vida/s."},
-	26: {"name": "Anjinha", "weapon": "holy", "price": 600, "perk": {"attack_speed": 0.15, "luck": 0.10}, "desc": "+15% vel. ataque, +10% sorte."},
+	19: {"name": "Anjo", "weapon": "holy", "price": 150, "req": {"type": "elem_kills", "elem": "holy", "value": 300}, "perk": {"max_hp": 20.0, "regen": 0.5}, "desc": "+20 vida, +0.5 vida/s."},
+	26: {"name": "Anjinha", "weapon": "holy", "price": 200, "req": {"type": "synergy", "elem": "holy"}, "perk": {"attack_speed": 0.15, "luck": 0.10}, "desc": "+15% vel. ataque, +10% sorte."},
 
 	3: {"name": "Cinzento", "weapon": "dark", "price": 60, "perk": {"crit_chance": 0.05}, "desc": "+5% crítico."},
-	10: {"name": "Detetive", "weapon": "dark", "price": 220, "perk": {"crit_chance": 0.08, "crit_mult": 0.25}, "desc": "+8% crítico, +25% dano crítico."},
-	20: {"name": "Morcego", "weapon": "dark", "price": 350, "perk": {"speed": 0.12, "regen": 0.2}, "desc": "+12% velocidade, +0.2 vida/s."},
-	27: {"name": "Diabinha", "weapon": "dark", "price": 650, "perk": {"damage": 0.15, "crit_chance": 0.08}, "desc": "+15% dano, +8% crítico."},
+	10: {"name": "Detetive", "weapon": "dark", "price": 120, "req": {"type": "boss_kills", "value": 3}, "perk": {"crit_chance": 0.08, "crit_mult": 0.25}, "desc": "+8% crítico, +25% dano crítico."},
+	20: {"name": "Morcego", "weapon": "dark", "price": 120, "req": {"type": "stage", "value": 2}, "perk": {"speed": 0.12, "regen": 0.2}, "desc": "+12% velocidade, +0.2 vida/s."},
+	27: {"name": "Diabinha", "weapon": "dark", "price": 200, "req": {"type": "elem_kills", "elem": "dark", "value": 400}, "perk": {"damage": 0.15, "crit_chance": 0.08}, "desc": "+15% dano, +8% crítico."},
 
 	5: {"name": "Siamês", "weapon": "ice", "price": 80, "perk": {"armor": 3.0}, "desc": "+3 armadura."},
 	9: {"name": "Nerd", "weapon": "ice", "price": 140, "perk": {"xp_gain": 0.10}, "desc": "+10% experiência."},
 	24: {"name": "Rosinha", "weapon": "ice", "price": 200, "perk": {"area": 0.12}, "desc": "+12% área."},
-	12: {"name": "Mergulhador", "weapon": "ice", "price": 380, "perk": {"projectiles": 1}, "desc": "+1 projétil."},
+	12: {"name": "Mergulhador", "weapon": "ice", "price": 120, "req": {"type": "elem_kills", "elem": "ice", "value": 300}, "perk": {"projectiles": 1}, "desc": "+1 projétil."},
 
 	6: {"name": "Malhado", "weapon": "thunder", "price": 70, "perk": {"speed": 0.06}, "desc": "+6% velocidade."},
-	29: {"name": "Operário", "weapon": "thunder", "price": 240, "perk": {"armor": 5.0}, "desc": "+5 armadura."},
-	31: {"name": "Leãozinho", "weapon": "thunder", "price": 330, "perk": {"damage": 0.12}, "desc": "+12% dano."},
-	14: {"name": "Faraó", "weapon": "thunder", "price": 550, "perk": {"attack_speed": 0.20}, "desc": "+20% vel. ataque."},
+	29: {"name": "Operário", "weapon": "thunder", "price": 100, "req": {"type": "kills", "value": 1500}, "perk": {"armor": 5.0}, "desc": "+5 armadura."},
+	31: {"name": "Leãozinho", "weapon": "thunder", "price": 120, "req": {"type": "survive", "value": 300}, "perk": {"damage": 0.12}, "desc": "+12% dano."},
+	14: {"name": "Faraó", "weapon": "thunder", "price": 180, "req": {"type": "synergy", "elem": "thunder"}, "perk": {"attack_speed": 0.20}, "desc": "+20% vel. ataque."},
 
 	1: {"name": "Creminho", "weapon": "acid", "price": 50, "perk": {"max_hp": 10.0}, "desc": "+10 vida máxima."},
 	8: {"name": "Azulado", "weapon": "acid", "price": 100, "perk": {"magnet": 25.0}, "desc": "+25 alcance de coleta."},
-	7: {"name": "Zumbi", "weapon": "acid", "price": 280, "perk": {"regen": 0.8}, "desc": "+0.8 vida/s."},
-	22: {"name": "Melancia", "weapon": "acid", "price": 300, "perk": {"area": 0.20}, "desc": "+20% área."},
+	7: {"name": "Zumbi", "weapon": "acid", "price": 100, "req": {"type": "elem_kills", "elem": "acid", "value": 300}, "perk": {"regen": 0.8}, "desc": "+0.8 vida/s."},
+	22: {"name": "Melancia", "weapon": "acid", "price": 100, "req": {"type": "potions", "value": 25}, "perk": {"area": 0.20}, "desc": "+20% área."},
 	23: {"name": "Kiwi", "weapon": "acid", "price": 300, "perk": {"luck": 0.15}, "desc": "+15% sorte."},
 
 	16: {"name": "Ursinho", "weapon": "wood", "price": 120, "perk": {"max_hp": 15.0}, "desc": "+15 vida máxima."},
 	17: {"name": "Urso Pardo", "weapon": "wood", "price": 160, "perk": {"armor": 4.0}, "desc": "+4 armadura."},
-	18: {"name": "Panda", "weapon": "wood", "price": 260, "perk": {"max_hp": 30.0, "armor": 2.0}, "desc": "+30 vida, +2 armadura."},
+	18: {"name": "Panda", "weapon": "wood", "price": 120, "req": {"type": "level", "value": 20}, "perk": {"max_hp": 30.0, "armor": 2.0}, "desc": "+30 vida, +2 armadura."},
 	28: {"name": "Folhagem", "weapon": "wood", "price": 360, "perk": {"regen": 0.6, "area": 0.10}, "desc": "+0.6 vida/s, +10% área."},
-	30: {"name": "Cerejeira", "weapon": "wood", "price": 700, "perk": {"projectiles": 1, "regen": 0.5}, "desc": "+1 projétil, +0.5 vida/s."},
+	30: {"name": "Cerejeira", "weapon": "wood", "price": 220, "req": {"type": "synergy", "elem": "wood"}, "perk": {"projectiles": 1, "regen": 0.5}, "desc": "+1 projétil, +0.5 vida/s."},
 }
 
 ## Ordem de exibição na tela de personagens.
@@ -109,8 +112,8 @@ const WEAPONS := {
 	# ---------------- Trovão
 	"thunder": {"elem": "thunder", "potion": "Poção Elétrica", "name": "Raio em Cadeia", "script": "res://scripts/weapons/w_thunder.gd",
 		"desc": "Um raio que salta entre vários inimigos.", "potion_cell": Vector2i(2, 9)},
-	"thunder2": {"elem": "thunder", "potion": "Néctar da Tempestade", "name": "Orbe Elétrico", "script": "res://scripts/weapons/w_thunder2.gd",
-		"desc": "Um orbe lento que dá choques em quem chega perto.", "potion_cell": Vector2i(8, 9)},
+	"thunder2": {"elem": "thunder", "potion": "Néctar da Tempestade", "name": "Falcão Elétrico", "script": "res://scripts/weapons/w_thunder2.gd",
+		"desc": "Invoca um falcão de raios que mergulha em vários inimigos e os paralisa.", "potion_cell": Vector2i(8, 9)},
 	# ---------------- Ácido
 	"acid": {"elem": "acid", "potion": "Poção Corrosiva", "name": "Poça Ácida", "script": "res://scripts/weapons/w_acid.gd",
 		"desc": "Cria poças borbulhantes que causam dano contínuo.", "potion_cell": Vector2i(5, 2)},
@@ -182,18 +185,18 @@ static func roll_rarity(luck: float, min_rarity: int = 0) -> int:
 #   anims: nome_da_animação -> [arquivo, fps, loop]
 # ======================================================================
 const ENEMIES := {
-	"slime": {"name": "Slime", "hp": 6.0, "speed": 40.0, "damage": 5.0, "xp": 1, "coin": 0.05,
-		"scale": 1.3, "radius": 6.0, "dir": "Slime", "attack": "Slime-Attack01"},
-	"skeleton": {"name": "Esqueleto", "hp": 12.0, "speed": 48.0, "damage": 7.0, "xp": 2, "coin": 0.07,
-		"scale": 1.1, "radius": 6.0, "dir": "Skeleton", "attack": "Skeleton-Attack01"},
-	"archer": {"name": "Esqueleto Arqueiro", "hp": 10.0, "speed": 48.0, "damage": 6.0, "xp": 3, "coin": 0.09,
-		"scale": 1.1, "radius": 6.0, "dir": "Skeleton Archer", "attack": "Skeleton Archer-Attack", "ranged": true},
-	"orc": {"name": "Orc", "hp": 34.0, "speed": 40.0, "damage": 14.0, "xp": 5, "coin": 0.12,
-		"scale": 1.25, "radius": 7.0, "dir": "Orc", "attack": "Orc-Attack01"},
-	"werewolf": {"name": "Lobisomem", "hp": 22.0, "speed": 82.0, "damage": 12.0, "xp": 4, "coin": 0.10,
-		"scale": 1.15, "radius": 6.0, "dir": "Werewolf", "attack": "Werewolf-Attack01"},
-	"werebear": {"name": "Urso-Lobisomem", "hp": 70.0, "speed": 44.0, "damage": 20.0, "xp": 10, "coin": 0.2,
-		"scale": 1.3, "radius": 8.0, "dir": "Werebear", "attack": "Werebear-Attack01"},
+	"slime": {"name": "Slime", "hp": 9.0, "speed": 40.0, "damage": 5.0, "xp": 1, "coin": 0.05,
+		"scale": 1.4, "radius": 6.0, "dir": "Slime", "attack": "Slime-Attack01"},
+	"skeleton": {"name": "Esqueleto", "hp": 18.0, "speed": 48.0, "damage": 7.0, "xp": 2, "coin": 0.07,
+		"scale": 1.6, "radius": 7.0, "dir": "Skeleton", "attack": "Skeleton-Attack01"},
+	"archer": {"name": "Esqueleto Arqueiro", "hp": 14.0, "speed": 48.0, "damage": 6.0, "xp": 3, "coin": 0.09,
+		"scale": 1.6, "radius": 7.0, "dir": "Skeleton Archer", "attack": "Skeleton Archer-Attack", "ranged": true},
+	"orc": {"name": "Orc", "hp": 48.0, "speed": 40.0, "damage": 14.0, "xp": 5, "coin": 0.12,
+		"scale": 1.55, "radius": 8.0, "dir": "Orc", "attack": "Orc-Attack01"},
+	"werewolf": {"name": "Lobisomem", "hp": 32.0, "speed": 80.0, "damage": 12.0, "xp": 4, "coin": 0.10,
+		"scale": 1.7, "radius": 7.5, "dir": "Werewolf", "attack": "Werewolf-Attack01"},
+	"werebear": {"name": "Urso-Lobisomem", "hp": 100.0, "speed": 44.0, "damage": 20.0, "xp": 10, "coin": 0.2,
+		"scale": 1.75, "radius": 9.0, "dir": "Werebear", "attack": "Werebear-Attack01"},
 }
 
 
@@ -209,19 +212,19 @@ const STAGES := [
 	{
 		"spawn": [["slime", 5.0, 0.0], ["skeleton", 4.0, 0.08], ["archer", 1.5, 0.25], ["werewolf", 2.0, 0.45], ["orc", 1.5, 0.65]],
 		"swarm": ["slime", "skeleton", "werewolf"], "elite": ["skeleton", "orc", "werewolf"],
-		"boss": {"type": "orc", "name": "Chefe Orc", "hp": 1800.0, "damage": 18.0, "scale": 2.4, "speed": 44.0,
+		"boss": {"type": "orc", "name": "Chefe Orc", "hp": 1800.0, "damage": 18.0, "scale": 2.8, "speed": 44.0,
 			"attacks": ["slam", "charge", "summon"]},
 	},
 	{
 		"spawn": [["skeleton", 5.0, 0.0], ["archer", 4.0, 0.0], ["orc", 4.0, 0.0], ["werewolf", 4.0, 0.1], ["slime", 2.0, 0.0], ["werebear", 1.5, 0.6]],
 		"swarm": ["skeleton", "werewolf", "orc"], "elite": ["orc", "werewolf", "werebear"],
-		"boss": {"type": "werewolf", "name": "Lobisomem Alfa", "hp": 7000.0, "damage": 28.0, "scale": 2.3, "speed": 64.0,
+		"boss": {"type": "werewolf", "name": "Lobisomem Alfa", "hp": 7000.0, "damage": 28.0, "scale": 2.8, "speed": 64.0,
 			"attacks": ["charge", "charge", "volley", "summon"]},
 	},
 	{
 		"spawn": [["orc", 5.0, 0.0], ["werewolf", 5.0, 0.0], ["archer", 4.0, 0.0], ["skeleton", 3.0, 0.0], ["werebear", 3.0, 0.2], ["slime", 1.0, 0.0]],
 		"swarm": ["werewolf", "orc", "skeleton"], "elite": ["werebear", "orc"],
-		"boss": {"type": "werebear", "name": "Rei Urso", "hp": 16000.0, "damage": 36.0, "scale": 2.6, "speed": 48.0,
+		"boss": {"type": "werebear", "name": "Rei Urso", "hp": 16000.0, "damage": 36.0, "scale": 3.0, "speed": 48.0,
 			"attacks": ["slam", "volley", "charge", "summon", "slam"]},
 	},
 ]
@@ -254,4 +257,4 @@ const BIOMES := [
 # EXPERIÊNCIA
 # ======================================================================
 static func xp_to_next(level: int) -> int:
-	return int(round(3.0 + 3.2 * level + 0.6 * level * level))
+	return int(round(3.0 + 3.2 * level + 0.6 * level * level + 0.015 * level * level * level))

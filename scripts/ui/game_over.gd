@@ -54,7 +54,7 @@ func _ready() -> void:
 	v.add_child(menu)
 
 
-func open(r: Dictionary) -> void:
+func open(r: Dictionary, new_challenges: Array = []) -> void:
 	visible = true
 	var win: bool = r["victory"]
 	_title.text = "VITÓRIA!" if win else "FIM DE JOGO"
@@ -67,6 +67,8 @@ func open(r: Dictionary) -> void:
 	t += "Abates: [b]%d[/b]\n" % r["kills"]
 	t += "[color=#ffd34d]Moedas ganhas: [b]+%d[/b][/color]\n" % r["coins"]
 	t += "Total de moedas: [b]%d[/b]" % Global.coins
+	for id in new_challenges:
+		t += "\n[color=#7dff8a]DESAFIO CONCLUÍDO![/color] %s já pode ser comprado" % DB.CHARACTERS[id]["name"]
 	t += "[/center]"
 	_body.text = t
 	_again.grab_focus()

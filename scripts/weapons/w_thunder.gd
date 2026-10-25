@@ -10,6 +10,7 @@ func stats_for_level(l: int) -> Dictionary:
 		"count": 1 + int(l >= 6) + int(l >= 10),
 		"cooldown": 1.8 * pow(0.96, l - 1),
 		"range": 105.0 + 8.0 * (l - 1),
+		"stun": 0.45 + 0.04 * (l - 1),
 	}
 
 
@@ -33,6 +34,7 @@ func fire() -> bool:
 			points.append(current.global_position)
 			SpriteLib.spawn_fx(fx_parent(), "thunder", current.global_position, "hit", 0.7)
 			hit(current, dmg)
+			current.apply_shock(float(raw("stun")))
 			dmg *= 0.9
 			jumps -= 1
 			current = nearest_enemy(current.global_position, jump_range, used)

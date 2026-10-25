@@ -26,7 +26,7 @@ func fire() -> bool:
 		var to: Vector2 = e.global_position - origin
 		if absf(dir.angle_to(to)) <= half or to.length() < 14.0:
 			hit(e, dmg, dir * 50.0)
-			e.apply_dot(burn, 2.5, Color(1, 0.55, 0.2))
+			e.apply_burn(burn, 2.5)
 	var fx := SpriteLib.spawn_fx(fx_parent(), "fire_breath", origin + dir * rng * 0.45, "hit", rng / 34.0, dir.angle())
 	if fx:
 		fx.offset = Vector2(4, 0)

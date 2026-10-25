@@ -42,6 +42,11 @@ var biomes: Array = []          # 3 biomas sorteados para esta partida
 var weather: Weather
 var transition: StageTransition
 var _changing := false
+# estatísticas da partida (para os desafios)
+var run_boss_kills := 0
+var run_potions := 0
+var run_elem_kills: Dictionary = {}
+var run_synergies: Array = []
 
 
 func _enter_tree() -> void:
@@ -136,6 +141,7 @@ func _on_boss_killed(e: Enemy) -> void:
 	if boss_defeated or e != boss or boss == null:
 		return
 	boss_defeated = true
+	run_boss_kills += 1
 	var pos := boss.global_position
 	boss = null
 	boss_cleared.emit()
@@ -200,6 +206,8 @@ func _enter_portal() -> void:
 func on_enemy_killed(e: Enemy) -> void:
 	kills += 1
 	kills_changed.emit(kills)
+	if e.last_elem != "":
+		run_elem_kills[e.last_elem] = int(run_elem_kills.get(e.last_elem, 0)) + 1
 	director.register_kill()
 	var pos := e.global_position
 	var xp := int(e.xp_value * (1.0 + 0.4 * stage_index))
@@ -269,6 +277,7 @@ func drop_potion(pos: Vector2) -> void:
 
 ## O gato bebe uma poção: ganha o poder ou evolui o que já tem.
 func drink_potion(id: String) -> void:
+	run_potions += 1
 	var data: Dictionary = DB.WEAPONS[id]
 	var w := player.get_weapon(id)
 	if w == null:
@@ -292,6 +301,8 @@ func _check_synergy(new_id: String) -> void:
 	var elem: String = DB.WEAPONS[new_id]["elem"]
 	for w in player.weapon_list():
 		if w.id != new_id and DB.WEAPONS[w.id]["elem"] == elem:
+			if not run_synergies.has(elem):
+				run_synergies.append(elem)
 			await get_tree().create_timer(1.4, false).timeout
 			announce("SINERGIA DE %s! +%d%% dano" % [DB.ELEMENTS[elem]["name"].to_upper(), int(DB.SYNERGY_BONUS * 100)],
 					DB.ELEMENTS[elem]["color"])
@@ -318,9 +329,11 @@ func _open_level_up() -> void:
 func _on_upgrade_chosen(option: Dictionary) -> void:
 	match option.get("type", ""):
 		"weapon_new":
+			run_potions += 1
 			player.add_weapon(option["id"])
 			_check_synergy(option["id"])
 		"weapon_up":
+			run_potions += 1
 			var w := player.get_weapon(option["id"])
 			if w:
 				w.level_up(option["rarity"])
@@ -404,10 +417,14 @@ func _end_run(victory: bool) -> void:
 		"kills": kills,
 		"coins": run_coins,
 		"char": player.char_id,
+		"boss_kills": run_boss_kills,
+		"potions": run_potions,
+		"elem_kills": run_elem_kills,
+		"synergies": run_synergies,
 	}
-	Global.finish_run(result)
+	var newly := Global.finish_run(result)
 	get_tree().paused = true
-	game_over_screen.open(result)
+	game_over_screen.open(result, newly)
 
 
 # ------------------------------------------------------------------ feedback

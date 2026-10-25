@@ -29,6 +29,8 @@ func fire() -> bool:
 		p.hit_fx_scale = 0.5
 		var spread := (float(i) - (n - 1) / 2.0) * 0.18
 		p.direction = base.rotated(spread)
+		if i == 0:
+			p.target = t
 		p.speed = 320.0
 		p.damage = stat("damage")
 		p.pierce = int(stat("pierce"))

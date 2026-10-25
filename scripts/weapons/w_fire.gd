@@ -4,12 +4,13 @@ extends Weapon
 
 func stats_for_level(l: int) -> Dictionary:
 	return {
-		"damage": 10.0 * (1.0 + 0.16 * (l - 1)),
+		"damage": 12.0 * (1.0 + 0.16 * (l - 1)),
 		"count": 1 + int(l >= 4) + int(l >= 8),
 		"cooldown": 1.0 * pow(0.96, l - 1),
 		"pierce": int(l >= 6),
 		"area": 0.0 if l < 4 else 18.0 + 2.0 * (l - 4),
 		"range": 125.0 + 9.0 * (l - 1),
+		"burn": 2.0 * (1.0 + 0.15 * (l - 1)),
 	}
 
 
@@ -30,6 +31,9 @@ func fire() -> bool:
 		p.frames_name = "firebolt"
 		p.hit_fx = "firebolt"
 		p.direction = dir
+		if i < targets.size():
+			p.target = t
+		p.burn = float(raw("burn")) * float(player.stats["damage"])
 		p.speed = 260.0
 		p.damage = stat("damage")
 		p.pierce = int(stat("pierce"))

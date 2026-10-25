@@ -53,4 +53,4 @@ func _throw(target: Vector2, delay: float) -> void:
 	var poison := float(raw("poison")) * float(player.stats["damage"])
 	for e in enemies_in_radius(target, area):
 		hit(e, dmg)
-		e.apply_dot(poison, 3.0, Color(0.5, 1.0, 0.3))
+		e.apply_poison(poison, 3.5)

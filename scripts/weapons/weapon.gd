@@ -115,27 +115,38 @@ func enemies() -> Array:
 	return get_tree().get_nodes_in_group("enemies")
 
 
+## Distância "efetiva": inimigos que já vão morrer pelos tiros a caminho
+## ficam para o fim da fila, assim cada arma mira num alvo diferente.
+func _score(from: Vector2, e: Enemy) -> float:
+	var d := from.distance_squared_to(e.global_position)
+	if e.is_doomed():
+		d += 1.0e7
+	return d
+
+
 func nearest_enemy(from: Vector2, max_dist: float = 99999.0, exclude: Array = []) -> Enemy:
 	var best: Enemy = null
-	var best_d := max_dist * max_dist
+	var best_s := INF
+	var md := max_dist * max_dist
 	for e in enemies():
 		if exclude.has(e):
 			continue
-		var d := from.distance_squared_to(e.global_position)
-		if d < best_d:
-			best_d = d
+		if from.distance_squared_to(e.global_position) > md:
+			continue
+		var sc := _score(from, e)
+		if sc < best_s:
+			best_s = sc
 			best = e
 	return best
 
 
-## N inimigos mais próximos (para mirar vários projéteis).
+## N inimigos mais próximos (para mirar vários projéteis), evitando os condenados.
 func nearest_enemies(from: Vector2, n: int, max_dist: float = 99999.0) -> Array:
 	var list: Array = []
 	var md := max_dist * max_dist
 	for e in enemies():
-		var d := from.distance_squared_to(e.global_position)
-		if d < md:
-			list.append([d, e])
+		if from.distance_squared_to(e.global_position) < md:
+			list.append([_score(from, e), e])
 	list.sort_custom(func(x, y): return x[0] < y[0])
 	var out: Array = []
 	for i in mini(n, list.size()):
@@ -159,7 +170,7 @@ func hit(e: Enemy, dmg: float, knock: Vector2 = Vector2.ZERO) -> void:
 	var crit := randf() < float(player.stats["crit_chance"])
 	if crit:
 		dmg *= float(player.stats["crit_mult"])
-	e.take_hit(dmg, crit, knock)
+	e.take_hit(dmg, crit, knock, DB.WEAPONS[id]["elem"])
 
 
 func fx_parent() -> Node:

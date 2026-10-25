@@ -41,9 +41,7 @@ func _process(delta: float) -> void:
 		_tick_t = tick
 		for e in weapon.enemies_in_radius(global_position, radius):
 			weapon.hit(e, damage)
-			e.apply_slow(slow, 0.5)
-			if poison > 0.0:
-				e.apply_dot(poison, 2.0, Color(0.5, 1.0, 0.3))
+			e.apply_poison(maxf(poison, damage * 0.5), 1.5)
 
 
 func _draw() -> void:

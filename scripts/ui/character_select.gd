@@ -10,6 +10,7 @@ var _perk: Label
 var _action: Button
 var _status: Label
 var _potion: TextureRect
+var _req: Label
 var _current := Global.DEFAULT_CHAR
 var _cards: Dictionary = {}
 
@@ -91,6 +92,10 @@ func _ready() -> void:
 	_perk = UITheme.label("", 16, Color(0.85, 1, 0.85), HORIZONTAL_ALIGNMENT_CENTER)
 	_perk.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_perk.custom_minimum_size = Vector2(320, 0)
+	_req = UITheme.label("", 16, Color(1, 0.85, 0.5), HORIZONTAL_ALIGNMENT_CENTER)
+	_req.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_req.custom_minimum_size = Vector2(320, 0)
+	dv.add_child(_req)
 	dv.add_child(_perk)
 	var spacer := Control.new()
 	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -145,6 +150,9 @@ func _update_card(b: Button, id: int) -> void:
 	if Global.is_unlocked(id):
 		icon.modulate = Color.WHITE
 		lbl.text = "EM USO" if id == Global.selected_char else DB.element_name(DB.CHARACTERS[id]["weapon"])
+	elif not Global.req_met(id):
+		icon.modulate = Color(0.08, 0.08, 0.12, 0.9)
+		lbl.text = "DESAFIO"
 	else:
 		icon.modulate = Color(0.22, 0.22, 0.3, 0.9)
 		lbl.text = "$%d" % DB.CHARACTERS[id]["price"]
@@ -162,6 +170,13 @@ func _select(id: int) -> void:
 	_potion.texture = SpriteLib.potion_icon(d["weapon"])
 	_perk.text = d["desc"]
 	_status.text = ""
+	if d.has("req") and not Global.is_unlocked(id):
+		var p := Global.req_progress(id)
+		var done: bool = p[0] >= p[1]
+		_req.text = "Desafio: %s\n%s" % [Global.req_text(id), "CONCLUÍDO!" if done else "(%d/%d)" % [p[0], p[1]]]
+		_req.add_theme_color_override("font_color", Color(0.5, 1, 0.55) if done else Color(1, 0.8, 0.45))
+	else:
+		_req.text = ""
 	_refresh()
 
 
@@ -171,6 +186,9 @@ func _refresh() -> void:
 	if Global.is_unlocked(id):
 		_action.text = "Selecionado" if id == Global.selected_char else "Selecionar"
 		_action.disabled = id == Global.selected_char
+	elif not Global.req_met(id):
+		_action.text = "Complete o desafio"
+		_action.disabled = true
 	else:
 		var price: int = DB.CHARACTERS[id]["price"]
 		_action.text = "Comprar ($%d)" % price

@@ -65,9 +65,9 @@ func _physics_process(delta: float) -> void:
 	_clock += delta
 	var d := difficulty()
 	var alive := get_tree().get_nodes_in_group("enemies").size()
-	var base_rate := 0.6 + 1.5 * d                 # inimigos por segundo
+	var base_rate := 0.5 + 1.35 * d                 # inimigos por segundo
 	# pressão sobe se o jogador mata mais rápido do que os inimigos chegam
-	var want := clampf(kill_rate() / (base_rate * 1.2), 1.0, 2.5)
+	var want := clampf(kill_rate() / (base_rate * 1.2), 1.0, minf(2.5, 1.0 + difficulty()))
 	pressure = move_toward(pressure, want, delta * (0.08 if want > pressure else 0.12))
 	var max_alive := int(minf(300.0, (45.0 + 60.0 * d) * (0.8 + 0.4 * pressure)))
 	var rate := base_rate * pressure

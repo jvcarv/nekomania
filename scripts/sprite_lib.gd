@@ -137,6 +137,9 @@ static func fx(name: String) -> SpriteFrames:
 				add_strip(sf, "hit", FX + "Ice Effect 01/Ice Effect 01/Ice VFX 2/Ice VFX 2 Start.png", 32, 32, 22.0, false)
 				add_strip(sf, "hit", FX + "Ice Effect 01/Ice Effect 01/Ice VFX 2/Ice VFX 2 Active.png", 32, 32, 22.0, false, 0, 0, -1, false, true)
 				add_strip(sf, "hit", FX + "Ice Effect 01/Ice Effect 01/Ice VFX 2/Ice VFX 2 Ending.png", 32, 32, 22.0, false, 0, 0, -1, false, true)
+			"falcon":
+				add_strip(sf, "summon", FX + "Thunder Effect 01/Thunder Effect 01/Projectile 2/Projectile 2 w blur.png", 48, 48, 18.0, false, 0, 0, 8)
+				add_strip(sf, "fly", FX + "Thunder Effect 01/Thunder Effect 01/Projectile 2/Projectile 2 w blur.png", 48, 48, 14.0, true, 0, 8, 8)
 			"thunder_orb":
 				add_strip(sf, "fly", FX + "Thunder Effect 01/Thunder Effect 01/Thunder Projectile 1/Thunder projectile1 w blur.png", 32, 32, 12.0, true)
 			"acid_flask":
