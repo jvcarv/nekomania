@@ -16,23 +16,23 @@ func _ready() -> void:
 	center.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(center)
 	var v := VBoxContainer.new()
-	v.add_theme_constant_override("separation", 14)
+	v.add_theme_constant_override("separation", 8)
 	v.alignment = BoxContainer.ALIGNMENT_CENTER
 	center.add_child(v)
 
-	var title := UITheme.label("NEKO ARCANO", 72, UITheme.GOLD, HORIZONTAL_ALIGNMENT_CENTER)
+	var title := UITheme.label("NEKO ARCANO", 64, UITheme.GOLD, HORIZONTAL_ALIGNMENT_CENTER)
 	title.add_theme_constant_override("outline_size", 16)
 	v.add_child(title)
 	v.add_child(UITheme.label("Gatinhos alquimistas contra a floresta encantada.", 16, Color(0.95, 0.95, 1.0), HORIZONTAL_ALIGNMENT_CENTER))
 
 	# personagem selecionado
 	var holder := Control.new()
-	holder.custom_minimum_size = Vector2(0, 130)
+	holder.custom_minimum_size = Vector2(0, 104)
 	v.add_child(holder)
 	_char_sprite = AnimatedSprite2D.new()
-	_char_sprite.scale = Vector2(4, 4)
+	_char_sprite.scale = Vector2(3, 3)
 	holder.add_child(_char_sprite)
-	holder.resized.connect(func(): _char_sprite.position = Vector2(holder.size.x / 2.0, 64))
+	holder.resized.connect(func(): _char_sprite.position = Vector2(holder.size.x / 2.0, 50))
 	_char_name = UITheme.label("", 16, Color.WHITE, HORIZONTAL_ALIGNMENT_CENTER)
 	v.add_child(_char_name)
 
@@ -42,13 +42,16 @@ func _ready() -> void:
 	var chars := UITheme.button("Personagens", 24, 320)
 	chars.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/character_select.tscn"))
 	v.add_child(chars)
+	var challenges := UITheme.button("Desafios", 24, 320)
+	challenges.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/challenges.tscn"))
+	v.add_child(challenges)
 	var credits := UITheme.button("Créditos", 24, 320)
 	credits.pressed.connect(_show_credits)
 	v.add_child(credits)
 	var quit := UITheme.button("Sair", 24, 320)
 	quit.pressed.connect(func(): get_tree().quit())
 	v.add_child(quit)
-	for b in [play, chars, credits, quit]:
+	for b in [play, chars, challenges, credits, quit]:
 		b.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 
 	# moedas e recordes
