@@ -4,18 +4,13 @@ Este arquivo lista **tudo o que foi produzido por IA** (Claude, da Anthropic) ne
 para conferência com as regras da game jam. Os commits feitos com IA têm a linha
 `Co-Authored-By: Claude` na mensagem, então `git log --grep "Co-Authored-By: Claude"` mostra todos.
 
-## 1. Imagens geradas por IA (desenhadas por código escrito pela IA)
+## 1. Imagens geradas por IA
 
-Estes arquivos **não são arte humana** e devem ser substituídos se a jam proibir arte gerada:
-
-| Arquivo | O que é | Tamanho esperado para substituir |
-|---|---|---|
-| `assets/generated/coin.png` | Moeda girando | 8 quadros de 16x16 lado a lado (128x16) |
-| `assets/generated/xp_gems.png` | Gemas de XP (azul, verde, vermelha) | 3 quadros de 10x12 lado a lado (30x12) |
-| `assets/generated/heart.png` | Coração (cura) | 12x10 |
-| `assets/generated/portal.png` | Portal roxo girando | 8 quadros de 48x48 lado a lado (384x48) |
-
-Basta trocar o PNG mantendo o mesmo nome e tamanho (ou ajustar os tamanhos em `scripts/sprite_lib.gd` e `scripts/world/pickup.gd`).
+**Nenhuma.** A moeda, as gemas de XP, o coração e o portal que a IA tinha desenhado
+foram substituídos por sprites do pacote **Ninja Adventure** (Pixel-boy & AAA, CC0):
+`Items/Treasure/Coin2.png`, `Items/Resource/Gem*.png`, `Items/Potion/Heart.png` e
+`FX/Magic/Circle/SpriteSheetWhite.png` (tingido de roxo). A pasta `assets/generated/`
+agora só tem as cópias ampliadas da UI (item 2).
 
 ## 2. Imagens processadas por IA (sem arte nova)
 
@@ -25,12 +20,11 @@ Basta trocar o PNG mantendo o mesmo nome e tamanho (ou ajustar os tamanhos em `s
 
 Não são arquivos de imagem, mas o que aparece na tela é gerado por código escrito pela IA:
 
-- `scripts/world/ground.gdshader`: textura do chão (grama/terra, manchas, florzinhas).
-- `scripts/ui/menu_ground.gdshader`: fundo dos menus.
+- Montagem do mapa: o código da IA escolhe **onde** colocar cada tile do chão, das manchas, dos planaltos, das escadas, das árvores e dos enfeites (`scripts/world/map_generator.gd`, `scripts/ui/menu_background.gd`). Os tiles em si são arte humana (Ninja Adventure e Forest Trees Pack). Alguns biomas usam um tingimento de cor por código (ex.: Floresta Maldita mais roxa).
+- Clima: as partículas usam os sprites de `FX/Particle` do Ninja Adventure; o código só controla quantidade, direção e cor.
 - Círculo verde da poça ácida (`scripts/weapons/acid_pool.gd`), raio em zigue-zague (`w_thunder.gd`), seta do portal (`scripts/ui/hud.gd`), barras de vida/XP (`scripts/ui/pixel_bar.gd` — usa a moldura do pacote de UI + retângulos de cor), números de dano.
-- Avisos de ataque dos chefões (círculo/linha vermelha — `scripts/telegraph.gd`), minimapa (`scripts/ui/minimap.gd`), partículas de clima (quadradinhos coloridos — `scripts/world/weather.gd`) e a tela escura de transição entre mundos (`scripts/ui/stage_transition.gd`).
+- Avisos de ataque dos chefões (círculo/linha vermelha — `scripts/telegraph.gd`), minimapa (`scripts/ui/minimap.gd`) e a tela escura de transição entre mundos (`scripts/ui/stage_transition.gd`).
 - Cores de estado dos inimigos (laranja = queimando, azul = congelando, amarelo = eletrizado, verde = envenenado): são só tingimentos do sprite original, feitos por código (`scripts/enemy.gd`).
-- Distribuição procedural das árvores (`scripts/world/map_generator.gd`) — as árvores em si são do pacote humano.
 
 ## 4. Código e dados escritos por IA
 
@@ -48,6 +42,6 @@ Não são arquivos de imagem, mas o que aparece na tela é gerado por código es
 
 ## O que NÃO foi feito por IA
 
-- Todos os sprites em `assets/chars`, `assets/spells`, `assets/map`, `assets/UI` e `assets/potions` (pacotes de artistas — ver `CREDITOS.md`).
+- Todos os sprites em `assets/chars`, `assets/spells`, `assets/map` (inclui o Ninja Adventure), `assets/UI` e `assets/potions` (pacotes de artistas — ver `CREDITOS.md`).
 - A fonte Silkscreen (`assets/fonts`, de Jason Kottke, licença OFL).
 - O código e as cenas originais da equipe, guardados em `old/`.

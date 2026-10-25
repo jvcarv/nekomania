@@ -13,12 +13,13 @@ Godot 4.7. A cena principal agora é `scenes/ui/main_menu.tscn`.
 | `scripts/player.gd` | Movimento, atributos, vida, XP e armas do jogador. |
 | `scripts/enemy.gd` + `scenes/enemy.tscn` | Inimigo genérico (o tipo vem de `DB.ENEMIES`). Efeitos de estado: fogo = queimando (laranja, dano contínuo), gelo = congelando (azul, lento), trovão = eletrizado (amarelo, parado), ácido = envenenado (verde, cambaleia de lado). Mira inteligente: as armas evitam inimigos que já vão morrer pelos tiros a caminho. |
 | `scripts/world/spawn_director.gd` | Quando/onde/quais inimigos nascem: fluxo contínuo, hordas em anel, elites, reposicionamento. **Pressão adaptativa**: se o jogador mata rápido, o ritmo de spawn sobe (até 2,5x). |
-| `scripts/world/map_generator.gd` | Mapa procedural infinito em chunks (ruído → bosques e clareiras) + chão em shader. |
+| `scripts/world/map_generator.gd` | Mapa procedural infinito em chunks com tiles do **Ninja Adventure**: chão por bioma com manchas (marching squares), **planaltos** com paredes e escadas (verticalidade — inimigos sobem pelas escadas), árvores e enfeites. |
 | `scripts/world/pickup.gd` | XP, moedas e corações. |
 | `scripts/weapons/` | `weapon.gd` (base) + 14 poderes: 2 por elemento (fogo, sagrado, sombrio, gelo, trovão, ácido, madeira). Cada um vem de uma **poção**. Máximo de 3 poderes por partida (`DB.MAX_WEAPONS`), nível máximo 10. Ter os 2 do mesmo elemento ativa a **sinergia** (+25% dano). |
 | `scripts/boss_brain.gd` + `scripts/telegraph.gd` | Ataques dos chefões (investida, pancada, rajada, lacaios) com aviso visual. Chefões atravessam e derrubam árvores. |
 | `scripts/ui/` | HUD, menu principal, personagens, level-up, pausa, fim de jogo e tema visual. |
-| `assets/generated/` | **Gerados por IA** (provisórios): moeda, gemas de XP, coração, portal; e cópias 3x do tema de UI. Veja `IA_TRANSPARENCIA.md`. |
+| `assets/generated/ui/` | Cópias ampliadas 3x do tema de UI (sem arte nova). |
+| `assets/map/Ninja Adventure - Asset Pack/` | Pacote CC0 usado no chão, planaltos, enfeites, itens e clima. `Audio/` e `Actor/` ficam fora da exportação (ver `export_presets.cfg`). |
 | `assets/fonts/` | Fonte Silkscreen (OFL). |
 | `assets/potions/` | Poções de Onocentaur — ícones dos 7 poderes. |
 | `old/` | Scripts/cenas antigos (ignorados pelo Godot via `.gdignore`). Pode apagar quando quiser. |
