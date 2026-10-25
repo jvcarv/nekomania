@@ -118,10 +118,11 @@ const CREDITS := """[b]Gatinhos:[/b] Pipoya
 [b]Árvores:[/b] Pocket Cozy Pixels / BloomPixle
 [b]Interface:[/b] Crusenho Agus Hennihuno (CC BY 4.0)
 [b]Poções:[/b] Onocentaur
+[b]Chão, enfeites e itens:[/b] Ninja Adventure — Pixel-boy & AAA (CC0)
 [b]Fonte:[/b] Silkscreen, Jason Kottke (OFL)
 [b]Motor:[/b] Godot Engine
 
-Código e alguns sprites provisórios feitos com auxílio de IA."""
+Código feito com auxílio de IA."""
 
 
 func _refresh() -> void:

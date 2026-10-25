@@ -96,6 +96,7 @@ static func enemy(type_id: String) -> SpriteFrames:
 
 # ------------------------------------------------------------ efeitos / armas
 const FX := "res://assets/spells/"
+const NINJA := "res://assets/map/Ninja Adventure - Asset Pack/"
 
 static func fx(name: String) -> SpriteFrames:
 	return cached("fx_" + name, func():
@@ -150,9 +151,9 @@ static func fx(name: String) -> SpriteFrames:
 			"arrow":
 				add_strip(sf, "fly", "res://assets/chars/Skeleton Archer/Arrow(projectile)/Arrow03(32x32).png", 32, 32, 1.0, true)
 			"coin":
-				add_strip(sf, "spin", "res://assets/generated/coin.png", 16, 16, 12.0, true)
+				add_strip(sf, "spin", NINJA + "Items/Treasure/Coin2.png", 10, 10, 10.0, true)
 			"portal":
-				add_strip(sf, "spin", "res://assets/generated/portal.png", 48, 48, 12.0, true)
+				add_strip(sf, "spin", NINJA + "FX/Magic/Circle/SpriteSheetWhite.png", 32, 32, 10.0, true)
 		return sf)
 
 

@@ -230,26 +230,49 @@ const STAGES := [
 ]
 
 ## Biomas: a cada partida 3 são sorteados (um por estágio).
-##   weather: "" | "leaves" | "snow" | "petals" | "spores" | "fireflies"
+## Arte do chão: Ninja Adventure (CC0) — ver scripts/world/map_generator.gd.
+##   floor_block : origem (em tiles) do bloco do bioma no TilesetFloor
+##                 (0,0) areia  (11,0) areia rosa  (0,7) grama clara  (11,7) grama escura
+##                 (0,14) neve  (11,14) terra
+##   relief_row  : planaltos de pedra/neve (0) ou de areia (5) no TilesetRelief
+##   plateau_top : (opcional) bloco do TilesetFloor usado no topo do planalto
+##   trees       : número = árvore do Forest Trees Pack; [col, lin, larg, alt] = TilesetNature (Ninja)
+##   decor       : [fonte, tile] (fonte 2 = TilesetFloorDetail, 3 = TilesetNature)
+##   weather     : "" | "leaves" | "snow" | "petals" | "spores" | "fireflies"
 const BIOMES := [
-	{"name": "Floresta Serena", "flower": Color(1.0, 0.9, 0.5), "weather": "fireflies",
-		"ground_a": Color(0.33, 0.52, 0.22), "ground_b": Color(0.27, 0.45, 0.19), "ground_c": Color(0.40, 0.60, 0.27),
-		"tree_tint": Color(1, 1, 1), "trees": [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 14, 15], "tree_density": 0.55},
-	{"name": "Bosque Outonal", "flower": Color(0.95, 0.3, 0.2), "weather": "leaves",
-		"ground_a": Color(0.55, 0.45, 0.22), "ground_b": Color(0.47, 0.36, 0.17), "ground_c": Color(0.62, 0.50, 0.25),
-		"tree_tint": Color(1.25, 0.85, 0.5), "trees": [1, 2, 3, 5, 7, 8, 9, 10, 12, 13, 15, 16], "tree_density": 0.6},
-	{"name": "Floresta Maldita", "flower": Color(0.8, 0.4, 1.0), "weather": "spores",
-		"ground_a": Color(0.30, 0.24, 0.36), "ground_b": Color(0.24, 0.19, 0.30), "ground_c": Color(0.38, 0.30, 0.44),
-		"tree_tint": Color(0.75, 0.6, 0.95), "trees": [13, 16, 13, 16, 8, 14, 11], "tree_density": 0.65},
-	{"name": "Floresta Gélida", "flower": Color(0.85, 0.95, 1.0), "weather": "snow",
-		"ground_a": Color(0.82, 0.88, 0.94), "ground_b": Color(0.72, 0.80, 0.90), "ground_c": Color(0.92, 0.95, 1.0),
-		"tree_tint": Color(0.75, 0.9, 1.1), "trees": [6, 14, 6, 14, 13, 16, 7], "tree_density": 0.5},
-	{"name": "Pântano Nebuloso", "flower": Color(0.6, 1.0, 0.4), "weather": "spores",
-		"ground_a": Color(0.24, 0.34, 0.26), "ground_b": Color(0.18, 0.27, 0.22), "ground_c": Color(0.30, 0.42, 0.28),
-		"tree_tint": Color(0.7, 0.9, 0.7), "trees": [2, 8, 10, 13, 16, 3, 7], "tree_density": 0.6},
-	{"name": "Bosque das Cerejeiras", "flower": Color(1.0, 0.6, 0.8), "weather": "petals",
-		"ground_a": Color(0.42, 0.58, 0.32), "ground_b": Color(0.36, 0.52, 0.28), "ground_c": Color(0.62, 0.66, 0.42),
-		"tree_tint": Color(1.25, 0.85, 1.05), "trees": [1, 4, 9, 12, 15, 11, 5], "tree_density": 0.5},
+	{"name": "Floresta Serena", "weather": "fireflies", "flower": Color(1.0, 0.9, 0.5),
+		"floor_block": Vector2i(0, 7), "relief_row": 5, "patch_threshold": 0.3, "plateau_chance": 0.35,
+		"tree_tint": Color(1, 1, 1), "tree_density": 0.55,
+		"trees": [1, 2, 3, 4, 5, 6, 7, 9, 12, 15, [16, 0, 2, 2], [18, 0, 2, 2], [3, 18, 3, 3]],
+		"decor": [[2, Vector2i(0, 2)], [2, Vector2i(1, 2)], [2, Vector2i(2, 2)], [2, Vector2i(3, 2)],
+			[3, Vector2i(0, 11)], [3, Vector2i(1, 11)], [3, Vector2i(3, 11)], [3, Vector2i(6, 11)], [3, Vector2i(1, 10)]]},
+	{"name": "Bosque Outonal", "weather": "leaves", "flower": Color(0.95, 0.5, 0.2),
+		"floor_block": Vector2i(0, 0), "relief_row": 5, "patch_threshold": 0.25, "plateau_chance": 0.4,
+		"tree_tint": Color(1.2, 0.9, 0.6), "tree_density": 0.55,
+		"trees": [[9, 18, 3, 3], [9, 18, 3, 3], 1, 3, 5, 8, 13, 16, [4, 0, 2, 2]],
+		"decor": [[2, Vector2i(0, 0)], [2, Vector2i(4, 0)], [2, Vector2i(5, 0)], [2, Vector2i(7, 0)], [3, Vector2i(3, 11)]]},
+	{"name": "Floresta Maldita", "weather": "spores", "flower": Color(0.8, 0.4, 1.0),
+		"floor_block": Vector2i(11, 14), "relief_row": 0, "patch_threshold": 0.3, "plateau_chance": 0.4,
+		"ground_tint": Color(0.82, 0.72, 0.95),
+		"tree_tint": Color(0.8, 0.65, 0.95), "tree_density": 0.6,
+		"trees": [13, 16, 13, 16, [4, 0, 2, 2], [4, 0, 2, 2], 8, 14],
+		"decor": [[2, Vector2i(13, 0)], [2, Vector2i(14, 0)], [2, Vector2i(5, 0)], [2, Vector2i(6, 0)], [2, Vector2i(15, 0)]]},
+	{"name": "Floresta Gélida", "weather": "snow", "flower": Color(0.85, 0.95, 1.0),
+		"floor_block": Vector2i(0, 14), "relief_row": 0, "patch_threshold": 0.3, "plateau_chance": 0.35,
+		"tree_tint": Color(1, 1, 1), "tree_density": 0.5,
+		"trees": [[8, 0, 2, 2], [10, 0, 2, 2], [12, 0, 2, 2], [6, 18, 3, 3], 14],
+		"decor": [[2, Vector2i(0, 3)], [2, Vector2i(1, 3)], [2, Vector2i(2, 3)], [2, Vector2i(3, 3)], [2, Vector2i(4, 3)]]},
+	{"name": "Pântano Nebuloso", "weather": "spores", "flower": Color(0.6, 1.0, 0.4),
+		"floor_block": Vector2i(11, 7), "relief_row": 0, "patch_threshold": 0.15, "plateau_chance": 0.3,
+		"ground_tint": Color(0.85, 0.95, 0.85),
+		"tree_tint": Color(0.75, 0.9, 0.75), "tree_density": 0.6,
+		"trees": [[6, 0, 2, 2], [2, 0, 2, 2], 2, 10, 13, 16],
+		"decor": [[2, Vector2i(0, 2)], [2, Vector2i(5, 2)], [2, Vector2i(7, 2)], [3, Vector2i(4, 11)], [3, Vector2i(5, 11)], [3, Vector2i(8, 11)]]},
+	{"name": "Bosque das Cerejeiras", "weather": "petals", "flower": Color(1.0, 0.6, 0.8),
+		"floor_block": Vector2i(11, 0), "relief_row": 5, "patch_threshold": 0.3, "plateau_chance": 0.3,
+		"tree_tint": Color(1, 1, 1), "tree_density": 0.5,
+		"trees": [[14, 0, 2, 2], [14, 0, 2, 2], [0, 18, 3, 3], 4, 9],
+		"decor": [[2, Vector2i(2, 0)], [2, Vector2i(3, 0)], [3, Vector2i(6, 11)], [3, Vector2i(3, 11)]]},
 ]
 
 

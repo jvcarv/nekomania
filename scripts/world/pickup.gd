@@ -12,7 +12,9 @@ var _vel := Vector2.ZERO
 var _t := 0.0
 var _visual: Node2D
 
-const GEM_TEX := "res://assets/generated/xp_gems.png"
+## Gemas, moeda e coração: Ninja Adventure (Pixel-boy & AAA, CC0).
+const ITEMS := "res://assets/map/Ninja Adventure - Asset Pack/Items/"
+const GEMS := ["Resource/GemGreen.png", "Resource/GemYellow.png", "Resource/GemRed.png"]
 
 
 func _ready() -> void:
@@ -32,7 +34,8 @@ func _ready() -> void:
 			add_child(s)
 		Kind.HEART:
 			var h := Sprite2D.new()
-			h.texture = load("res://assets/generated/heart.png")
+			h.texture = load(ITEMS + "Potion/Heart.png")
+			h.scale = Vector2(1.2, 1.2)
 			_visual = h
 			add_child(h)
 		Kind.POTION:
@@ -56,14 +59,12 @@ func _make_gem() -> void:
 	var s: Sprite2D
 	if _visual == null:
 		s = Sprite2D.new()
-		s.texture = load(GEM_TEX)
-		s.region_enabled = true
 		_visual = s
 		add_child(s)
 	s = _visual
 	var tier := 0 if value < 5 else (1 if value < 25 else 2)
-	s.region_rect = Rect2(tier * 10, 0, 10, 12)
-	s.scale = Vector2.ONE * (0.6 + 0.15 * tier)
+	s.texture = load(ITEMS + GEMS[tier])
+	s.scale = Vector2.ONE * (0.45 + 0.1 * tier)
 
 
 func add_value(v: int) -> void:

@@ -160,6 +160,8 @@ func _on_boss_killed(e: Enemy) -> void:
 	_portal = Node2D.new()
 	var s := AnimatedSprite2D.new()
 	s.sprite_frames = SpriteLib.fx("portal")
+	s.modulate = Color(0.85, 0.55, 1.5)
+	s.scale = Vector2(1.6, 1.6)
 	s.play("spin")
 	_portal.add_child(s)
 	_portal.global_position = pos
