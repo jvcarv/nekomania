@@ -43,10 +43,15 @@ func _ready() -> void:
 	v.add_child(bottom)
 	_reroll_btn = UITheme.button("Sortear de novo", 16, 240)
 	_reroll_btn.pressed.connect(_on_reroll)
+	_reroll_btn.icon = _key_icon("R")
 	bottom.add_child(_reroll_btn)
 	var skip := UITheme.button("Pular (+20 vida)", 16, 240)
 	skip.pressed.connect(func(): _pick({"type": "skip"}))
+	skip.icon = _key_icon("X")
 	bottom.add_child(skip)
+	for btn: Button in [_reroll_btn, skip]:
+		btn.add_theme_constant_override("icon_max_width", 32)
+		btn.custom_minimum_size.x = 280
 
 
 func open(g: Game, options: Array) -> void:
@@ -240,6 +245,14 @@ func _on_reroll() -> void:
 		_show(game.reroll())
 
 
+## Ícone de tecla (assets/Keys, Gerald's Keys — CC0). Quadro 0 = tecla solta.
+func _key_icon(letter: String) -> Texture2D:
+	var t := AtlasTexture.new()
+	t.atlas = load("res://assets/Keys/%s-Key.png" % letter)
+	t.region = Rect2(0, 0, 32, 32)
+	return t
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if not visible or _input_lock > 0.0:
 		return
@@ -247,6 +260,16 @@ func _unhandled_input(event: InputEvent) -> void:
 		var k: int = event.keycode
 		if k >= KEY_1 and k <= KEY_3 and k - KEY_1 < _options.size():
 			_pick(_options[k - KEY_1])
+			get_viewport().set_input_as_handled()
+		elif k == KEY_R:
+			if game.rerolls > 0:
+				Sound.play("ui_accept")
+				_on_reroll()
+			else:
+				Sound.play("denied")
+			get_viewport().set_input_as_handled()
+		elif k == KEY_X:
+			_pick({"type": "skip"})
 			get_viewport().set_input_as_handled()
 		elif k in [KEY_A, KEY_D, KEY_LEFT, KEY_RIGHT]:
 			_move_focus(-1 if k in [KEY_A, KEY_LEFT] else 1)
