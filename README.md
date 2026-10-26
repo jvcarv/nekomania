@@ -1,6 +1,6 @@
 # Nekomania
 
-Jogo feito para a **IFPF Game Jam** — tema **"Cute Animals and Alchemy"**.
+Jogo feito para a **IFPF Game Jam** — tema **"Alquimia e Bichinhos"**.
 
 Gatinhos alquimistas bebem poções para ganhar poderes elementais e sobreviver às hordas
 da floresta encantada. Um *roguelite* de sobrevivência no estilo Megabonk / Vampire Survivors:
