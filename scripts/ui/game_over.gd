@@ -60,7 +60,7 @@ func open(r: Dictionary, new_challenges: Array = []) -> void:
 	_title.text = "VITÓRIA!" if win else "FIM DE JOGO"
 	_title.add_theme_color_override("font_color", UITheme.GOLD if win else Color(1, 0.45, 0.45))
 	var t := "[center]"
-	t += "Personagem: [b]%s[/b]\n" % DB.CHARACTERS[r["char"]]["name"]
+	t += "Personagem: [b]%s[/b]\n" % Names.cat(r["char"])
 	t += "Tempo: [b]%s[/b]\n" % Global.format_time(r["time"])
 	t += "Estágio alcançado: [b]%d[/b]\n" % r["stage"]
 	t += "Nível: [b]%d[/b]\n" % r["level"]
@@ -68,7 +68,7 @@ func open(r: Dictionary, new_challenges: Array = []) -> void:
 	t += "[color=#ffd34d]Moedas ganhas: [b]+%d[/b][/color]\n" % r["coins"]
 	t += "Total de moedas: [b]%d[/b]" % Global.coins
 	for id in new_challenges:
-		t += "\n[color=#7dff8a]DESAFIO CONCLUÍDO![/color] %s já pode ser comprado" % DB.CHARACTERS[id]["name"]
+		t += "\n[color=#7dff8a]DESAFIO CONCLUÍDO![/color] %s já pode ser comprado" % Names.cat(id)
 	t += "[/center]"
 	_body.text = t
 	_again.grab_focus()

@@ -67,7 +67,7 @@ static func char_texture_path(id: int) -> String:
 # ======================================================================
 # ARMAS
 # ======================================================================
-const MAX_WEAPONS := 3          # máximo de poderes por partida
+const MAX_WEAPONS := 5          # máximo de poderes por partida
 const WEAPON_MAX_LEVEL := 10
 
 ## Cada poder vem de uma POÇÃO (tema da jam: "Animais Fofos e Alquimia").
@@ -212,7 +212,7 @@ const STAGES := [
 	{
 		"spawn": [["slime", 5.0, 0.0], ["skeleton", 4.0, 0.08], ["archer", 1.5, 0.25], ["werewolf", 2.0, 0.45], ["orc", 1.5, 0.65]],
 		"swarm": ["slime", "skeleton", "werewolf"], "elite": ["skeleton", "orc", "werewolf"],
-		"boss": {"type": "orc", "name": "Chefe Orc", "hp": 1800.0, "damage": 18.0, "scale": 2.8, "speed": 44.0,
+		"boss": {"type": "orc", "name": "Chefe Orc", "hp": 1800.0, "damage": 18.0, "scale": 2.8, "speed": 64.0,
 			"attacks": ["slam", "charge", "summon"]},
 	},
 	{
@@ -278,4 +278,5 @@ const BIOMES := [
 # EXPERIÊNCIA
 # ======================================================================
 static func xp_to_next(level: int) -> int:
-	return int(round(3.0 + 3.2 * level + 0.6 * level * level + 0.015 * level * level * level))
+	# sem termo cúbico: nos estágios 2 e 3 ainda dá para subir de nível com frequência
+	return int(round(3.0 + 3.4 * level + 0.42 * level * level))

@@ -100,7 +100,7 @@ func start_stage(index: int) -> void:
 		var c: Dictionary = DB.CHARACTERS[player.char_id]
 		var wd: Dictionary = DB.WEAPONS[c["weapon"]]
 		await get_tree().create_timer(2.6, false).timeout
-		announce("%s bebeu a %s!" % [c["name"], wd["potion"]], DB.weapon_color(c["weapon"]))
+		announce("%s bebeu a %s!" % [Names.cat(player.char_id), wd["potion"]], DB.weapon_color(c["weapon"]))
 
 
 func _process(delta: float) -> void:
@@ -212,7 +212,7 @@ func on_enemy_killed(e: Enemy) -> void:
 		run_elem_kills[e.last_elem] = int(run_elem_kills.get(e.last_elem, 0)) + 1
 	director.register_kill()
 	var pos := e.global_position
-	var xp := int(e.xp_value * (1.0 + 0.4 * stage_index))
+	var xp := int(round(e.xp_value * (1.0 + 0.75 * stage_index)))
 	_drop_xp(pos, xp)
 	var luck: float = player.stats["luck"]
 	if randf() < e.coin_chance * (1.0 + luck):

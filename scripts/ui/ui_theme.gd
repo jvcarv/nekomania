@@ -130,3 +130,53 @@ static func power_icon(id: String) -> Texture2D:
 	}
 	var m: Array = map[id]
 	return SpriteLib.fx(m[0]).get_frame_texture(m[1], m[2])
+
+
+# ------------------------------------------------------------------ atributos
+## Atributos mostrados nas telas (chave de Player.BASE_STATS, nome curto).
+const STAT_ROWS := [
+	["max_hp", "Vida"], ["armor", "Armadura"], ["regen", "Regen."],
+	["damage", "Dano"], ["attack_speed", "Vel. ataque"], ["area", "Área"],
+	["speed", "Velocidade"], ["projectiles", "Projéteis"], ["crit_chance", "Crítico"],
+	["crit_mult", "Dano crít."], ["luck", "Sorte"], ["xp_gain", "Experiência"],
+	["magnet", "Ímã"],
+]
+
+
+static func stat_text(key: String, v: float) -> String:
+	match key:
+		"max_hp", "armor", "magnet":
+			return str(int(round(v)))
+		"regen":
+			return ("%.1f/s" % v)
+		"projectiles":
+			return "+%d" % int(v)
+		_:
+			return "%d%%" % int(round(v * 100.0))
+
+
+## Atributos iniciais de um gato (base + bônus do personagem).
+static func char_stats(id: int) -> Dictionary:
+	var s: Dictionary = Player.BASE_STATS.duplicate()
+	var perk: Dictionary = DB.CHARACTERS[id]["perk"]
+	for k in perk:
+		s[k] = s[k] + perk[k]
+	return s
+
+
+## Tabela de atributos (2 colunas). Valores acima do padrão ficam verdes.
+static func stats_grid(s: Dictionary, size: int = 16, name_color: Color = Color(1, 0.95, 0.8)) -> GridContainer:
+	var g := GridContainer.new()
+	g.columns = 4
+	g.add_theme_constant_override("h_separation", 10)
+	g.add_theme_constant_override("v_separation", 2)
+	for row in STAT_ROWS:
+		var key: String = row[0]
+		var n := label(row[1], size, name_color)
+		n.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		g.add_child(n)
+		var better: bool = float(s[key]) > float(Player.BASE_STATS[key]) + 0.0001
+		var v := label(stat_text(key, s[key]), size, Color(0.5, 1, 0.5) if better else Color.WHITE, HORIZONTAL_ALIGNMENT_RIGHT)
+		v.custom_minimum_size.x = 64
+		g.add_child(v)
+	return g

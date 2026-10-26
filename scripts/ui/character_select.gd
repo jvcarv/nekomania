@@ -11,6 +11,7 @@ var _action: Button
 var _status: Label
 var _potion: TextureRect
 var _req: Label
+var _stats_box: VBoxContainer
 var _current := Global.DEFAULT_CHAR
 var _cards: Dictionary = {}
 
@@ -58,45 +59,51 @@ func _ready() -> void:
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	grid_panel.add_child(scroll)
 	_grid = GridContainer.new()
-	_grid.columns = 8
+	_grid.columns = 7
 	_grid.add_theme_constant_override("h_separation", 8)
 	_grid.add_theme_constant_override("v_separation", 8)
 	scroll.add_child(_grid)
 
 	var detail := PanelContainer.new()
 	detail.add_theme_stylebox_override("panel", UITheme.panel("orange"))
-	detail.custom_minimum_size = Vector2(360, 0)
+	detail.custom_minimum_size = Vector2(430, 0)
 	detail.size_flags_horizontal = Control.SIZE_SHRINK_END
 	body.add_child(detail)
 	var dv := VBoxContainer.new()
-	dv.add_theme_constant_override("separation", 10)
+	dv.add_theme_constant_override("separation", 6)
 	detail.add_child(dv)
 	var holder := Control.new()
-	holder.custom_minimum_size = Vector2(0, 170)
+	holder.custom_minimum_size = Vector2(0, 120)
 	dv.add_child(holder)
 	_preview = AnimatedSprite2D.new()
-	_preview.scale = Vector2(5, 5)
+	_preview.scale = Vector2(4, 4)
 	holder.add_child(_preview)
-	holder.resized.connect(func(): _preview.position = Vector2(holder.size.x / 2.0, 85))
+	holder.resized.connect(func(): _preview.position = Vector2(holder.size.x / 2.0, 60))
 	_name = UITheme.label("", 24, Color.WHITE, HORIZONTAL_ALIGNMENT_CENTER)
 	dv.add_child(_name)
 	_potion = TextureRect.new()
-	_potion.custom_minimum_size = Vector2(48, 72)
+	_potion.custom_minimum_size = Vector2(32, 48)
 	_potion.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	_potion.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	dv.add_child(_potion)
-	_weapon = UITheme.label("", 16, Color(1, 0.95, 0.8), HORIZONTAL_ALIGNMENT_CENTER)
+	var wrow := HBoxContainer.new()
+	wrow.alignment = BoxContainer.ALIGNMENT_CENTER
+	wrow.add_theme_constant_override("separation", 10)
+	dv.add_child(wrow)
+	wrow.add_child(_potion)
+	_weapon = UITheme.label("", 16, Color(1, 0.95, 0.8))
 	_weapon.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_weapon.custom_minimum_size = Vector2(320, 0)
-	dv.add_child(_weapon)
+	_weapon.custom_minimum_size = Vector2(300, 0)
+	wrow.add_child(_weapon)
 	_perk = UITheme.label("", 16, Color(0.85, 1, 0.85), HORIZONTAL_ALIGNMENT_CENTER)
 	_perk.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_perk.custom_minimum_size = Vector2(320, 0)
+	_perk.custom_minimum_size = Vector2(390, 0)
 	_req = UITheme.label("", 16, Color(1, 0.85, 0.5), HORIZONTAL_ALIGNMENT_CENTER)
 	_req.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_req.custom_minimum_size = Vector2(320, 0)
-	dv.add_child(_req)
+	_req.custom_minimum_size = Vector2(390, 0)
 	dv.add_child(_perk)
+	_stats_box = VBoxContainer.new()
+	dv.add_child(_stats_box)
+	dv.add_child(_req)
 	var spacer := Control.new()
 	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	dv.add_child(spacer)
@@ -164,11 +171,14 @@ func _select(id: int) -> void:
 	_preview.sprite_frames = SpriteLib.character(id)
 	_preview.play("running_down")
 	_preview.modulate = Color.WHITE if Global.is_unlocked(id) else Color(0.25, 0.25, 0.32)
-	_name.text = d["name"]
+	_name.text = Names.cat(id)
 	var wd: Dictionary = DB.WEAPONS[d["weapon"]]
 	_weapon.text = "%s\nPoder: %s" % [wd["potion"], wd["name"]]
 	_potion.texture = SpriteLib.potion_icon(d["weapon"])
-	_perk.text = d["desc"]
+	_perk.text = Names.cat_desc(id)
+	for c in _stats_box.get_children():
+		c.queue_free()
+	_stats_box.add_child(UITheme.stats_grid(UITheme.char_stats(id)))
 	_status.text = ""
 	if d.has("req") and not Global.is_unlocked(id):
 		var p := Global.req_progress(id)

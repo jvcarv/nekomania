@@ -103,7 +103,7 @@ func _row(id: int) -> Control:
 	info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	info.alignment = BoxContainer.ALIGNMENT_CENTER
 	h.add_child(info)
-	var name_lbl := UITheme.label(d["name"] if met else "???", 24, Color.WHITE)
+	var name_lbl := UITheme.label(Names.cat(id) if met else "???", 24, Color.WHITE)
 	info.add_child(name_lbl)
 	var req := UITheme.label(Global.req_text(id), 16, Color(1, 0.95, 0.8))
 	req.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART

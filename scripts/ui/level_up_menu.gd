@@ -134,6 +134,10 @@ func _make_card(opt: Dictionary, idx: int) -> Button:
 				val *= rarity["mult"]
 			var shown := str(int(round(val * 100.0))) if p["pct"] else ("%.1f" % val).trim_suffix(".0")
 			desc = String(p["desc"]).replace("{v}", shown)
+			var key: String = opt["id"]
+			var cur: float = game.player.stats[key]
+			var nxt: float = cur + (int(val) if key == "projectiles" else val)
+			desc += "\nAtual: %s -> %s" % [UITheme.stat_text(key, cur), UITheme.stat_text(key, nxt)]
 	var rarity_lbl := UITheme.label(rarity["name"].to_upper() if opt["type"] != "weapon_new" else "NOVA POÇÃO", 16, rarity["color"], HORIZONTAL_ALIGNMENT_CENTER)
 	v.add_child(rarity_lbl)
 	if icon:
@@ -179,6 +183,43 @@ func _make_card(opt: Dictionary, idx: int) -> Button:
 	border.offset_bottom = -20
 	border.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	b.add_child(border)
+	# contorno grosso de seleção (teclado/controle/mouse)
+	var focus := Panel.new()
+	focus.name = "Focus"
+	var sb := StyleBoxFlat.new()
+	sb.draw_center = false
+	sb.set_border_width_all(7)
+	sb.border_color = Color(1, 0.95, 0.35)
+	sb.set_corner_radius_all(6)
+	sb.shadow_color = Color(1, 0.85, 0.2, 0.45)
+	sb.shadow_size = 10
+	focus.add_theme_stylebox_override("panel", sb)
+	focus.set_anchors_preset(Control.PRESET_FULL_RECT)
+	focus.offset_left = -9
+	focus.offset_top = -9
+	focus.offset_right = 9
+	focus.offset_bottom = -5
+	focus.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	focus.visible = false
+	b.add_child(focus)
+	var key_hint := UITheme.label("Tecla %d" % (idx + 1), 16, Color(0.55, 0.42, 0.3), HORIZONTAL_ALIGNMENT_CENTER)
+	key_hint.add_theme_constant_override("outline_size", 0)
+	key_hint.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
+	key_hint.offset_top = -56
+	key_hint.offset_bottom = -32
+	key_hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	b.add_child(key_hint)
+	b.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
+	b.focus_entered.connect(func():
+		focus.visible = true
+		b.pivot_offset = b.size / 2.0
+		b.scale = Vector2(1.05, 1.05)
+		b.z_index = 1)
+	b.focus_exited.connect(func():
+		focus.visible = false
+		b.scale = Vector2.ONE
+		b.z_index = 0)
+	b.mouse_entered.connect(func(): b.grab_focus())
 	b.pressed.connect(func(): _pick(_options[idx]))
 	return b
 
@@ -201,3 +242,22 @@ func _unhandled_input(event: InputEvent) -> void:
 		var k: int = event.keycode
 		if k >= KEY_1 and k <= KEY_3 and k - KEY_1 < _options.size():
 			_pick(_options[k - KEY_1])
+			get_viewport().set_input_as_handled()
+		elif k in [KEY_A, KEY_D, KEY_LEFT, KEY_RIGHT]:
+			_move_focus(-1 if k in [KEY_A, KEY_LEFT] else 1)
+			get_viewport().set_input_as_handled()
+		elif k in [KEY_SPACE, KEY_ENTER, KEY_KP_ENTER]:
+			var f := get_viewport().gui_get_focus_owner()
+			if f is Button:
+				(f as Button).pressed.emit()
+				get_viewport().set_input_as_handled()
+
+
+func _move_focus(step: int) -> void:
+	var cards := _cards.get_children().filter(func(c): return not c.is_queued_for_deletion())
+	if cards.is_empty():
+		return
+	var f := get_viewport().gui_get_focus_owner()
+	var i := cards.find(f)
+	i = 0 if i < 0 else clampi(i + step, 0, cards.size() - 1)
+	(cards[i] as Control).grab_focus()

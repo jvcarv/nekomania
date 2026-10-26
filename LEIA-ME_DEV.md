@@ -15,9 +15,10 @@ Godot 4.7. A cena principal agora é `scenes/ui/main_menu.tscn`.
 | `scripts/world/spawn_director.gd` | Quando/onde/quais inimigos nascem: fluxo contínuo, hordas em anel, elites, reposicionamento. **Pressão adaptativa**: se o jogador mata rápido, o ritmo de spawn sobe (até 2,5x). |
 | `scripts/world/map_generator.gd` | Mapa procedural infinito em chunks com tiles do **Ninja Adventure**: chão por bioma com manchas (marching squares), árvores e enfeites. |
 | `scripts/world/pickup.gd` | XP, moedas e corações. |
-| `scripts/weapons/` | `weapon.gd` (base) + 14 poderes: 2 por elemento (fogo, sagrado, sombrio, gelo, trovão, ácido, madeira). Cada um vem de uma **poção**. Máximo de 3 poderes por partida (`DB.MAX_WEAPONS`), nível máximo 10. Ter os 2 do mesmo elemento ativa a **sinergia** (+25% dano). |
+| `scripts/weapons/` | `weapon.gd` (base) + 14 poderes: 2 por elemento (fogo, sagrado, sombrio, gelo, trovão, ácido, madeira). Cada um vem de uma **poção**. Máximo de 5 poderes por partida (`DB.MAX_WEAPONS`), nível máximo 10. Ter os 2 do mesmo elemento ativa a **sinergia** (+25% dano). |
 | `scripts/boss_brain.gd` + `scripts/telegraph.gd` | Ataques dos chefões (investida, pancada, rajada, lacaios) com aviso visual. Chefões atravessam e derrubam árvores. |
-| `scripts/ui/` | HUD, menu principal, personagens, level-up, pausa, fim de jogo e tema visual. |
+| `scripts/ui/` | HUD, menu principal, personagens (com tabela de atributos), desafios, **compêndio** (gatos, inimigos e chefões com todas as animações), level-up, pausa, fim de jogo e tema visual. |
+| `data/nomes.json` + `scripts/data/names.gd` | **Nomes e descrições editáveis** de todos os gatos, inimigos e chefões. Ver seção abaixo. |
 | `assets/generated/ui/` | Cópias ampliadas 3x do tema de UI (sem arte nova). |
 | `assets/map/Ninja Adventure - Asset Pack/` | Pacote CC0 usado no chão, enfeites, itens e clima. `Audio/` e `Actor/` ficam fora da exportação (ver `export_presets.cfg`). |
 | `assets/fonts/` | Fonte Silkscreen (OFL). |
@@ -40,7 +41,19 @@ Godot 4.7. A cena principal agora é `scenes/ui/main_menu.tscn`.
 - Quais inimigos aparecem em cada estágio (e a partir de quando): `"spawn"` em `DB.STAGES`.
 - Chefões: `"boss"` em `DB.STAGES`.
 - Armas: `stats_for_level()` em cada `scripts/weapons/w_*.gd`.
-- Curva de XP: `DB.xp_to_next()`.
+- Curva de XP: `DB.xp_to_next()` (sem termo cúbico) e o bônus de XP por estágio em `Game.on_enemy_killed()` (+75% por estágio).
 - Preço e bônus dos personagens: `DB.CHARACTERS`.
+
+## Trocar nomes e descrições
+
+Edite `data/nomes.json` (abre em qualquer editor de texto, salve em UTF-8):
+
+- `gatos`: a chave é o número do arquivo do gato (`pipo-nekoninXXX.png`). Campos `nome` e `descricao`.
+- `inimigos`: `slime`, `skeleton`, `archer`, `orc`, `werewolf`, `werebear`.
+- `chefoes`: `orc` (estágio 1), `werewolf` (estágio 2), `werebear` (estágio 3).
+
+Campo vazio ou ausente = usa o padrão de `scripts/data/db.gd`. O arquivo vai junto na exportação
+(`include_filter` em `export_presets.cfg`). No jogo exportado, um `nomes.json` colocado **ao lado do .exe**
+tem prioridade, então dá para testar nomes novos sem exportar de novo.
 
 Para zerar o save: chame `Global.reset_save()` (ou apague `user://save.cfg`).

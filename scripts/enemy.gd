@@ -82,7 +82,7 @@ func setup(t: String, hp_mult: float, dmg_mult: float, elite: bool = false, boss
 		_base_scale *= 1.4
 	if not boss.is_empty():
 		is_boss = true
-		boss_name = boss["name"]
+		boss_name = Names.boss(boss)
 		max_hp = boss["hp"]
 		damage = boss["damage"]
 		speed = boss["speed"]

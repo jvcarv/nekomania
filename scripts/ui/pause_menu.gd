@@ -48,7 +48,7 @@ func _ready() -> void:
 	_stats = RichTextLabel.new()
 	_stats.bbcode_enabled = true
 	_stats.fit_content = true
-	_stats.custom_minimum_size = Vector2(380, 380)
+	_stats.custom_minimum_size = Vector2(520, 380)
 	_stats.scroll_active = false
 	h.add_child(_stats)
 
@@ -61,15 +61,11 @@ func open(g: Game) -> void:
 	var s: Dictionary = p.stats
 	var t := "[b][color=#ffd34d]Atributos[/color][/b]\n"
 	t += "Vida: %d / %d\n" % [int(p.hp), int(s["max_hp"])]
-	t += "Regeneração: %.1f/s\n" % s["regen"]
-	t += "Armadura: %d\n" % int(s["armor"])
-	t += "Dano: %d%%\n" % int(round(s["damage"] * 100))
-	t += "Vel. ataque: %d%%\n" % int(round(s["attack_speed"] * 100))
-	t += "Área: %d%%\n" % int(round(s["area"] * 100))
-	t += "Projéteis extras: %d\n" % int(s["projectiles"])
-	t += "Velocidade: %d%%\n" % int(round(s["speed"] * 100))
-	t += "Crítico: %d%%\n" % int(round(s["crit_chance"] * 100))
-	t += "Sorte: %d%%\n" % int(round(s["luck"] * 100))
+	var rows: Array = UITheme.STAT_ROWS.filter(func(r): return r[0] != "max_hp")
+	t += "[table=2]"
+	for r in rows:
+		t += "[cell padding=0,0,24,0]%s: %s[/cell]" % [r[1], UITheme.stat_text(r[0], s[r[0]])]
+	t += "[/table]\n"
 	t += "\n[b][color=#ffd34d]Poções / poderes[/color][/b]\n"
 	for w in p.weapon_list():
 		t += "%s: %s Nv %d\n" % [DB.WEAPONS[w.id]["potion"], DB.WEAPONS[w.id]["name"], w.level]

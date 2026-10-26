@@ -36,23 +36,30 @@ func _ready() -> void:
 	_char_name = UITheme.label("", 16, Color.WHITE, HORIZONTAL_ALIGNMENT_CENTER)
 	v.add_child(_char_name)
 
-	var play := UITheme.button("Jogar", 24, 320)
+	var play := UITheme.button("Jogar", 24, 520)
 	play.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/game.tscn"))
 	v.add_child(play)
-	var chars := UITheme.button("Personagens", 24, 320)
-	chars.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/character_select.tscn"))
-	v.add_child(chars)
-	var challenges := UITheme.button("Desafios", 24, 320)
-	challenges.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/challenges.tscn"))
-	v.add_child(challenges)
-	var credits := UITheme.button("Créditos", 24, 320)
-	credits.pressed.connect(_show_credits)
-	v.add_child(credits)
-	var quit := UITheme.button("Sair", 24, 320)
+	play.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	var grid := GridContainer.new()
+	grid.columns = 2
+	grid.add_theme_constant_override("h_separation", 8)
+	grid.add_theme_constant_override("v_separation", 8)
+	grid.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	v.add_child(grid)
+	var entries := [
+		["Personagens", func(): get_tree().change_scene_to_file("res://scenes/ui/character_select.tscn")],
+		["Desafios", func(): get_tree().change_scene_to_file("res://scenes/ui/challenges.tscn")],
+		["Compêndio", func(): get_tree().change_scene_to_file("res://scenes/ui/compendium.tscn")],
+		["Créditos", _show_credits],
+	]
+	for e in entries:
+		var btn := UITheme.button(e[0], 24, 256)
+		btn.pressed.connect(e[1])
+		grid.add_child(btn)
+	var quit := UITheme.button("Sair", 24, 520)
 	quit.pressed.connect(func(): get_tree().quit())
 	v.add_child(quit)
-	for b in [play, chars, challenges, credits, quit]:
-		b.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	quit.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 
 	# moedas e recordes
 	var top := HBoxContainer.new()
@@ -130,4 +137,4 @@ func _refresh() -> void:
 	_char_sprite.sprite_frames = SpriteLib.character(id)
 	_char_sprite.play("running_down")
 	var d: Dictionary = DB.CHARACTERS[id]
-	_char_name.text = "%s  •  %s" % [d["name"], DB.WEAPONS[d["weapon"]]["potion"]]
+	_char_name.text = "%s  •  %s" % [Names.cat(id), DB.WEAPONS[d["weapon"]]["potion"]]

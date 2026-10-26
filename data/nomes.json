@@ -1,0 +1,173 @@
+{
+  "_leia_me": "Edite os nomes e descrições aqui. Os números dos gatos são os do arquivo assets/chars/Player/pipo-nekoninXXX.png. Deixe um campo de fora para usar o padrão do jogo.",
+  "gatos": {
+    "13": {
+      "nome": "Feiticeiro",
+      "descricao": "O mago original. Equilibrado."
+    },
+    "2": {
+      "nome": "Laranjinha",
+      "descricao": "+8% velocidade."
+    },
+    "21": {
+      "nome": "Abóbora",
+      "descricao": "+25 vida máxima."
+    },
+    "32": {
+      "nome": "Chapéu de Palha",
+      "descricao": "+10% sorte."
+    },
+    "15": {
+      "nome": "Lorde Demônio",
+      "descricao": "+20% dano, +15% área."
+    },
+    "4": {
+      "nome": "Branquinho",
+      "descricao": "+0.3 vida/s."
+    },
+    "25": {
+      "nome": "Lacinho",
+      "descricao": "+20 alcance de coleta."
+    },
+    "11": {
+      "nome": "Vovó",
+      "descricao": "+12% experiência."
+    },
+    "19": {
+      "nome": "Anjo",
+      "descricao": "+20 vida, +0.5 vida/s."
+    },
+    "26": {
+      "nome": "Anjinha",
+      "descricao": "+15% vel. ataque, +10% sorte."
+    },
+    "3": {
+      "nome": "Cinzento",
+      "descricao": "+5% crítico."
+    },
+    "10": {
+      "nome": "Detetive",
+      "descricao": "+8% crítico, +25% dano crítico."
+    },
+    "20": {
+      "nome": "Morcego",
+      "descricao": "+12% velocidade, +0.2 vida/s."
+    },
+    "27": {
+      "nome": "Diabinha",
+      "descricao": "+15% dano, +8% crítico."
+    },
+    "5": {
+      "nome": "Siamês",
+      "descricao": "+3 armadura."
+    },
+    "9": {
+      "nome": "Nerd",
+      "descricao": "+10% experiência."
+    },
+    "24": {
+      "nome": "Rosinha",
+      "descricao": "+12% área."
+    },
+    "12": {
+      "nome": "Mergulhador",
+      "descricao": "+1 projétil."
+    },
+    "6": {
+      "nome": "Malhado",
+      "descricao": "+6% velocidade."
+    },
+    "29": {
+      "nome": "Operário",
+      "descricao": "+5 armadura."
+    },
+    "31": {
+      "nome": "Leãozinho",
+      "descricao": "+12% dano."
+    },
+    "14": {
+      "nome": "Faraó",
+      "descricao": "+20% vel. ataque."
+    },
+    "1": {
+      "nome": "Creminho",
+      "descricao": "+10 vida máxima."
+    },
+    "8": {
+      "nome": "Azulado",
+      "descricao": "+25 alcance de coleta."
+    },
+    "7": {
+      "nome": "Zumbi",
+      "descricao": "+0.8 vida/s."
+    },
+    "22": {
+      "nome": "Melancia",
+      "descricao": "+20% área."
+    },
+    "23": {
+      "nome": "Kiwi",
+      "descricao": "+15% sorte."
+    },
+    "16": {
+      "nome": "Ursinho",
+      "descricao": "+15 vida máxima."
+    },
+    "17": {
+      "nome": "Urso Pardo",
+      "descricao": "+4 armadura."
+    },
+    "18": {
+      "nome": "Panda",
+      "descricao": "+30 vida, +2 armadura."
+    },
+    "28": {
+      "nome": "Folhagem",
+      "descricao": "+0.6 vida/s, +10% área."
+    },
+    "30": {
+      "nome": "Cerejeira",
+      "descricao": "+1 projétil, +0.5 vida/s."
+    }
+  },
+  "inimigos": {
+    "slime": {
+      "nome": "Slime",
+      "descricao": "Gosma saltitante. Fraca sozinha, perigosa em bando."
+    },
+    "skeleton": {
+      "nome": "Esqueleto",
+      "descricao": "Soldado de ossos que nunca desiste de perseguir."
+    },
+    "archer": {
+      "nome": "Esqueleto Arqueiro",
+      "descricao": "Mantém distância e dispara flechas."
+    },
+    "orc": {
+      "nome": "Orc",
+      "descricao": "Lento, resistente e bate forte."
+    },
+    "werewolf": {
+      "nome": "Lobisomem",
+      "descricao": "Muito rápido. Chega antes que você perceba."
+    },
+    "werebear": {
+      "nome": "Urso-Lobisomem",
+      "descricao": "Enorme e cheio de vida. Aparece nos estágios finais."
+    }
+  },
+  "chefoes": {
+    "orc": {
+      "nome": "Chefe Orc",
+      "descricao": "Guardião do primeiro mundo. Dá pancadas em área, investe e chama reforços."
+    },
+    "werewolf": {
+      "nome": "Lobisomem Alfa",
+      "descricao": "Líder da matilha. Investidas seguidas e rajadas de projéteis."
+    },
+    "werebear": {
+      "nome": "Rei Urso",
+      "descricao": "O chefão final. Usa todos os ataques dos outros chefões."
+    }
+  }
+}

@@ -24,12 +24,14 @@ Não são arquivos de imagem, mas o que aparece na tela é gerado por código es
 - Clima: as partículas usam os sprites de `FX/Particle` do Ninja Adventure; o código só controla quantidade, direção e cor.
 - Círculo verde da poça ácida (`scripts/weapons/acid_pool.gd`), raio em zigue-zague (`w_thunder.gd`), seta do portal (`scripts/ui/hud.gd`), barras de vida/XP (`scripts/ui/pixel_bar.gd` — usa a moldura do pacote de UI + retângulos de cor), números de dano.
 - Avisos de ataque dos chefões (círculo/linha vermelha — `scripts/telegraph.gd`), minimapa (`scripts/ui/minimap.gd`) e a tela escura de transição entre mundos (`scripts/ui/stage_transition.gd`).
+- Contorno amarelo da carta selecionada no level-up e o fundo do quadro de animação do Compêndio (`scripts/ui/level_up_menu.gd`, `scripts/ui/compendium.gd`).
 - Cores de estado dos inimigos (laranja = queimando, azul = congelando, amarelo = eletrizado, verde = envenenado): são só tingimentos do sprite original, feitos por código (`scripts/enemy.gd`).
 
 ## 4. Código e dados escritos por IA
 
 - Todo o código em `scripts/` (o `scripts/player.gd` foi reescrito a partir do original da equipe; a versão original está em `old/player_antigo.gd`).
 - Todas as cenas em `scenes/` (`game.tscn`, `player.tscn`, `enemy.tscn`, `scenes/ui/*`).
+- O formato do arquivo `data/nomes.json`.
 - Alterações em `project.godot` (autoload, entradas, resolução, fonte).
 - Números de balanceamento, curva de XP e preços (`scripts/data/db.gd`).
 
@@ -37,6 +39,8 @@ Não são arquivos de imagem, mas o que aparece na tela é gerado por código es
 
 - Título provisório "NEKO ARCANO" e subtítulo do menu.
 - Nomes e descrições dos personagens, das poções, dos poderes, das melhorias e dos estágios/chefões (`scripts/data/db.gd`).
+- Nomes e descrições padrão em `data/nomes.json` (gatos, inimigos e chefões) — a equipe pode reescrever todos.
+- Textos do Compêndio e da tabela de atributos.
 - Todos os textos da interface (menus, HUD, avisos).
 - `LEIA-ME_DEV.md`, este arquivo e `CREDITOS.md`.
 
