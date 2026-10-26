@@ -23,3 +23,6 @@ _tmp/
 # Áudio do Ninja Adventure (96 MB) — fora do git até ser usado
 assets/map/Ninja Adventure - Asset Pack/Audio/
 assets/map/Ninja Adventure - Asset Pack/Actor/
+
+# Windows
+Thumbs.db

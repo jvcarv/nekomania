@@ -202,11 +202,16 @@ func _make_card(opt: Dictionary, idx: int) -> Button:
 	focus.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	focus.visible = false
 	b.add_child(focus)
-	var key_hint := UITheme.label("Tecla %d" % (idx + 1), 16, Color(0.55, 0.42, 0.3), HORIZONTAL_ALIGNMENT_CENTER)
-	key_hint.add_theme_constant_override("outline_size", 0)
-	key_hint.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
-	key_hint.offset_top = -56
-	key_hint.offset_bottom = -32
+	# tecla de atalho (1, 2, 3) no canto superior esquerdo da carta — assets/Keys
+	var key_tex := AtlasTexture.new()
+	key_tex.atlas = load("res://assets/Keys/%d-Key.png" % (idx + 1))
+	key_tex.region = Rect2(0, 0, 32, 32)   # quadro 0 = tecla solta
+	var key_hint := TextureRect.new()
+	key_hint.texture = key_tex
+	key_hint.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	key_hint.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
+	key_hint.position = Vector2(-10, -12)
+	key_hint.size = Vector2(48, 48)
 	key_hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	b.add_child(key_hint)
 	b.add_theme_stylebox_override("focus", StyleBoxEmpty.new())

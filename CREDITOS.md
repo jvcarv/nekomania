@@ -22,6 +22,7 @@ Este arquivo reúne os créditos das pessoas, ferramentas e recursos utilizados 
 | Poções — Potions | Onocentaur | https://onocentaur.itch.io/potions | Uso livre pessoal e profissional; atribuição apreciada |
 | Chão, árvores, enfeites, moeda, cristais de XP, coração, portal e partículas de clima — Ninja Adventure Asset Pack | Pixel-boy & AAA | https://pixel-boy.itch.io/ninja-adventure-asset-pack | CC0 1.0 |
 | Efeitos sonoros (`assets/audio/sfx/`) — Ninja Adventure Asset Pack (pasta Audio, arquivos renomeados, sem edição) | Pixel-boy & AAA | https://pixel-boy.itch.io/ninja-adventure-asset-pack | CC0 1.0 |
+| Teclas de atalho no level-up (`assets/Keys/`) | [preencher autor] | [preencher link] | [preencher licença] |
 | Fonte Silkscreen | Jason Kottke | https://kottke.org/plus/type/silkscreen/ | SIL Open Font License 1.1 (`assets/fonts/OFL.txt`) |
 
 ### Origem de cada efeito sonoro (`assets/audio/sfx/`, todos do Ninja Adventure, CC0)
