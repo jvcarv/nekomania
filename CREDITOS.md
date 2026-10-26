@@ -14,7 +14,7 @@ Este arquivo reúne os créditos das pessoas, ferramentas e recursos utilizados 
 
 | Recurso | Autor ou criador | Fonte ou link | Licença |
 |---------|------------------|---------------|---------|
-| Músicas `assets/SFX/home.mp3`, `phase.mp3`, `boss.mp3` | Uendel Felipe Picoli Olivo | — (autoral) | Cedida à equipe |
+| Músicas `assets/SFX/home.mp3`, `phase.mp3`, `boss.mp3` | Uendel Felipe Picoli Olivo (membro da equipe) | — (autoral, feita no BeepBox) | Autoral da equipe |
 | Gatinhos jogáveis (`assets/chars/Player/pipo-nekonin*.png`) — PIPOYA FREE RPG Character Sprites NEKONIN | Pipoya | https://pipoya.itch.io/pipoya-free-rpg-character-sprites-nekonin | Uso livre em jogos (comercial ou não); sem redistribuição/revenda; crédito pedido pelo autor |
 | Inimigos e chefões (Slime, Esqueleto, Esqueleto Arqueiro, Orc, Lobisomem, Urso-Lobisomem) — Tiny RPG Character Asset Pack | Zerie | https://zerie.itch.io/tiny-rpg-character-asset-pack | Uso em jogos pessoais/comerciais; sem redistribuição/revenda |
 | Efeitos de magia (Fogo, Gelo, Trovão, Ácido, Sombrio, Sagrado, Madeira — `assets/spells/`) | pimen | https://pimen.itch.io | Termos do autor no itch.io (uso em jogos; sem redistribuição) |
@@ -54,7 +54,7 @@ Este arquivo reúne os créditos das pessoas, ferramentas e recursos utilizados 
 
 - **Engine:** Godot Engine 4.7 (https://godotengine.org)
 - **Linguagens de programação:** GDScript
-- **Ferramentas de criação:** nenhuma arte ou som foi criado por IA; todos os sprites e sons são dos pacotes acima ou autorais. O musicista (Uendel) usou o site BeepBox (https://mutterpixel-studio.itch.io/forest-trees-pack-pixel-art-32x32-top-down-rpg) para a criação das músicas.
+- **Ferramentas de criação:** nenhuma arte ou som foi criado por IA; todos os sprites e sons são dos pacotes acima ou autorais. O musicista (Uendel) usou o site BeepBox (https://www.beepbox.co) para a criação das músicas.
 - **Outras ferramentas:** Git/GitHub; Claude (Anthropic) como assistente de programação — ver `TERMO_IA.md`.
 
 ## 4. Agradecimentos

@@ -17,6 +17,7 @@ os poderes atacam sozinhos, você só se move, coleta cristais de XP e escolhe m
 |---|---|---|
 | Mover | WASD / setas | Analógico esquerdo |
 | Escolher carta no level-up | 1, 2, 3 ou A/D + Enter | D-pad + A |
+| Sortear cartas de novo / Pular | R / X | — |
 | Pausar | ESC / P | Start |
 
 ## Como funciona
