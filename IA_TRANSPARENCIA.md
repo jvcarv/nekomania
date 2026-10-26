@@ -12,7 +12,7 @@ Sobre imagens: A moeda, as gemas de XP, o coração e o portal que a IA tinha de
 foram substituídos por sprites do pacote **Ninja Adventure** (Pixel-boy & AAA, CC0):
 `Items/Treasure/Coin2.png`, cristais azuis do `TilesetNature.png` (clareados por código), `Items/Potion/Heart.png` e
 `FX/Magic/Circle/SpriteSheetWhite.png` (tingido de roxo). A pasta `assets/generated/`
-agora só tem as cópias ampliadas da UI (item 2).
+agora só tem as cópias ampliadas da UI criadas pelo desenvolvedor do time(item 2).
 
 ## 2. Imagens processadas por IA (sem arte nova)
 
@@ -37,12 +37,12 @@ Não são arquivos de imagem, mas o que aparece na tela é gerado por código es
 - Alterações em `project.godot` (autoload, entradas, resolução, fonte).
 - Números de balanceamento, curva de XP e preços (`scripts/data/db.gd`).
 
-## 5. Textos escritos por IA
+## 5. Textos escritos co-autorados por IA
 
-- Título do menu montado em código (o nome "Nekomania" é da equipe).
-- Nomes e descrições dos personagens, das poções, dos poderes, das melhorias e dos estágios/chefões (`scripts/data/db.gd`).
-- Nomes e descrições padrão em `data/nomes.json` (gatos, inimigos e chefões) — a equipe pode reescrever todos.
-- Textos do Compêndio e da tabela de atributos.
+- Título do menu montado em código (o nome "Nekomania" é foi totalmente definido pela equipe).
+- Nomes e descrições dos personagens, das poções, dos poderes, das melhorias e dos estágios/chefões (`scripts/data/db.gd`, foram totalmente escolhidos, gerados e definidos pela equipe).
+- Nomes e descrições padrão em `data/nomes.json` (gatos, inimigos e chefões) — a equipe criou todos.
+- Textos do Compêndio e da tabela de atributos - criado e curado pela equipe.
 - Todos os textos da interface (menus, HUD, avisos).
 - `LEIA-ME_DEV.md`, este arquivo e `CREDITOS.md`.
 
