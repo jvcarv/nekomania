@@ -136,6 +136,7 @@ const CREDITS := """[b]Música:[/b] Uendel Felipe Picoli Olivo
 [b]Interface:[/b] Crusenho Agus Hennihuno (CC BY 4.0)
 [b]Poções:[/b] Onocentaur
 [b]Chão, enfeites e itens:[/b] Ninja Adventure — Pixel-boy & AAA (CC0)
+[b]Teclas:[/b] Gerald's Keys — Gerald Burke (CC0)
 [b]Fonte:[/b] Silkscreen, Jason Kottke (OFL)
 [b]Motor:[/b] Godot Engine
 
