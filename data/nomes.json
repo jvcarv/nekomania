@@ -1,173 +1,172 @@
 {
-  "_leia_me": "Edite os nomes e descrições aqui. Os números dos gatos são os do arquivo assets/chars/Player/pipo-nekoninXXX.png. Deixe um campo de fora para usar o padrão do jogo.",
   "gatos": {
-    "13": {
-      "nome": "Feiticeiro",
-      "descricao": "O mago original. Equilibrado."
-    },
-    "2": {
-      "nome": "Laranjinha",
-      "descricao": "+8% velocidade."
-    },
-    "21": {
-      "nome": "Abóbora",
-      "descricao": "+25 vida máxima."
-    },
-    "32": {
-      "nome": "Chapéu de Palha",
-      "descricao": "+10% sorte."
-    },
-    "15": {
-      "nome": "Lorde Demônio",
-      "descricao": "+20% dano, +15% área."
-    },
-    "4": {
-      "nome": "Branquinho",
-      "descricao": "+0.3 vida/s."
-    },
-    "25": {
-      "nome": "Lacinho",
-      "descricao": "+20 alcance de coleta."
-    },
-    "11": {
-      "nome": "Vovó",
-      "descricao": "+12% experiência."
-    },
-    "19": {
-      "nome": "Anjo",
-      "descricao": "+20 vida, +0.5 vida/s."
-    },
-    "26": {
-      "nome": "Anjinha",
-      "descricao": "+15% vel. ataque, +10% sorte."
-    },
-    "3": {
-      "nome": "Cinzento",
-      "descricao": "+5% crítico."
-    },
-    "10": {
-      "nome": "Detetive",
-      "descricao": "+8% crítico, +25% dano crítico."
-    },
-    "20": {
-      "nome": "Morcego",
-      "descricao": "+12% velocidade, +0.2 vida/s."
-    },
-    "27": {
-      "nome": "Diabinha",
-      "descricao": "+15% dano, +8% crítico."
-    },
-    "5": {
-      "nome": "Siamês",
-      "descricao": "+3 armadura."
-    },
-    "9": {
-      "nome": "Nerd",
-      "descricao": "+10% experiência."
-    },
-    "24": {
-      "nome": "Rosinha",
-      "descricao": "+12% área."
-    },
-    "12": {
-      "nome": "Mergulhador",
-      "descricao": "+1 projétil."
-    },
-    "6": {
-      "nome": "Malhado",
-      "descricao": "+6% velocidade."
-    },
-    "29": {
-      "nome": "Operário",
-      "descricao": "+5 armadura."
-    },
-    "31": {
-      "nome": "Leãozinho",
-      "descricao": "+12% dano."
-    },
-    "14": {
-      "nome": "Faraó",
-      "descricao": "+20% vel. ataque."
-    },
-    "1": {
-      "nome": "Creminho",
-      "descricao": "+10 vida máxima."
-    },
-    "8": {
-      "nome": "Azulado",
-      "descricao": "+25 alcance de coleta."
-    },
-    "7": {
-      "nome": "Zumbi",
-      "descricao": "+0.8 vida/s."
-    },
-    "22": {
-      "nome": "Melancia",
-      "descricao": "+20% área."
-    },
-    "23": {
-      "nome": "Kiwi",
-      "descricao": "+15% sorte."
-    },
-    "16": {
-      "nome": "Ursinho",
-      "descricao": "+15 vida máxima."
-    },
-    "17": {
-      "nome": "Urso Pardo",
-      "descricao": "+4 armadura."
-    },
-    "18": {
-      "nome": "Panda",
-      "descricao": "+30 vida, +2 armadura."
-    },
-    "28": {
-      "nome": "Folhagem",
-      "descricao": "+0.6 vida/s, +10% área."
-    },
-    "30": {
-      "nome": "Cerejeira",
-      "descricao": "+1 projétil, +0.5 vida/s."
-    }
+	"13": {
+	  "nome": "Nekeiro",
+	  "descricao": "As coisas ficam quente quando ele se irrita."
+	},
+	"2": {
+	  "nome": "Laranjinha",
+	  "descricao": "Ele bebe laranjinha quente e cospe depois."
+	},
+	"21": {
+	  "nome": "Hello Win",
+	  "descricao": "Tem mais vida, pra te dar uma vitória doce."
+	},
+	"32": {
+	  "nome": "Rufus D. Macaco",
+	  "descricao": "O cara é sortudo. E brasileiro."
+	},
+	"15": {
+	  "nome": "Shepherd of Fire",
+	  "descricao": "tem uma besta e um mandado."
+	},
+	"4": {
+	  "nome": "Nevou",
+	  "descricao": "Tava na moda um tempo atrás."
+	},
+	"25": {
+	  "nome": "Lacinho",
+	  "descricao": "è a gata de três meninas superpoderosas."
+	},
+	"11": {
+	  "nome": "Vovó",
+	  "descricao": "Ela sabe das coisas."
+	},
+	"19": {
+	  "nome": "Orelha",
+	  "descricao": "R.I.P. Orelha XXXX - 2025"
+	},
+	"26": {
+	  "nome": "Anjinha",
+	  "descricao": "Ela jura que não fez nada."
+	},
+	"3": {
+	  "nome": "Trevoso",
+	  "descricao": "Nasceu numa noite sem lua."
+	},
+	"10": {
+	  "nome": "Noir",
+	  "descricao": "Faz investigações críticas."
+	},
+	"20": {
+	  "nome": "Batcat",
+	  "descricao": "Por Miautham!"
+	},
+	"27": {
+	  "nome": "Diabinha",
+	  "descricao": "Essa assume que já fez tudo."
+	},
+	"5": {
+	  "nome": "Queridinho",
+	  "descricao": "Ele não responde. Ele é frio."
+	},
+	"9": {
+	  "nome": "Okarun",
+	  "descricao": "Sonha em ver OVNIs."
+	},
+	"24": {
+	  "nome": "Rosinha",
+	  "descricao": "È rosinha como uma bala."
+	},
+	"12": {
+	  "nome": "O Espanta Tubarão",
+	  "descricao": "LEnda conhecida por ter dado um tapinha no focinho de um tubarão."
+	},
+	"6": {
+	  "nome": "Papa-Léguas",
+	  "descricao": "O dono tava vendo desenho quando batizou ele."
+	},
+	"29": {
+	  "nome": "9 Dedos",
+	  "descricao": "Perdeu um toquinho do rabo na fábrica."
+	},
+	"31": {
+	  "nome": "Narnia",
+	  "descricao": "El* comanda uma terra além do próprio roupeiro."
+	},
+	"14": {
+	  "nome": "Faraó",
+	  "descricao": "🎶'Sou faraó, sou faraó'🎶."
+	},
+	"1": {
+	  "nome": "Bola de Pelo",
+	  "descricao": "Ele cospe ácido. Literalmente."
+	},
+	"8": {
+	  "nome": "Gatuno",
+	  "descricao": "Tem alcance maior porque é o Gatuno."
+	},
+	"7": {
+	  "nome": "Planta",
+	  "descricao": "Ele é contra ele mesmo (tu dum tss)."
+	},
+	"22": {
+	  "nome": "Harry",
+	  "descricao": "Ele curte o acúcar da melancia"
+	},
+	"23": {
+	  "nome": "Kiwi",
+	  "descricao": "É uma fruta. Ou um pássaro(?)"
+	},
+	"16": {
+	  "nome": "Pardo",
+	  "descricao": "Finja de morto quando vir ele."
+	},
+	"17": {
+	  "nome": "Balu",
+	  "descricao": "Invoca os espinhos da floresta."
+	},
+	"18": {
+	  "nome": "Panda",
+	  "descricao": "Ele curte celulares."
+	},
+	"28": {
+	  "nome": "Folhagem",
+	  "descricao": "Ele curte a natureza."
+	},
+	"30": {
+	  "nome": "Sushi",
+	  "descricao": "O dono resgatou ela no Japão."
+	}
   },
   "inimigos": {
-    "slime": {
-      "nome": "Slime",
-      "descricao": "Gosma saltitante. Fraca sozinha, perigosa em bando."
-    },
-    "skeleton": {
-      "nome": "Esqueleto",
-      "descricao": "Soldado de ossos que nunca desiste de perseguir."
-    },
-    "archer": {
-      "nome": "Esqueleto Arqueiro",
-      "descricao": "Mantém distância e dispara flechas."
-    },
-    "orc": {
-      "nome": "Orc",
-      "descricao": "Lento, resistente e bate forte."
-    },
-    "werewolf": {
-      "nome": "Lobisomem",
-      "descricao": "Muito rápido. Chega antes que você perceba."
-    },
-    "werebear": {
-      "nome": "Urso-Lobisomem",
-      "descricao": "Enorme e cheio de vida. Aparece nos estágios finais."
-    }
+	"slime": {
+	  "nome": "Gosmento",
+	  "descricao": "Você não quer enfiar a mão aí."
+	},
+	"skeleton": {
+	  "nome": "Ossudo",
+	  "descricao": "A falta de músculos faz dele um bom perseguidor. Ele nunca cansa, yoho!"
+	},
+	"archer": {
+	  "nome": "Ossos Livres",
+	  "descricao": "Ele campera, mas atira mal."
+	},
+	"orc": {
+	  "nome": "Orcut",
+	  "descricao": "Lento, grande e bate forte."
+	},
+	"werewolf": {
+	  "nome": "Dominanoite (Domingo à Noite)",
+	  "descricao": "Muito rápido. Chega antes que você perceba."
+	},
+	"werebear": {
+	  "nome": "Polar",
+	  "descricao": "O nome é porque ele é viciado... em açúcar..."
+	}
   },
   "chefoes": {
-    "orc": {
-      "nome": "Chefe Orc",
-      "descricao": "Guardião do primeiro mundo. Dá pancadas em área, investe e chama reforços."
-    },
-    "werewolf": {
-      "nome": "Lobisomem Alfa",
-      "descricao": "Líder da matilha. Investidas seguidas e rajadas de projéteis."
-    },
-    "werebear": {
-      "nome": "Rei Urso",
-      "descricao": "O chefão final. Usa todos os ataques dos outros chefões."
-    }
+	"orc": {
+	  "nome": "Precioso",
+	  "descricao": "Guardião do primeiro mundo. Guarda o portal pro próximo estágio."
+	},
+	"werewolf": {
+	  "nome": "Sigma",
+	  "descricao": "Líder da matilha. É uma doença."
+	},
+	"werebear": {
+	  "nome": "Rei Jailson",
+	  "descricao": "Peludo, enorme e cheio de vida. O chefão final. Usa todos os ataques dos outros chefões."
+	}
   }
 }

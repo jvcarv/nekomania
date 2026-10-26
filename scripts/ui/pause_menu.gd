@@ -45,6 +45,8 @@ func _ready() -> void:
 		get_tree().paused = false
 		get_tree().change_scene_to_file("res://scenes/ui/main_menu.tscn"))
 	left.add_child(menu)
+	var vol := Sound.make_volume_controls(300.0)
+	left.add_child(vol)
 	_stats = RichTextLabel.new()
 	_stats.bbcode_enabled = true
 	_stats.fit_content = true

@@ -25,6 +25,7 @@ func _physics_process(delta: float) -> void:
 	if _cd <= 0.0:
 		if fire():
 			_cd = stat("cooldown")
+			Sound.play(id)
 		else:
 			_cd = 0.15
 

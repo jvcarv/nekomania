@@ -8,6 +8,7 @@ var _summary: Label
 
 func _ready() -> void:
 	theme = UITheme.get_theme()
+	Sound.music("home")
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(MenuBackground.new())
 

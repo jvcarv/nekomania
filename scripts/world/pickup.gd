@@ -108,10 +108,13 @@ func _collect(p: Player) -> void:
 	var g := Game.current
 	match kind:
 		Kind.XP:
+			Sound.play("gem")
 			p.add_xp(value)
 		Kind.COIN:
+			Sound.play("coin")
 			g.add_coins(value)
 		Kind.HEART:
+			Sound.play("heart")
 			p.heal(25.0)
 			g.show_number(p.global_position + Vector2(0, -16), 25, Color(0.4, 1, 0.4))
 		Kind.POTION:

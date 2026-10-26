@@ -7,6 +7,7 @@ Godot 4.7. A cena principal agora é `scenes/ui/main_menu.tscn`.
 | Pasta / arquivo | O que faz |
 |---|---|
 | `scripts/autoload/global.gd` | Autoload **Global**: moedas, personagens desbloqueados, recordes (salvos em `user://save.cfg`) e teclas (WASD/setas, ESC/P, controle). |
+| `scripts/autoload/sound.gd` | Autoload **Sound**: músicas (`assets/SFX`: home = menus, phase = estágio, boss = chefão) e efeitos (`assets/audio/sfx`). `Sound.play("coin")`, `Sound.music("boss")`. Volume de música/efeitos no menu principal e na pausa (salvo em `user://settings.cfg`). |
 | `scripts/data/db.gd` | **Todas as tabelas de balanceamento**: personagens, armas, melhorias, raridades, inimigos, estágios e curva de XP. |
 | `scripts/sprite_lib.gd` | Monta as animações a partir das spritesheets em tempo de execução (personagens, inimigos e efeitos). |
 | `scripts/game.gd` + `scenes/game.tscn` | A partida: estágios, chefão, portal, drops, level-up, pausa, fim de jogo. |

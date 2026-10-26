@@ -9,6 +9,7 @@ var _char_name: Label
 func _ready() -> void:
 	get_tree().paused = false
 	theme = UITheme.get_theme()
+	Sound.music("home")
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(MenuBackground.new())
 
@@ -60,6 +61,13 @@ func _ready() -> void:
 	quit.pressed.connect(func(): get_tree().quit())
 	v.add_child(quit)
 	quit.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	quit.visible = not OS.has_feature("web")   # no navegador não há como "sair"
+
+	# volume (canto superior esquerdo)
+	var vol_panel := PanelContainer.new()
+	vol_panel.position = Vector2(16, 16)
+	vol_panel.add_child(Sound.make_volume_controls(280.0))
+	add_child(vol_panel)
 
 	# moedas e recordes
 	var top := HBoxContainer.new()
@@ -120,16 +128,21 @@ func _show_credits() -> void:
 	back.grab_focus()
 
 
-const CREDITS := """[b]Gatinhos:[/b] Pipoya
-[b]Inimigos e magias:[/b] (preencher autores)
-[b]Árvores:[/b] Pocket Cozy Pixels / BloomPixle
+const CREDITS := """[b]Música:[/b] Uendel Felipe Picoli Olivo
+[b]Efeitos sonoros:[/b] Ninja Adventure — Pixel-boy & AAA (CC0)
+[b]Gatinhos:[/b] Pipoya (pipoya.itch.io)
+[b]Inimigos:[/b] Tiny RPG Character Asset Pack — Zerie (zerie.itch.io)
+[b]Magias:[/b] pimen (pimen.itch.io)
+[b]Árvores:[/b] Forest Trees Pack — Pocket Cozy Pixels / BloomPixle
 [b]Interface:[/b] Crusenho Agus Hennihuno (CC BY 4.0)
 [b]Poções:[/b] Onocentaur
 [b]Chão, enfeites e itens:[/b] Ninja Adventure — Pixel-boy & AAA (CC0)
 [b]Fonte:[/b] Silkscreen, Jason Kottke (OFL)
 [b]Motor:[/b] Godot Engine
 
-Código feito com auxílio de IA."""
+[b]Beta testers:[/b] Matheus Augusto Barbosa Carvalho & Uendel
+
+Código feito com auxílio de IA (ver TERMO_IA.md)."""
 
 
 func _refresh() -> void:

@@ -71,6 +71,7 @@ func _strike(e: Enemy) -> void:
 	if is_instance_valid(weapon) and is_instance_valid(weapon.player):
 		weapon.hit(e, damage, _dir * 40.0)
 		e.apply_shock(stun)
+		Sound.play("thunder", -2.0)
 		SpriteLib.spawn_fx(get_parent(), "thunder", e.global_position + Vector2(0, -6), "hit", 0.8)
 	_target = null
 	_pick_target()

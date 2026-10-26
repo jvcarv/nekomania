@@ -18,6 +18,7 @@ var _cards: Dictionary = {}
 
 func _ready() -> void:
 	theme = UITheme.get_theme()
+	Sound.music("home")
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(MenuBackground.new())
 
@@ -211,9 +212,11 @@ func _on_action() -> void:
 	var id := _current
 	if not Global.is_unlocked(id):
 		if Global.try_buy(id):
+			Sound.play("buy")
 			_status.text = "Desbloqueado!"
 			_preview.modulate = Color.WHITE
 		else:
+			Sound.play("denied")
 			_status.text = "Moedas insuficientes."
 			_refresh()
 			return

@@ -83,6 +83,7 @@ func biome() -> Dictionary:
 
 # ------------------------------------------------------------------ estágios
 func start_stage(index: int) -> void:
+	Sound.music("phase", 1.0)
 	stage_index = index
 	stage_time = 0.0
 	boss = null
@@ -114,6 +115,8 @@ func _process(delta: float) -> void:
 		boss = director.spawn_boss()
 		boss.killed.connect(_on_boss_killed)
 		boss_spawned.emit(boss)
+		Sound.play("boss_alert")
+		Sound.music("boss", 1.2)
 		announce("%s apareceu!" % boss.boss_name, Color(1, 0.35, 0.3))
 		player.shake(6.0)
 
@@ -147,6 +150,8 @@ func _on_boss_killed(e: Enemy) -> void:
 	boss_cleared.emit()
 	director.active = false
 	director.clear_enemies()
+	Sound.play("boss_dead")
+	Sound.music("phase", 2.0)
 	for i in 12:
 		_drop(Pickup.Kind.COIN, pos + Vector2.RIGHT.rotated(randf() * TAU) * randf_range(8, 40), 1)
 	drop_potion(pos + Vector2(0, 14))
@@ -181,6 +186,7 @@ func _enter_portal() -> void:
 	for p in get_tree().get_nodes_in_group("pickups"):
 		p.attract()
 	player.frozen = true
+	Sound.play("portal")
 	hud.show_portal_arrow(null)
 	var portal_pos := _portal.global_position
 	var tw := player.create_tween().set_parallel(true)
@@ -296,6 +302,7 @@ func drink_potion(id: String) -> void:
 	else:
 		add_coins(3)
 		return
+	Sound.play("potion")
 	player.drink_effect(DB.weapon_color(id))
 
 
@@ -306,6 +313,7 @@ func _check_synergy(new_id: String) -> void:
 			if not run_synergies.has(elem):
 				run_synergies.append(elem)
 			await get_tree().create_timer(1.4, false).timeout
+			Sound.play("synergy")
 			announce("SINERGIA DE %s! +%d%% dano" % [DB.ELEMENTS[elem]["name"].to_upper(), int(DB.SYNERGY_BONUS * 100)],
 					DB.ELEMENTS[elem]["color"])
 			return
@@ -325,6 +333,7 @@ func _on_player_leveled_up(_lvl: int) -> void:
 
 func _open_level_up() -> void:
 	get_tree().paused = true
+	Sound.play("level_up")
 	level_up_menu.open(self, build_upgrade_options(3))
 
 
@@ -425,6 +434,8 @@ func _end_run(victory: bool) -> void:
 		"synergies": run_synergies,
 	}
 	var newly := Global.finish_run(result)
+	Sound.stop_music(0.4)
+	Sound.play("victory" if victory else "game_over")
 	get_tree().paused = true
 	game_over_screen.open(result, newly)
 

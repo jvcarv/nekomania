@@ -120,6 +120,7 @@ func take_damage(amount: float) -> void:
 	reduced = maxf(1.0, round(reduced))
 	hp -= reduced
 	invuln = 0.35
+	Sound.play("player_hurt")
 	_shake = 4.0
 	var g := Game.current
 	if g:

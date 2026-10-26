@@ -1,12 +1,14 @@
 # Transparência sobre uso de IA
 
-Este arquivo lista **tudo o que foi produzido por IA** (Claude, da Anthropic) neste projeto,
+Resumo oficial para a jam: `TERMO_IA.md`. Este arquivo lista **tudo o que foi produzido por IA** (Claude, da Anthropic) neste projeto,
 para conferência com as regras da game jam. Os commits feitos com IA têm a linha
 `Co-Authored-By: Claude` na mensagem, então `git log --grep "Co-Authored-By: Claude"` mostra todos.
 
-## 1. Imagens geradas por IA
+## 1. Imagens, músicas e sons gerados por IA
 
-**Nenhuma.** A moeda, as gemas de XP, o coração e o portal que a IA tinha desenhado
+**Nenhum.** As músicas são de Uendel Felipe Picoli Olivo (autorais) e os efeitos sonoros são do Ninja Adventure (CC0) — a IA só escolheu quais arquivos usar e em qual evento tocar (`scripts/autoload/sound.gd`).
+
+Sobre imagens: A moeda, as gemas de XP, o coração e o portal que a IA tinha desenhado
 foram substituídos por sprites do pacote **Ninja Adventure** (Pixel-boy & AAA, CC0):
 `Items/Treasure/Coin2.png`, cristais azuis do `TilesetNature.png` (clareados por código), `Items/Potion/Heart.png` e
 `FX/Magic/Circle/SpriteSheetWhite.png` (tingido de roxo). A pasta `assets/generated/`

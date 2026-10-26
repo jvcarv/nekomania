@@ -41,6 +41,7 @@ func update(delta: float, player: Player) -> Vector2:
 				_hit_in_charge = false
 				boss.sprite.play("walk")
 				boss.sprite.speed_scale = 2.5
+				Sound.play("boss_charge")
 			return Vector2.ZERO
 		"charging":
 			_t -= delta
@@ -102,6 +103,7 @@ func _start_attack(player: Player) -> void:
 			boss.sprite.self_modulate = Color(2, 1.2, 1.2)
 			state = "volley_tele"
 		_:
+			Sound.play("boss_summon")
 			Game.current.director.summon_minions(boss.global_position, 5 + (2 if phase2() else 0))
 			Game.current.announce("%s chamou reforços!" % boss.boss_name, Color(1, 0.6, 0.5))
 			_recover(0.6)
@@ -123,6 +125,7 @@ func _do_slam(player: Player) -> void:
 	var center := boss.global_position
 	_clear_tele()
 	boss.sprite.play("attack")
+	Sound.play("boss_slam")
 	if center.distance_to(player.global_position) <= r:
 		player.take_damage(boss.damage * 1.4)
 	player.shake(7.0)
@@ -136,6 +139,7 @@ func _do_slam(player: Player) -> void:
 func _do_volley(player: Player) -> void:
 	boss.sprite.self_modulate = Color.WHITE
 	boss.sprite.play("attack")
+	Sound.play("boss_volley")
 	var n := 12 if not phase2() else 16
 	var waves := 1 if not phase2() else 2
 	var base := boss.global_position.direction_to(player.global_position).angle()

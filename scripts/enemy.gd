@@ -240,6 +240,7 @@ func _shoot(player: Player) -> void:
 	await get_tree().create_timer(0.35, false).timeout
 	if dead or not is_instance_valid(player) or _shock_t > 0.0:
 		return
+	Sound.play("arrow")
 	var a := EnemyArrow.new()
 	a.damage = damage
 	a.direction = global_position.direction_to(player.global_position)
@@ -322,6 +323,7 @@ func take_hit(amount: float, crit: bool = false, knock: Vector2 = Vector2.ZERO,
 	if dead:
 		return
 	hp -= amount
+	Sound.play("enemy_hit")
 	if elem != "":
 		last_elem = elem
 	var g := Game.current
@@ -342,6 +344,7 @@ func die() -> void:
 	if dead:
 		return
 	dead = true
+	Sound.play("enemy_die", 4.0 if is_boss else 0.0)
 	if _brain:
 		_brain.cleanup()
 	remove_from_group("enemies")
