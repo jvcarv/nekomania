@@ -14,7 +14,10 @@ var _visual: Node2D
 
 ## Gemas, moeda e coração: Ninja Adventure (Pixel-boy & AAA, CC0).
 const ITEMS := "res://assets/map/Ninja Adventure - Asset Pack/Items/"
-const GEMS := ["Resource/GemGreen.png", "Resource/GemYellow.png", "Resource/GemRed.png"]
+## XP: cristais azuis do TilesetNature (Ninja Adventure), clareados para destacar.
+const NATURE := "res://assets/map/Ninja Adventure - Asset Pack/Backgrounds/Tilesets/TilesetNature.png"
+const GEM_CELLS := [Vector2i(1, 15), Vector2i(1, 14), Vector2i(1, 16)]   # pequeno, cristal, grande
+const GEM_TINT := Color(0.8, 1.15, 1.7)
 
 
 func _ready() -> void:
@@ -59,12 +62,16 @@ func _make_gem() -> void:
 	var s: Sprite2D
 	if _visual == null:
 		s = Sprite2D.new()
+		s.texture = load(NATURE)
+		s.region_enabled = true
+		s.modulate = GEM_TINT
 		_visual = s
 		add_child(s)
 	s = _visual
 	var tier := 0 if value < 5 else (1 if value < 25 else 2)
-	s.texture = load(ITEMS + GEMS[tier])
-	s.scale = Vector2.ONE * (0.45 + 0.1 * tier)
+	var cell: Vector2i = GEM_CELLS[tier]
+	s.region_rect = Rect2(cell.x * 16, cell.y * 16, 16, 16)
+	s.scale = Vector2.ONE * [0.6, 0.75, 0.85][tier]
 
 
 func add_value(v: int) -> void:

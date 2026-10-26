@@ -8,7 +8,7 @@ para conferência com as regras da game jam. Os commits feitos com IA têm a lin
 
 **Nenhuma.** A moeda, as gemas de XP, o coração e o portal que a IA tinha desenhado
 foram substituídos por sprites do pacote **Ninja Adventure** (Pixel-boy & AAA, CC0):
-`Items/Treasure/Coin2.png`, `Items/Resource/Gem*.png`, `Items/Potion/Heart.png` e
+`Items/Treasure/Coin2.png`, cristais azuis do `TilesetNature.png` (clareados por código), `Items/Potion/Heart.png` e
 `FX/Magic/Circle/SpriteSheetWhite.png` (tingido de roxo). A pasta `assets/generated/`
 agora só tem as cópias ampliadas da UI (item 2).
 
