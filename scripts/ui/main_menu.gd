@@ -21,10 +21,9 @@ func _ready() -> void:
 	v.alignment = BoxContainer.ALIGNMENT_CENTER
 	center.add_child(v)
 
-	var title := UITheme.label("NEKO ARCANO", 64, UITheme.GOLD, HORIZONTAL_ALIGNMENT_CENTER)
+	var title := UITheme.label("NEKOMANIA", 64, UITheme.GOLD, HORIZONTAL_ALIGNMENT_CENTER)
 	title.add_theme_constant_override("outline_size", 16)
 	v.add_child(title)
-	v.add_child(UITheme.label("Gatinhos alquimistas contra a floresta encantada.", 16, Color(0.95, 0.95, 1.0), HORIZONTAL_ALIGNMENT_CENTER))
 
 	# personagem selecionado
 	var holder := Control.new()

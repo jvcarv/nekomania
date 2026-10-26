@@ -1,4 +1,4 @@
-# Neko Arcano — guia rápido do código
+# Nekomania — guia rápido do código
 
 Godot 4.7. A cena principal agora é `scenes/ui/main_menu.tscn`.
 

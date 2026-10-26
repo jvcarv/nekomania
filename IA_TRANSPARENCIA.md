@@ -39,7 +39,7 @@ Não são arquivos de imagem, mas o que aparece na tela é gerado por código es
 
 ## 5. Textos escritos por IA
 
-- Título provisório "NEKO ARCANO" e subtítulo do menu.
+- Título do menu montado em código (o nome "Nekomania" é da equipe).
 - Nomes e descrições dos personagens, das poções, dos poderes, das melhorias e dos estágios/chefões (`scripts/data/db.gd`).
 - Nomes e descrições padrão em `data/nomes.json` (gatos, inimigos e chefões) — a equipe pode reescrever todos.
 - Textos do Compêndio e da tabela de atributos.

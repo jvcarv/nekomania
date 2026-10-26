@@ -2,7 +2,7 @@
 
 ## 1. Uso de Inteligência Artificial
 
-A equipe [Nome da equipe] declara que foi feito o uso de ferramentas de inteligência artificial (IA) no desenvolvimento do jogo **Neko Arcano**, **somente no código e em textos**. Nenhuma arte, sprite, textura, interface, música, efeito sonoro ou dublagem foi gerado por IA: todos vêm de pacotes de terceiros com licença permitida ou são autorais (ver `CREDITOS.md`).
+A equipe [Nome da equipe] declara que foi feito o uso de ferramentas de inteligência artificial (IA) no desenvolvimento do jogo **Nekomania**, **somente no código e em textos**. Nenhuma arte, sprite, textura, interface, música, efeito sonoro ou dublagem foi gerado por IA: todos vêm de pacotes de terceiros com licença permitida ou são autorais (ver `CREDITOS.md`).
 
 A lista completa, arquivo por arquivo, está em `IA_TRANSPARENCIA.md`. Os commits feitos com auxílio de IA têm a linha `Co-Authored-By: Claude` (`git log --grep "Co-Authored-By: Claude"`).
 

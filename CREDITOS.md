@@ -1,6 +1,6 @@
 # Créditos
 
-Este arquivo reúne os créditos das pessoas, ferramentas e recursos utilizados na produção do jogo **Neko Arcano**, desenvolvido para a IFPF Game Jam.
+Este arquivo reúne os créditos das pessoas, ferramentas e recursos utilizados na produção do jogo **Nekomania**, desenvolvido para a IFPF Game Jam.
 
 ## 1. Equipe de desenvolvimento
 

@@ -1,4 +1,4 @@
-# Neko Arcano
+# Nekomania
 
 Jogo feito para a **IFPF Game Jam** — tema **"Cute Animals and Alchemy"**.
 
@@ -9,7 +9,7 @@ os poderes atacam sozinhos, você só se move, coleta cristais de XP e escolhe m
 ## Jogar
 
 - **Navegador:** [link do itch.io — preencher]
-- **Windows (64-bit):** baixe o `.zip` em [Releases / itch.io — preencher], extraia e abra `NekoArcano.exe`.
+- **Windows (64-bit):** baixe o `.zip` em [Releases / itch.io — preencher], extraia e abra `Nekomania.exe`.
 
 ### Controles
 

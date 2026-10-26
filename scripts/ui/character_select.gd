@@ -12,6 +12,9 @@ var _status: Label
 var _potion: TextureRect
 var _req: Label
 var _stats_box: VBoxContainer
+var _stats_btn: Button
+var _stats_open := false
+var _holder: Control
 var _current := Global.DEFAULT_CHAR
 var _cards: Dictionary = {}
 
@@ -71,15 +74,15 @@ func _ready() -> void:
 	detail.size_flags_horizontal = Control.SIZE_SHRINK_END
 	body.add_child(detail)
 	var dv := VBoxContainer.new()
-	dv.add_theme_constant_override("separation", 6)
+	dv.add_theme_constant_override("separation", 4)
 	detail.add_child(dv)
-	var holder := Control.new()
-	holder.custom_minimum_size = Vector2(0, 120)
-	dv.add_child(holder)
+	_holder = Control.new()
+	_holder.custom_minimum_size = Vector2(0, 120)
+	dv.add_child(_holder)
 	_preview = AnimatedSprite2D.new()
 	_preview.scale = Vector2(4, 4)
-	holder.add_child(_preview)
-	holder.resized.connect(func(): _preview.position = Vector2(holder.size.x / 2.0, 60))
+	_holder.add_child(_preview)
+	_holder.resized.connect(func(): _preview.position = Vector2(_holder.size.x / 2.0, _holder.size.y / 2.0))
 	_name = UITheme.label("", 24, Color.WHITE, HORIZONTAL_ALIGNMENT_CENTER)
 	dv.add_child(_name)
 	_potion = TextureRect.new()
@@ -101,13 +104,21 @@ func _ready() -> void:
 	_req = UITheme.label("", 16, Color(1, 0.85, 0.5), HORIZONTAL_ALIGNMENT_CENTER)
 	_req.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_req.custom_minimum_size = Vector2(390, 0)
-	dv.add_child(_perk)
+	# STATUS: lista de atributos que abre/fecha (dropdown)
+	_stats_btn = UITheme.button("", 16, 300)
+	_stats_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	_stats_btn.pressed.connect(func():
+		_stats_open = not _stats_open
+		_update_stats_toggle())
+	dv.add_child(_stats_btn)
 	_stats_box = VBoxContainer.new()
 	dv.add_child(_stats_box)
 	dv.add_child(_req)
 	var spacer := Control.new()
 	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	dv.add_child(spacer)
+	# descrição do gato logo acima dos botões
+	dv.add_child(_perk)
 	_status = UITheme.label("", 16, Color(1, 0.8, 0.8), HORIZONTAL_ALIGNMENT_CENTER)
 	dv.add_child(_status)
 	_action = UITheme.button("", 16, 300)
@@ -166,6 +177,14 @@ func _update_card(b: Button, id: int) -> void:
 		lbl.text = "$%d" % DB.CHARACTERS[id]["price"]
 
 
+func _update_stats_toggle() -> void:
+	_stats_box.visible = _stats_open
+	# com o STATUS aberto o gato fica menor para tudo caber no painel
+	_holder.custom_minimum_size.y = 56.0 if _stats_open else 120.0
+	_preview.scale = Vector2.ONE * (2.0 if _stats_open else 4.0)
+	_stats_btn.text = "STATUS  [-]" if _stats_open else "STATUS  [+]"
+
+
 func _select(id: int) -> void:
 	_current = id
 	var d: Dictionary = DB.CHARACTERS[id]
@@ -180,6 +199,7 @@ func _select(id: int) -> void:
 	for c in _stats_box.get_children():
 		c.queue_free()
 	_stats_box.add_child(UITheme.stats_grid(UITheme.char_stats(id)))
+	_update_stats_toggle()
 	_status.text = ""
 	if d.has("req") and not Global.is_unlocked(id):
 		var p := Global.req_progress(id)
