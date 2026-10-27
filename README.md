@@ -9,7 +9,8 @@ os poderes atacam sozinhos, você só se move, coleta cristais de XP e escolhe m
 ## Jogar
 
 - **Navegador:** [link do itch.io — preencher]
-- **Windows (64-bit):** baixe o `.zip` em [Releases / itch.io — preencher], extraia e abra `Nekomania.exe`.
+- **Windows (64-bit):** baixe [`release/v1.0/Nekomania-windows-v1.0.zip`](release/v1.0/Nekomania-windows-v1.0.zip), extraia e abra `Nekomania.exe` (dois cliques).
+- **Web (HTML5):** [`release/v1.0/Nekomania-web-v1.0.zip`](release/v1.0/Nekomania-web-v1.0.zip) — o mesmo build que vai para o itch.io.
 
 ### Controles
 
