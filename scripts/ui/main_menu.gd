@@ -95,6 +95,11 @@ func _ready() -> void:
 	hint.position = Vector2(-500, -26)
 	hint.size = Vector2(1000, 24)
 	add_child(hint)
+	var ver := UITheme.label("v" + str(ProjectSettings.get_setting("application/config/version", "1.0")), 16, Color(0.9, 0.9, 1.0, 0.7), HORIZONTAL_ALIGNMENT_RIGHT)
+	ver.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
+	ver.position = Vector2(-110, -28)
+	ver.size = Vector2(96, 24)
+	add_child(ver)
 
 	_refresh()
 	play.grab_focus()
@@ -132,10 +137,9 @@ const CREDITS := """[b]Música:[/b] Uendel Felipe Picoli Olivo
 [b]Gatinhos:[/b] Pipoya (pipoya.itch.io)
 [b]Inimigos:[/b] Tiny RPG Character Asset Pack — Zerie (zerie.itch.io)
 [b]Magias:[/b] pimen (pimen.itch.io)
-[b]Árvores:[/b] Forest Trees Pack — Pocket Cozy Pixels / BloomPixle
 [b]Interface:[/b] Crusenho Agus Hennihuno (CC BY 4.0)
 [b]Poções:[/b] Onocentaur
-[b]Chão, enfeites e itens:[/b] Ninja Adventure — Pixel-boy & AAA (CC0)
+[b]Chão, árvores, enfeites e itens:[/b] Ninja Adventure — Pixel-boy & AAA (CC0)
 [b]Teclas:[/b] Gerald's Keys — Gerald Burke (CC0)
 [b]Fonte:[/b] Silkscreen, Jason Kottke (OFL)
 [b]Motor:[/b] Godot Engine

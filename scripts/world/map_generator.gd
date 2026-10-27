@@ -3,12 +3,12 @@ class_name MapGenerator
 ## Gera o mapa de forma procedural e infinita, em pedaços (chunks) de
 ## CHUNK x CHUNK pixels ao redor do jogador. Mesma semente = mesmo mapa.
 ##
-## Arte: Ninja Adventure (Pixel-boy & AAA, CC0) + Forest Trees Pack.
+## Arte: Ninja Adventure (Pixel-boy & AAA, CC0).
 ##  - Chão: TilesetFloor. Cada bioma usa um "bloco" do tileset (grama, areia,
 ##    neve...). Manchas (terra, etc.) são montadas com "marching squares":
 ##    cada vértice da grade é chão-base ou mancha, e o tile escolhido depende
 ##    dos 4 cantos (16 combinações).
-##  - Árvores e enfeites: Forest Trees Pack + TilesetNature + TilesetFloorDetail.
+##  - Árvores e enfeites: TilesetNature + TilesetFloorDetail.
 
 const TILE := 16
 const CHUNK := 256                     # 16 x 16 tiles
@@ -18,7 +18,6 @@ const TREE_STEP := 36                  # grade base para posicionar árvores
 const SAFE_RADIUS := 150.0             # clareira garantida no início do estágio
 
 const NINJA := "res://assets/map/Ninja Adventure - Asset Pack/Backgrounds/Tilesets/"
-const FOREST_TREE := "res://assets/map/Forest Trees Pack – Pixel Art (32x32, Top-Down RPG)/Forest Trees Pack – Pixel Art (32x32, Top-Down RPG)/spr_tree_%d.png"
 
 # fontes do TileSet
 const SRC_FLOOR := 0
@@ -197,8 +196,7 @@ func _build_chunk(key: Vector2i) -> Node2D:
 
 
 # ------------------------------------------------------------------ árvores
-## tree_def: int (Forest Trees Pack) ou Array [coluna, linha, largura, altura]
-## em tiles do TilesetNature (Ninja Adventure).
+## tree_def: [coluna, linha, largura, altura] em tiles do TilesetNature (Ninja Adventure).
 func _add_tree(parent: Node2D, pos: Vector2, tree_def, rng: RandomNumberGenerator) -> void:
 	var body := StaticBody2D.new()
 	body.collision_layer = 1
@@ -207,17 +205,12 @@ func _add_tree(parent: Node2D, pos: Vector2, tree_def, rng: RandomNumberGenerato
 	var shape := CircleShape2D.new()
 	var s := Sprite2D.new()
 	s.centered = false
-	if tree_def is int:
-		s.texture = _tex(FOREST_TREE % tree_def)
-		s.offset = Vector2(-32, -58)
-		shape.radius = 6.0
-	else:
-		var r: Array = tree_def
-		s.texture = _tex(NINJA + "TilesetNature.png")
-		s.region_enabled = true
-		s.region_rect = Rect2(r[0] * TILE, r[1] * TILE, r[2] * TILE, r[3] * TILE)
-		s.offset = Vector2(-r[2] * TILE / 2.0, -r[3] * TILE + 3)
-		shape.radius = 5.0 + 1.5 * (r[2] - 2)
+	var r: Array = tree_def
+	s.texture = _tex(NINJA + "TilesetNature.png")
+	s.region_enabled = true
+	s.region_rect = Rect2(r[0] * TILE, r[1] * TILE, r[2] * TILE, r[3] * TILE)
+	s.offset = Vector2(-r[2] * TILE / 2.0, -r[3] * TILE + 3)
+	shape.radius = 5.0 + 3.0 * (r[2] - 2)   # grupos de 3 árvores (4 tiles) têm tronco mais largo
 	var cs := CollisionShape2D.new()
 	cs.shape = shape
 	cs.position = Vector2(0, -3)

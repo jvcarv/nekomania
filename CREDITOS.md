@@ -18,7 +18,6 @@ Este arquivo reúne os créditos das pessoas, ferramentas e recursos utilizados 
 | Gatinhos jogáveis (`assets/chars/Player/pipo-nekonin*.png`) — PIPOYA FREE RPG Character Sprites NEKONIN | Pipoya | https://pipoya.itch.io/pipoya-free-rpg-character-sprites-nekonin | Uso livre em jogos (comercial ou não); sem redistribuição/revenda; crédito pedido pelo autor |
 | Inimigos e chefões (Slime, Esqueleto, Esqueleto Arqueiro, Orc, Lobisomem, Urso-Lobisomem) — Tiny RPG Character Asset Pack | Zerie | https://zerie.itch.io/tiny-rpg-character-asset-pack | Uso em jogos pessoais/comerciais; sem redistribuição/revenda |
 | Efeitos de magia (Fogo, Gelo, Trovão, Ácido, Sombrio, Sagrado, Madeira — `assets/spells/`) | pimen | https://pimen.itch.io | Termos do autor no itch.io (uso em jogos; sem redistribuição) |
-| Árvores — Forest Trees Pack (32x32) | Pocket Cozy Pixels / BloomPixle | https://mutterpixel-studio.itch.io/forest-trees-pack-pixel-art-32x32-top-down-rpg | Uso em jogos; sem revenda/redistribuição avulsa (ver `README.txt` do pacote) |
 | Interface — 01 Flat Theme | Crusenho Agus Hennihuno | https://crusenho.itch.io | CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Alteração: sprites ampliados 3x (`assets/generated/ui`) |
 | Poções — Potions | Onocentaur | https://onocentaur.itch.io/potions | Uso livre pessoal e profissional; atribuição apreciada |
 | Chão, árvores, enfeites, moeda, cristais de XP, coração, portal e partículas de clima — Ninja Adventure Asset Pack | Pixel-boy & AAA | https://pixel-boy.itch.io/ninja-adventure-asset-pack | CC0 1.0 |
